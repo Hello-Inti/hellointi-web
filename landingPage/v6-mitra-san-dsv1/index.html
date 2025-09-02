@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hellointi | Transform Your Network Into a Living Ecosystem</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="font-body text-charcoal bg-eggshell">
+    <!-- Navigation -->
+    <nav class="nav fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-beige transition-all duration-300">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between py-4">
+                <a href="#hero-section" class="text-2xl font-display font-semibold text-poppy hover:text-poppy/80 transition-colors">
+                    ◎ hellointi
+                </a>
+
+                <button class="nav__toggle md:hidden" aria-expanded="false" aria-controls="primary-menu">
+                    <span class="sr-only">Toggle menu</span>
+                    <div class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+
+                <ul id="primary-menu" class="menu hidden md:flex md:items-center md:space-x-8">
+                    <li><a href="#problem-section" class="nav-link">The Problem</a></li>
+                    <li><a href="#solution-section" class="nav-link">Our Solution</a></li>
+                    <li><a href="#story-section" class="nav-link">Our Story</a></li>
+                    <li><a href="#team-section" class="nav-link">Team</a></li>
+                    <li><a href="#program-section" class="nav-link">The Program</a></li>
+                    <li><a href="#testimonials-section" class="nav-link">Reviews</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero-section" class="hero-section pt-20 pb-16 md:pt-32 md:pb-24 overflow-hidden">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-8">
+                        <div class="space-y-6">
+                            <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-semibold leading-tight">
+                                Transform Your Network Into a
+                                <span class="text-poppy relative">
+                                    Living Ecosystem
+                                    <div class="absolute -bottom-2 left-0 w-full h-1 bg-sunbeam/30 rounded transform rotate-1"></div>
+                                </span>
+                            </h1>
+                            <p class="text-xl md:text-2xl text-charcoal/80 leading-relaxed">
+                                Stop watching your community drift apart. Activate dormant connections and spark chain reactions of collaboration through our proven peer-to-peer activation system.
+                            </p>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="#cta-section" class="btn btn-primary btn-lg group">
+                                Book Your Network Activation Call
+                                <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                            </a>
+                            <a href="#program-section" class="btn btn-secondary btn-lg">
+                                Explore the Program
+                            </a>
+                        </div>
+
+                        <div class="flex items-center space-x-8 text-sm text-charcoal/60">
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-users text-avocado"></i>
+                                <span>144+ leaders activated</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-clock text-avocado"></i>
+                                <span>761+ connection hours</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <div class="hero-visual">
+                            <div class="network-animation">
+                                <!-- Animated network nodes -->
+                                <div class="network-node node-1" data-tooltip="Distributed Leaders"></div>
+                                <div class="network-node node-2" data-tooltip="Emerging Collaborators"></div>
+                                <div class="network-node node-3" data-tooltip="Hidden Connectors"></div>
+                                <div class="network-node node-4" data-tooltip="Innovation Catalysts"></div>
+                                <div class="network-node node-5" data-tooltip="Community Builders"></div>
+                                <div class="network-node node-6" data-tooltip="Change Agents"></div>
+
+                                <!-- Connection lines -->
+                                <svg class="connection-lines" viewBox="0 0 400 400">
+                                    <path class="connection-line line-1" d="M100,100 Q200,50 300,100"/>
+                                    <path class="connection-line line-2" d="M100,200 Q150,100 300,200"/>
+                                    <path class="connection-line line-3" d="M100,300 Q200,350 300,300"/>
+                                    <path class="connection-line line-4" d="M150,150 Q200,200 250,250"/>
+                                    <path class="connection-line line-5" d="M200,100 L200,300"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Decorative border -->
+        <div class="decorative-border bottom"></div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem-section" class="py-16 md:py-24 bg-white relative">
+        <div class="decorative-border top"></div>
+
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center space-y-12">
+                <div class="space-y-6">
+                    <h2 class="text-3xl md:text-4xl font-display font-semibold">
+                        Why Network Leaders Are <span class="text-poppy">Burning Out</span>
+                    </h2>
+                    <p class="text-xl text-charcoal/80 leading-relaxed">
+                        You're building the future, but using industrial-age group dynamics that drain energy and leave potential untapped.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 text-left">
+                    <div class="problem-card">
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-poppy/10 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-users-slash text-poppy"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2">Group Meetings Fall Flat</h3>
+                                <ul class="space-y-2 text-charcoal/70">
+                                    <li>• Impossible to find times that work</li>
+                                    <li>• People arrive late, leave early</li>
+                                    <li>• Cameras off, minds elsewhere</li>
+                                    <li>• Dominated by loud voices</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="problem-card">
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-poppy/10 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-user-slash text-poppy"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2">Talent Goes Underground</h3>
+                                <ul class="space-y-2 text-charcoal/70">
+                                    <li>• Introverts never engage</li>
+                                    <li>• Edge voices stay silent</li>
+                                    <li>• Passive lurking becomes the norm</li>
+                                    <li>• Network quietly quits</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="problem-card">
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-poppy/10 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-battery-empty text-poppy"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2">Facilitator Fatigue</h3>
+                                <ul class="space-y-2 text-charcoal/70">
+                                    <li>• You carry all the energy</li>
+                                    <li>• Conversations stay superficial</li>
+                                    <li>• No organic momentum</li>
+                                    <li>• Burnout becomes inevitable</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="problem-card">
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-poppy/10 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-link text-poppy"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2">Missed Connections</h3>
+                                <ul class="space-y-2 text-charcoal/70">
+                                    <li>• Synergies never discovered</li>
+                                    <li>• Potential collaborations die</li>
+                                    <li>• Community feels disconnected</li>
+                                    <li>• Movement loses momentum</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="decorative-border bottom"></div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="solution-section" class="py-16 md:py-24 bg-lavender/20 relative">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center space-y-6 mb-16">
+                    <h2 class="text-3xl md:text-4xl font-display font-semibold">
+                        The Power of <span class="text-avocado">Peer Activation</span>
+                    </h2>
+                    <p class="text-xl text-charcoal/80 leading-relaxed max-w-3xl mx-auto">
+                        Our signature Pairathons create the relational backbone your network has been missing through structured 1:1 connection sprints.
+                    </p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-12 items-center mb-16">
+                    <div class="space-y-8">
+                        <div class="solution-benefit">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <div class="w-8 h-8 bg-avocado rounded-full flex items-center justify-center">
+                                    <i class="fas fa-eye text-white text-xs"></i>
+                                </div>
+                                <h3 class="font-semibold text-lg">Finally, Introverts Engage</h3>
+                            </div>
+                            <p class="text-charcoal/70 leading-relaxed">
+                                1:1 conversations feel safe and energizing, drawing out voices that group settings silence.
+                            </p>
+                        </div>
+
+                        <div class="solution-benefit">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <div class="w-8 h-8 bg-avocado rounded-full flex items-center justify-center">
+                                    <i class="fas fa-rocket text-white text-xs"></i>
+                                </div>
+                                <h3 class="font-semibold text-lg">Discover Hidden Leaders</h3>
+                            </div>
+                            <p class="text-charcoal/70 leading-relaxed">
+                                Edge voices become center stage as emerging talents find their confidence and contribution.
+                            </p>
+                        </div>
+
+                        <div class="solution-benefit">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <div class="w-8 h-8 bg-avocado rounded-full flex items-center justify-center">
+                                    <i class="fas fa-fire text-white text-xs"></i>
+                                </div>
+                                <h3 class="font-semibold text-lg">Spark Collaboration Chains</h3>
+                            </div>
+                            <p class="text-charcoal/70 leading-relaxed">
+                                Watch magic happen as meaningful connections cascade into unexpected partnerships and projects.
+                            </p>
+                        </div>
+
+                        <div class="solution-benefit">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <div class="w-8 h-8 bg-avocado rounded-full flex items-center justify-center">
+                                    <i class="fas fa-heart text-white text-xs"></i>
+                                </div>
+                                <h3 class="font-semibold text-lg">Feel the Aliveness Return</h3>
+                            </div>
+                            <p class="text-charcoal/70 leading-relaxed">
+                                Experience that electric feeling of a community that's truly building something together.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <div class="transformation-visual">
+                            <div class="before-after">
+                                <div class="state-before">
+                                    <h4 class="font-semibold mb-4 text-center text-charcoal/60">Before: Scattered</h4>
+                                    <div class="scattered-nodes">
+                                        <div class="isolated-node"></div>
+                                        <div class="isolated-node"></div>
+                                        <div class="isolated-node"></div>
+                                        <div class="isolated-node"></div>
+                                        <div class="isolated-node"></div>
+                                    </div>
+                                </div>
+
+                                <div class="transformation-arrow">
+                                    <i class="fas fa-arrow-right text-2xl text-avocado"></i>
+                                </div>
+
+                                <div class="state-after">
+                                    <h4 class="font-semibold mb-4 text-center text-avocado">After: Connected</h4>
+                                    <div class="connected-network">
+                                        <div class="connected-node active"></div>
+                                        <div class="connected-node active"></div>
+                                        <div class="connected-node active"></div>
+                                        <div class="connected-node active"></div>
+                                        <div class="connected-node active"></div>
+                                        <svg class="network-connections" viewBox="0 0 200 200">
+                                            <path d="M50,50 L150,50" stroke="#A6A61B" stroke-width="2" opacity="0.6"/>
+                                            <path d="M50,50 L100,100" stroke="#A6A61B" stroke-width="2" opacity="0.6"/>
+                                            <path d="M150,50 L100,100" stroke="#A6A61B" stroke-width="2" opacity="0.6"/>
+                                            <path d="M100,100 L50,150" stroke="#A6A61B" stroke-width="2" opacity="0.6"/>
+                                            <path d="M100,100 L150,150" stroke="#A6A61B" stroke-width="2" opacity="0.6"/>
+                                            <path d="M50,150 L150,150" stroke="#A6A61B" stroke-width="2" opacity="0.6"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- helloInti Story Section -->
+    <section id="story-section" class="py-16 md:py-24 bg-white relative">
+        <div class="decorative-border top"></div>
+
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center space-y-12">
+                <div class="space-y-6">
+                    <h2 class="text-3xl md:text-4xl font-display font-semibold">
+                        What Does <span class="text-poppy">"helloInti"</span> Mean?
+                    </h2>
+                    <p class="text-xl text-charcoal/80 leading-relaxed">
+                        The story behind our name reveals everything about our mission.
+                    </p>
+                </div>
+
+                <div class="bg-peach/10 rounded-2xl p-8 md:p-12 text-left space-y-6">
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 w-16 h-16 bg-sunbeam/20 rounded-full flex items-center justify-center">
+                            <i class="fas fa-sun text-sunbeam text-xl"></i>
+                        </div>
+                        <div class="space-y-4">
+                            <p class="text-lg leading-relaxed">
+                                <strong>"Inti"</strong> is the Quechua word for <em>sun</em> — the life-giving force that connects all living things in the Andean worldview. Just as the sun creates the conditions for life to flourish, we create the conditions for human connection to flourish.
+                            </p>
+                            <p class="text-lg leading-relaxed">
+                                <strong>"Hello"</strong> is the simplest, most universal invitation to connection. It's the first word that opens every meaningful relationship.
+                            </p>
+                            <p class="text-lg leading-relaxed">
+                                <strong>Together, "helloInti"</strong> represents our belief that every greeting has the potential to spark something life-giving — a collaboration, a movement, a transformation.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="border-l-4 border-avocado pl-6 py-4 bg-white/50 rounded-r-lg">
+                        <p class="text-lg italic text-charcoal/80">
+                            "We see connection not as networking, but as life force — the energy that transforms collections of individuals into living, breathing ecosystems of possibility."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="decorative-border bottom"></div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team-section" class="py-16 md:py-24 bg-beige/30 relative">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center space-y-6 mb-16">
+                    <h2 class="text-3xl md:text-4xl font-display font-semibold">
+                        Meet Your <span class="text-poppy">Connection Architects</span>
+                    </h2>
+                    <p class="text-xl text-charcoal/80 leading-relaxed">
+                        Two visionaries combining decades of experience in community design and systems change.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12">
+                    <!-- Mitra Martin (Left/First) -->
+                    <div class="team-card">
+                        <div class="relative mb-6">
+                            <img src="assets/mitra_martin.png" alt="Portrait of Mitra Martin" class="w-48 h-48 rounded-full mx-auto object-cover shadow-lg">
+                            <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-lavender px-4 py-2 rounded-full">
+                                <span class="text-sm font-semibold text-charcoal">Co-Founder</span>
+                            </div>
+                        </div>
+                        <div class="text-center space-y-4">
+                            <h3 class="text-2xl font-display font-semibold">Mitra Martin</h3>
+                            <p class="text-charcoal/80 leading-relaxed">
+                                Expert in community-activated learning design with deep expertise in structured peer-to-peer models that spread wisdom practices and embodied knowledge. Mitra brings years of experience designing transformative connection experiences that unlock collective intelligence.
+                            </p>
+                            <div class="flex justify-center space-x-4">
+                                <a href="#" class="text-charcoal/60 hover:text-poppy transition-colors">
+                                    <i class="fab fa-linkedin text-xl"></i>
+                                </a>
+                                <a href="#" class="text-charcoal/60 hover:text-poppy transition-colors">
+                                    <i class="fas fa-envelope text-xl"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- San Naidoo (Right/Second) -->
+                    <div class="team-card">
+                        <div class="relative mb-6">
+                            <img src="assets/san_naidoo.jpeg" alt="Portrait of San Naidoo" class="w-48 h-48 rounded-full mx-auto object-cover shadow-lg">
+                            <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-lavender px-4 py-2 rounded-full">
+                                <span class="text-sm font-semibold text-charcoal">Co-Founder</span>
+                            </div>
+                        </div>
+                        <div class="text-center space-y-4">
+                            <h3 class="text-2xl font-display font-semibold">San Naidoo</h3>
+                            <p class="text-charcoal/80 leading-relaxed">
+                                Capitalism & Empire Composter. Practical optimist at the nexus of organizational design, coordination, blockchain, climate, and cultural change. San specializes in building regenerative systems that activate collective potential for positive impact.
+                            </p>
+                            <div class="flex justify-center space-x-4">
+                                <a href="#" class="text-charcoal/60 hover:text-poppy transition-colors">
+                                    <i class="fab fa-linkedin text-xl"></i>
+                                </a>
+                                <a href="#" class="text-charcoal/60 hover:text-poppy transition-colors">
+                                    <i class="fas fa-envelope text-xl"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Program Section -->
+    <section id="program-section" class="py-16 md:py-24 bg-white relative">
+        <div class="decorative-border top"></div>
+
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center space-y-6 mb-16">
+                    <h2 class="text-3xl md:text-4xl font-display font-semibold">
+                        The <span class="text-avocado">Pairathon Program</span>
+                    </h2>
+                    <p class="text-xl text-charcoal/80 leading-relaxed">
+                        A 7-week journey that transforms your network from a collection of individuals into a thriving ecosystem.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="program-feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-rocket text-white"></i>
+                        </div>
+                        <h3 class="feature-title">Dynamic Kickoff Event</h3>
+                        <p class="feature-description">
+                            Launch with an energizing orientation that builds excitement, teaches Generative Conversation principles, and aligns collective intention.
+                        </p>
+                    </div>
+
+                    <div class="program-feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-handshake text-white"></i>
+                        </div>
+                        <h3 class="feature-title">Strategic Peer Pairing</h3>
+                        <p class="feature-description">
+                            Weekly 1:1 connection sprints with intentional pairing — structured conversations designed for depth, not small talk.
+                        </p>
+                    </div>
+
+                    <div class="program-feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-compass text-white"></i>
+                        </div>
+                        <h3 class="feature-title">Guided Conversation Journeys</h3>
+                        <p class="feature-description">
+                            Thoughtfully crafted conversation frameworks (10-20 minutes) that foster genuine listening, trust, and insight.
+                        </p>
+                    </div>
+
+                    <div class="program-feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-lightbulb text-white"></i>
+                        </div>
+                        <h3 class="feature-title">Reflection & Discovery</h3>
+                        <p class="feature-description">
+                            Weekly reflection cycles that surface emergent insights and reveal the collective intelligence of your network.
+                        </p>
+                    </div>
+
+                    <div class="program-feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-star text-white"></i>
+                        </div>
+                        <h3 class="feature-title">Live Collaboration Showcase</h3>
+                        <p class="feature-description">
+                            Close with a celebration where new partnerships, projects, and synergies are shared in real time.
+                        </p>
+                    </div>
+
+                    <div class="program-feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line text-white"></i>
+                        </div>
+                        <h3 class="feature-title">Network Intelligence Report</h3>
+                        <p class="feature-description">
+                            Receive a comprehensive visual and narrative report revealing themes, culture patterns, and collaboration opportunities.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="text-center mt-16">
+                    <div class="bg-sunbeam/10 rounded-2xl p-8 inline-block">
+                        <h3 class="text-2xl font-semibold mb-4">Program Impact</h3>
+                        <div class="grid md:grid-cols-3 gap-8 text-center">
+                            <div>
+                                <div class="text-3xl font-bold text-avocado mb-2">1174</div>
+                                <div class="text-sm text-charcoal/70">Hours of One-on-One Time</div>
+                            </div>
+                            <div>
+                                <div class="text-3xl font-bold text-avocado mb-2">1270</div>
+                                <div class="text-sm text-charcoal/70">Meetings Hosted</div>
+                            </div>
+                            <div>
+                                <div class="text-3xl font-bold text-avocado mb-2">338</div>
+                                <div class="text-sm text-charcoal/70">Individuals Connected</div>
+                            </div>
+                        </div>
+                        <p class="text-charcoal/80 mt-6 max-w-2xl mx-auto">
+                            Supporting <strong>6 educational communities</strong> and sparking countless collaborations during the COVID pandemic.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="decorative-border bottom"></div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials-section" class="py-16 md:py-24 bg-lavender/20 relative">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center space-y-6 mb-16">
+                    <h2 class="text-3xl md:text-4xl font-display font-semibold">
+                        What Network Leaders Are <span class="text-poppy">Saying</span>
+                    </h2>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="flex items-center space-x-4 mb-4">
+                                <img src="assets/robert_gillman.jpeg" alt="Robert Gillman" class="w-16 h-16 rounded-full object-cover">
+                                <div>
+                                    <h4 class="font-semibold">Robert Gillman</h4>
+                                    <p class="text-sm text-charcoal/60">Context Institute</p>
+                                </div>
+                            </div>
+                            <p class="text-charcoal/80 italic mb-4">
+                                "The depth of connection achieved through this program exceeded our wildest expectations. We discovered talent and partnerships that had been invisible in our traditional group settings."
+                            </p>
+                            <div class="flex text-sunbeam">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="flex items-center space-x-4 mb-4">
+                                <img src="assets/irina.jpeg" alt="Irina" class="w-16 h-16 rounded-full object-cover">
+                                <div>
+                                    <h4 class="font-semibold">Irina</h4>
+                                    <p class="text-sm text-charcoal/60">Seeds DAO</p>
+                                </div>
+                            </div>
+                            <p class="text-charcoal/80 italic mb-4">
+                                "Finally, a program that activates the quiet voices in our community. The 1:1 format brought out leaders we never knew we had, and the collaborations are still flowering months later."
+                            </p>
+                            <div class="flex text-sunbeam">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="flex items-center space-x-4 mb-4">
+                                <img src="assets/yan.jpeg" alt="Yan" class="w-16 h-16 rounded-full object-cover">
+                                <div>
+                                    <h4 class="font-semibold">Yan</h4>
+                                    <p class="text-sm text-charcoal/60">Conscious Contracts</p>
+                                </div>
+                            </div>
+                            <p class="text-charcoal/80 italic mb-4">
+                                "This transformed our entire community culture. What started as peer conversations evolved into the most innovative projects we've ever seen. The return on investment is immeasurable."
+                            </p>
+                            <div class="flex text-sunbeam">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case Study Highlight -->
+                <div class="mt-16 bg-white rounded-2xl p-8 md:p-12">
+                    <div class="text-center space-y-6">
+                        <h3 class="text-2xl font-display font-semibold">Real Impact: Distributed Changemaker Community</h3>
+                        <p class="text-lg text-charcoal/80 leading-relaxed max-w-4xl mx-auto">
+                            We facilitated <strong>761 hours</strong> of enriching conversation between <strong>144 extraordinary network members</strong> — more than half of their fully distributed worldwide community. The program was so transformative it ran <strong>18 times from 2019-2023</strong>, becoming the backbone of their community engagement strategy.
+                        </p>
+                        <div class="flex justify-center space-x-8 pt-6">
+                            <img src="assets/context_institute_logo.png" alt="Context Institute Logo" class="h-12 opacity-60">
+                            <img src="assets/seeds_dao_logo.svg" alt="SEEDS DAO Logo" class="h-12 opacity-60">
+                            <img src="assets/conscious_contracts.png" alt="Conscious Contracts Logo" class="h-12 opacity-60">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq-section" class="py-16 md:py-24 bg-white relative">
+        <div class="decorative-border top"></div>
+
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center space-y-6 mb-16">
+                    <h2 class="text-3xl md:text-4xl font-display font-semibold">
+                        <span class="text-poppy">Frequently Asked</span> Questions
+                    </h2>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>What is the investment for the Pairathon program?</span>
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Investment is tailored to your organization size and program depth. We believe in outcomes-first conversations — let's align on your goals first, then design the perfect program scope and investment level for your community.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>What's the time commitment for participants?</span>
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Just 10-20 minutes weekly per participant for guided connection conversations, plus two engaging live events (kickoff and showcase). It's designed to energize, not exhaust your community.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>How do you create meaningful pairings?</span>
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>We use intention-aligned pairing with strategic inputs to optimize for both novelty and trust-building potential. Our system considers interests, goals, experience levels, and connection history to create chemistry-rich pairings.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>What size communities work best?</span>
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>We've successfully activated communities from 25 to 400+ members. The sweet spot is 50-200 participants, but we tailor the program structure to work beautifully at any scale.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Can this work for virtual/distributed teams?</span>
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Absolutely! In fact, distributed teams often see the most dramatic transformation. Our 1:1 format eliminates timezone challenges and creates intimate connections that transcend physical distance.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>What kind of ongoing support do you provide?</span>
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>We provide full facilitation throughout the 7-week journey, weekly check-ins, technical support, and a comprehensive final report. Many organizations also choose to run multiple cycles or seasonal refreshers.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="decorative-border bottom"></div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta-section" class="py-16 md:py-24 bg-poppy text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-poppy to-poppy/90"></div>
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-10 left-10 w-32 h-32 border border-white/20 rounded-full"></div>
+            <div class="absolute bottom-10 right-10 w-48 h-48 border border-white/20 rounded-full"></div>
+            <div class="absolute top-1/2 left-1/4 w-24 h-24 border border-white/20 rounded-full"></div>
+        </div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-4xl mx-auto text-center space-y-8">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-display font-semibold leading-tight">
+                    Ready to Transform Your Network Into a <span class="text-sunbeam">Living Ecosystem</span>?
+                </h2>
+                <p class="text-xl md:text-2xl leading-relaxed opacity-90">
+                    Stop watching potential drift away. Book a conversation and discover how Pairathons can activate the dormant connections in your community.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                    <a href="#contact" class="btn btn-white btn-lg group">
+                        Book Your Network Activation Call
+                        <i class="fas fa-calendar-plus ml-2 group-hover:scale-110 transition-transform"></i>
+                    </a>
+                    <a href="#guide" class="btn btn-outline-white btn-lg">
+                        Download Our Complete Guide
+                    </a>
+                </div>
+
+                <div class="pt-8 flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8 text-sm opacity-80">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-clock"></i>
+                        <span>30-minute discovery call</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-gift"></i>
+                        <span>No obligation, just insights</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-handshake"></i>
+                        <span>Tailored to your community</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-charcoal text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid md:grid-cols-4 gap-8">
+                    <div class="space-y-4">
+                        <h3 class="text-2xl font-display font-semibold text-sunbeam">◎ hellointi</h3>
+                        <p class="text-white/70 leading-relaxed">
+                            Transforming networks into living ecosystems through the power of peer connection.
+                        </p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-white/60 hover:text-sunbeam transition-colors">
+                                <i class="fab fa-linkedin text-xl"></i>
+                            </a>
+                            <a href="#" class="text-white/60 hover:text-sunbeam transition-colors">
+                                <i class="fab fa-twitter text-xl"></i>
+                            </a>
+                            <a href="#" class="text-white/60 hover:text-sunbeam transition-colors">
+                                <i class="fas fa-envelope text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h4 class="font-semibold">Programs</h4>
+                        <ul class="space-y-2 text-white/70">
+                            <li><a href="#program-section" class="hover:text-white transition-colors">Pairathons</a></li>
+                            <li><a href="#" class="hover:text-white transition-colors">Custom Design</a></li>
+                            <li><a href="#" class="hover:text-white transition-colors">Facilitation Training</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h4 class="font-semibold">Resources</h4>
+                        <ul class="space-y-2 text-white/70">
+                            <li><a href="#" class="hover:text-white transition-colors">Program Guide</a></li>
+                            <li><a href="#" class="hover:text-white transition-colors">Case Studies</a></li>
+                            <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h4 class="font-semibold">Contact</h4>
+                        <ul class="space-y-2 text-white/70">
+                            <li>
+                                <a href="mailto:mitra@hellointi.org" class="hover:text-white transition-colors">
+                                    Contact Mitra
+                                </a>
+                            </li>
+                            <li>
+                                <a href="mailto:san@hellointi.org" class="hover:text-white transition-colors">
+                                    Contact San
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                    <p class="text-white/60 text-sm">
+                        © 2025 hellointi. All rights reserved.
+                    </p>
+                    <div class="flex space-x-6 text-sm">
+                        <a href="#" class="text-white/60 hover:text-white transition-colors">Privacy Policy</a>
+                        <a href="#" class="text-white/60 hover:text-white transition-colors">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
