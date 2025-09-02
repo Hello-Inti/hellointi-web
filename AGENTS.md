@@ -5,7 +5,7 @@ This file provides guidance to agents when working with code in this repository.
 ## Project Overview (Non-Obvious Only)
 - **Static HTML marketing site** - Pure front-end landing pages, no build process required
 - **Multiple version variations** - Complex iterative versioning using suffixes (mitra, dsv1, san, etc.)
-- **Single-page applications** - All content in single HTML files with embedded CSS/JS
+- **Single-page applications** - All content in single HTML files with linked CSS/JS
 
 ## Repository Structure
 
@@ -27,7 +27,7 @@ landingPage/
 ├── v5-mitra-dsv1/         # Double variant (mitra + dsv1)
 ├── v6-mitra-san-dsv1/    # Triple variant (v6 + mitra + san + dsv1)
 ├── v6-mitra-san-dsv1-v2/  # Quadruple variant with additional revision
-└── v6-mitra-san-dsv2/    # Different dsv version
+└── v6-mitra-san-dsv2/    # Different design system version
 ```
 
 ## Naming Convention Patterns
