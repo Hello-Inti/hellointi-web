@@ -113,7 +113,7 @@
         .connection-line.super-organism {
             opacity: 0.6;
             stroke-width: 2;
-            stroke-dasharray: none;
+            stroke-dasharray: 3, 3; /* Keep dashed instead of solid */
             animation: energy-flow 3s ease-in-out infinite;
         }
 
@@ -136,8 +136,8 @@
         /* Network nodes - no labels, random colors */
         .network-node {
             position: absolute;
-            width: 24px;
-            height: 24px;
+            width: 29px;
+            height: 29px;
             border-radius: 50%;
             cursor: pointer;
             transition: all var(--transition-normal);
@@ -157,32 +157,7 @@
         .color-avocado { background: var(--color-avocado); }
         .color-lavender { background: var(--color-lavender); }
 
-        /* Individual random pulsing */
-        .pulse-1 { animation: random-pulse-1 3.2s ease-in-out infinite; }
-        .pulse-2 { animation: random-pulse-2 2.8s ease-in-out infinite; }
-        .pulse-3 { animation: random-pulse-3 3.5s ease-in-out infinite; }
-        .pulse-4 { animation: random-pulse-4 2.9s ease-in-out infinite; }
-        .pulse-5 { animation: random-pulse-5 3.1s ease-in-out infinite; }
-        .pulse-6 { animation: random-pulse-6 2.7s ease-in-out infinite; }
-        .pulse-7 { animation: random-pulse-7 3.3s ease-in-out infinite; }
-        .pulse-8 { animation: random-pulse-8 3.0s ease-in-out infinite; }
-        .pulse-9 { animation: random-pulse-9 2.6s ease-in-out infinite; }
-        .pulse-10 { animation: random-pulse-10 3.4s ease-in-out infinite; }
-        .pulse-11 { animation: random-pulse-11 2.5s ease-in-out infinite; }
-        .pulse-12 { animation: random-pulse-12 3.6s ease-in-out infinite; }
-
-        @keyframes random-pulse-1 { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-        @keyframes random-pulse-2 { 0%, 100% { transform: scale(1); } 60% { transform: scale(1.08); } }
-        @keyframes random-pulse-3 { 0%, 100% { transform: scale(1); } 40% { transform: scale(1.12); } }
-        @keyframes random-pulse-4 { 0%, 100% { transform: scale(1); } 55% { transform: scale(1.09); } }
-        @keyframes random-pulse-5 { 0%, 100% { transform: scale(1); } 45% { transform: scale(1.11); } }
-        @keyframes random-pulse-6 { 0%, 100% { transform: scale(1); } 65% { transform: scale(1.07); } }
-        @keyframes random-pulse-7 { 0%, 100% { transform: scale(1); } 35% { transform: scale(1.13); } }
-        @keyframes random-pulse-8 { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-        @keyframes random-pulse-9 { 0%, 100% { transform: scale(1); } 70% { transform: scale(1.06); } }
-        @keyframes random-pulse-10 { 0%, 100% { transform: scale(1); } 30% { transform: scale(1.14); } }
-        @keyframes random-pulse-11 { 0%, 100% { transform: scale(1); } 75% { transform: scale(1.05); } }
-        @keyframes random-pulse-12 { 0%, 100% { transform: scale(1); } 25% { transform: scale(1.15); } }
+        /* Individual random pulsing - now handled by GSAP */
 
         /* Synchronized pulsing for super organism state */
         .sync-pulse {
@@ -207,8 +182,8 @@
             }
 
             .network-node {
-                width: 20px;
-                height: 20px;
+                width: 24px;
+                height: 24px;
             }
         }
 
@@ -237,18 +212,18 @@
                 </svg>
 
                 <!-- Network nodes - 12 people with random colors and positions -->
-                <div class="network-node color-poppy pulse-1" id="node1"></div>
-                <div class="network-node color-sunbeam pulse-2" id="node2"></div>
-                <div class="network-node color-peach pulse-3" id="node3"></div>
-                <div class="network-node color-avocado pulse-4" id="node4"></div>
-                <div class="network-node color-lavender pulse-5" id="node5"></div>
-                <div class="network-node color-poppy pulse-6" id="node6"></div>
-                <div class="network-node color-sunbeam pulse-7" id="node7"></div>
-                <div class="network-node color-peach pulse-8" id="node8"></div>
-                <div class="network-node color-avocado pulse-9" id="node9"></div>
-                <div class="network-node color-lavender pulse-10" id="node10"></div>
-                <div class="network-node color-poppy pulse-11" id="node11"></div>
-                <div class="network-node color-sunbeam pulse-12" id="node12"></div>
+                <div class="network-node color-poppy" id="node1"></div>
+                <div class="network-node color-sunbeam" id="node2"></div>
+                <div class="network-node color-peach" id="node3"></div>
+                <div class="network-node color-avocado" id="node4"></div>
+                <div class="network-node color-lavender" id="node5"></div>
+                <div class="network-node color-poppy" id="node6"></div>
+                <div class="network-node color-sunbeam" id="node7"></div>
+                <div class="network-node color-peach" id="node8"></div>
+                <div class="network-node color-avocado" id="node9"></div>
+                <div class="network-node color-lavender" id="node10"></div>
+                <div class="network-node color-poppy" id="node11"></div>
+                <div class="network-node color-sunbeam" id="node12"></div>
             </div>
         </div>
     </div>
@@ -275,16 +250,19 @@
                 // Generate connection lines
                 this.generateConnections();
 
-                // Start the transformation after a delay
+                // Start individual pulsing animations immediately
+                this.startIndividualPulsing();
+
+                // Start the transformation after a delay (but connections appear 3 seconds after page load)
                 setTimeout(() => {
                     this.startTransformation();
-                }, 2000);
+                }, 5000); // Increased to 5 seconds total (3 seconds for connections + 2 seconds buffer)
             }
 
             positionNodesRandomly() {
                 const container = document.querySelector('.network-animation');
                 const containerRect = container.getBoundingClientRect();
-                const nodeSize = 24;
+                const nodeSize = 29; // Updated for 20% larger nodes
                 const margin = nodeSize + 10;
                 const positions = [];
 
@@ -363,21 +341,48 @@
                 console.log('Network transformation animation started');
             }
 
+            startIndividualPulsing() {
+                // Create unique pulsing animations for each node with different timing and intensity
+                this.nodes.forEach((node, index) => {
+                    // Random duration between 1.25 and 1.8 seconds (2x faster)
+                    const duration = 1.25 + Math.random() * 0.55;
+
+                    // Random scale between 1.05 and 1.15
+                    const scale = 1.05 + Math.random() * 0.1;
+
+                    // Random delay to start out of sync (0 to 1 second, also faster)
+                    const delay = Math.random() * 1;
+
+                    // Create the pulsing animation
+                    gsap.to(node, {
+                        scale: scale,
+                        duration: duration / 2,
+                        ease: "power2.inOut",
+                        delay: delay,
+                        yoyo: true,
+                        repeat: -1,
+                        transformOrigin: "center center"
+                    });
+                });
+            }
+
             startTransformation() {
                 if (this.isTransformed) return;
 
-                // Phase 1: Gradually activate connections (weeks 1-4)
-                this.activateConnectionsGradually();
+                // Phase 1: Gradually activate connections (weeks 1-4) - starts 3 seconds after page load
+                setTimeout(() => {
+                    this.activateConnectionsGradually();
+                }, 3000);
 
                 // Phase 2: Move to coordinated positions (weeks 5-6)
                 setTimeout(() => {
                     this.moveToCoordinatedPositions();
-                }, 4000);
+                }, 7000);
 
                 // Phase 3: Synchronized super organism (week 7)
                 setTimeout(() => {
                     this.activateSuperOrganism();
-                }, 8000);
+                }, 11000);
             }
 
             activateConnectionsGradually() {
@@ -386,7 +391,7 @@
                 shuffledConnections.forEach((connection, index) => {
                     setTimeout(() => {
                         connection.classList.add('active');
-                    }, index * 100);
+                    }, index * 200); // Increased from 100ms to 200ms (50% slower)
                 });
             }
 
@@ -397,24 +402,38 @@
                 const centerY = containerRect.height / 2;
                 const radius = Math.min(containerRect.width, containerRect.height) * 0.35;
 
+                // Create a timeline for coordinated movement with sticky connections
+                const tl = gsap.timeline();
+
                 this.nodes.forEach((node, index) => {
                     const angle = (index / this.nodes.length) * Math.PI * 2;
-                    const x = centerX + Math.cos(angle) * radius;
-                    const y = centerY + Math.sin(angle) * radius;
+                    const targetX = centerX + Math.cos(angle) * radius;
+                    const targetY = centerY + Math.sin(angle) * radius;
 
-                    // Update position data
-                    this.nodePositions[index] = { x, y };
-
-                    // Animate to new position
-                    gsap.to(node, {
-                        left: `${x - 12}px`,
-                        top: `${y - 12}px`,
+                    // Animate to new position with continuous connection updates
+                    tl.to(node, {
+                        left: `${targetX - 14.5}px`, // Half of 29px
+                        top: `${targetY - 14.5}px`,  // Half of 29px
                         duration: 2,
                         ease: "power2.inOut",
-                        delay: index * 0.1,
-                        onUpdate: () => this.updateConnectionPositions()
-                    });
+                        onUpdate: () => {
+                            // Update this node's position in our tracking array
+                            const currentLeft = parseFloat(node.style.left) + 14.5;
+                            const currentTop = parseFloat(node.style.top) + 14.5;
+                            this.nodePositions[index] = { x: currentLeft, y: currentTop };
+
+                            // Update all connection positions to keep them sticky
+                            this.updateConnectionPositions();
+                        },
+                        onComplete: () => {
+                            // Ensure final position is exactly where we want it
+                            this.nodePositions[index] = { x: targetX, y: targetY };
+                            this.updateConnectionPositions();
+                        }
+                    }, index * 0.1);
                 });
+
+                return tl;
             }
 
             activateSuperOrganism() {
@@ -426,9 +445,23 @@
                     connection.classList.add('super-organism');
                 });
 
-                // Synchronize all node pulsing
+                // Kill individual pulsing animations and start synchronized pulsing
                 this.nodes.forEach(node => {
-                    node.classList.add('sync-pulse');
+                    // Kill existing GSAP animations on this node
+                    gsap.killTweensOf(node);
+
+                    // Reset scale to 1
+                    gsap.set(node, { scale: 1 });
+
+                    // Start synchronized pulsing with GSAP (2x faster)
+                    gsap.to(node, {
+                        scale: 1.15,
+                        duration: 0.5, // 2x faster
+                        ease: "power2.inOut",
+                        yoyo: true,
+                        repeat: -1,
+                        transformOrigin: "center center"
+                    });
                 });
 
                 console.log('Super organism state activated');
