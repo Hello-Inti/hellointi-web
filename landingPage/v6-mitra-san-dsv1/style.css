@@ -85,21 +85,109 @@ body {
   max-width: 1200px;
 }
 
-/* Handcrafted Decorative Borders */
-.decorative-border {
-  height: 20px;
-  background-repeat: repeat-x;
-  background-size: auto 20px;
+/* Elegant Network-Inspired Section Transitions */
+.section-transition {
   position: relative;
+  height: 60px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-transition::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--color-avocado) 20%, var(--color-sunbeam) 50%, var(--color-avocado) 80%, transparent 100%);
+  opacity: 0.3;
+}
+
+.section-transition::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background: var(--color-sunbeam);
+  border-radius: 50%;
   opacity: 0.6;
+  box-shadow:
+    -30px 0 0 -2px var(--color-avocado),
+    30px 0 0 -2px var(--color-avocado),
+    -60px 0 0 -3px var(--color-peach),
+    60px 0 0 -3px var(--color-peach);
 }
 
-.decorative-border.top {
-  background-image: url("data:image/svg+xml,%3Csvg width='40' height='20' viewBox='0 0 40 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 15 Q10 5 20 15 Q30 5 40 15' stroke='%23A6A61B' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+/* Organic Flow Divider - Alternative Style */
+.organic-divider {
+  position: relative;
+  height: 40px;
+  margin: var(--space-xl) 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.decorative-border.bottom {
-  background-image: url("data:image/svg+xml,%3Csvg width='40' height='20' viewBox='0 0 40 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 5 Q10 15 20 5 Q30 15 40 5' stroke='%23A6A61B' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+.organic-divider::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--color-beige) 10%,
+    var(--color-avocado) 25%,
+    var(--color-sunbeam) 50%,
+    var(--color-avocado) 75%,
+    var(--color-beige) 90%,
+    transparent 100%);
+  opacity: 0.2;
+}
+
+.organic-divider .connection-nodes {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  background: var(--color-eggshell);
+  padding: 0 var(--space-lg);
+  position: relative;
+  z-index: 2;
+}
+
+.organic-divider .node {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  opacity: 0.4;
+  transition: all var(--transition-normal);
+}
+
+.organic-divider .node:nth-child(1) { background: var(--color-poppy); }
+.organic-divider .node:nth-child(2) { background: var(--color-sunbeam); }
+.organic-divider .node:nth-child(3) { background: var(--color-avocado); }
+.organic-divider .node:nth-child(4) { background: var(--color-peach); }
+.organic-divider .node:nth-child(5) { background: var(--color-lavender); }
+
+.organic-divider:hover .node {
+  opacity: 0.8;
+  transform: scale(1.2);
+}
+
+/* Breathing Animation for Dividers */
+@keyframes gentle-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.05); }
+}
+
+.section-transition::after {
+  animation: gentle-pulse 4s ease-in-out infinite;
 }
 
 /* Navigation */
@@ -295,6 +383,7 @@ body {
   min-height: 80vh;
   display: flex;
   align-items: center;
+  padding-bottom: var(--space-2xl);
 }
 
 /* Hero Visual Container - transparent background */
@@ -623,10 +712,43 @@ body {
   line-height: 1.6;
 }
 
+/* Improved Section Spacing */
+section {
+  position: relative;
+}
+
+/* Better rhythm for section padding */
+section:not(.hero-section) {
+  padding-top: var(--space-3xl);
+  padding-bottom: var(--space-3xl);
+}
+
+/* Reduce excessive spacing around transitions */
+.section-transition + section,
+.organic-divider + section {
+  padding-top: var(--space-2xl);
+}
+
+section + .section-transition,
+section + .organic-divider {
+  margin-top: calc(-1 * var(--space-xl));
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .hero-section {
     min-height: 60vh;
+    padding-bottom: var(--space-xl);
+  }
+
+  section:not(.hero-section) {
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-2xl);
+  }
+
+  .section-transition + section,
+  .organic-divider + section {
+    padding-top: var(--space-xl);
   }
 
   .before-after {
@@ -646,6 +768,15 @@ body {
   .feature-icon {
     width: 60px;
     height: 60px;
+  }
+
+  .section-transition {
+    height: 40px;
+  }
+
+  .organic-divider {
+    height: 30px;
+    margin: var(--space-lg) 0;
   }
 }
 
