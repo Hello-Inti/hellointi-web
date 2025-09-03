@@ -210,7 +210,7 @@ body {
     box-shadow: none;
     display: flex !important;
   }
-  
+
   .nav-link {
     padding: var(--space-sm) var(--space-md);
   }
@@ -297,10 +297,13 @@ body {
   align-items: center;
 }
 
+/* Hero Visual Container - transparent background */
 .hero-visual {
   position: relative;
   height: 400px;
   width: 100%;
+  background: transparent;
+  overflow: visible;
 }
 
 .network-animation {
@@ -309,90 +312,91 @@ body {
   height: 100%;
 }
 
-.network-node {
-  position: absolute;
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, var(--color-avocado), var(--color-sunbeam));
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: bold;
-  font-size: 0.8rem;
-  cursor: pointer;
-  transition: all var(--transition-normal);
-  animation: pulse 3s ease-in-out infinite;
-  box-shadow: var(--shadow-md);
-}
-
-.network-node:hover {
-  transform: scale(1.1);
-  box-shadow: var(--shadow-lg);
-}
-
-.network-node::before {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: -30px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--color-charcoal);
-  color: white;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.7rem;
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity var(--transition-fast);
-  pointer-events: none;
-}
-
-.network-node:hover::before {
-  opacity: 1;
-}
-
-/* Node positions */
-.node-1 { top: 20%; left: 10%; animation-delay: 0s; }
-.node-2 { top: 10%; right: 20%; animation-delay: 0.5s; }
-.node-3 { top: 50%; left: 20%; animation-delay: 1s; }
-.node-4 { top: 40%; right: 10%; animation-delay: 1.5s; }
-.node-5 { bottom: 20%; left: 30%; animation-delay: 2s; }
-.node-6 { bottom: 10%; right: 30%; animation-delay: 2.5s; }
-
-.connection-lines {
+/* Connection lines SVG */
+.connections-svg {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
+  z-index: 1;
 }
 
 .connection-line {
-  fill: none;
   stroke: var(--color-avocado);
+  stroke-width: 1;
+  fill: none;
+  opacity: 0;
+  stroke-dasharray: 3, 3;
+}
+
+.connection-line.active {
+  opacity: 0.3;
+  animation: subtle-flow 4s ease-in-out infinite;
+}
+
+.connection-line.super-organism {
+  opacity: 0.6;
   stroke-width: 2;
-  stroke-opacity: 0.4;
-  stroke-dasharray: 5,5;
-  animation: draw 2s ease-in-out infinite alternate;
+  stroke-dasharray: 3, 3; /* Keep dashed instead of solid */
+  animation: energy-flow 3s ease-in-out infinite;
 }
 
-.line-1 { animation-delay: 0s; }
-.line-2 { animation-delay: 0.4s; }
-.line-3 { animation-delay: 0.8s; }
-.line-4 { animation-delay: 1.2s; }
-.line-5 { animation-delay: 1.6s; }
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+@keyframes subtle-flow {
+  0%, 100% { stroke-dashoffset: 0; }
+  50% { stroke-dashoffset: 6; }
 }
 
-@keyframes draw {
-  0% { stroke-dashoffset: 10; }
-  100% { stroke-dashoffset: 0; }
+@keyframes energy-flow {
+  0%, 100% {
+    stroke-dashoffset: 0;
+    opacity: 0.6;
+  }
+  50% {
+    stroke-dashoffset: -10;
+    opacity: 0.8;
+  }
+}
+
+/* Network nodes - no labels, random colors */
+.network-node {
+  position: absolute;
+  width: 29px;
+  height: 29px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(64, 63, 62, 0.2);
+}
+
+.network-node:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(64, 63, 62, 0.3);
+}
+
+/* Random color classes */
+.color-poppy { background: var(--color-poppy); }
+.color-sunbeam { background: var(--color-sunbeam); }
+.color-peach { background: var(--color-peach); }
+.color-avocado { background: var(--color-avocado); }
+.color-lavender { background: var(--color-lavender); }
+
+/* Synchronized pulsing for super organism state */
+.sync-pulse {
+  animation: synchronized-pulse 2s ease-in-out infinite !important;
+}
+
+@keyframes synchronized-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 2px 8px rgba(64, 63, 62, 0.2);
+  }
+  50% {
+    transform: scale(1.15);
+    box-shadow: 0 4px 16px rgba(166, 166, 27, 0.4);
+  }
 }
 
 /* Problem Cards */
@@ -624,22 +628,21 @@ body {
   .hero-section {
     min-height: 60vh;
   }
-  
+
   .before-after {
     grid-template-columns: 1fr;
     gap: var(--space-lg);
   }
-  
+
   .transformation-arrow {
     transform: rotate(90deg);
   }
-  
+
   .network-node {
-    width: 40px;
-    height: 40px;
-    font-size: 0.7rem;
+    width: 24px;
+    height: 24px;
   }
-  
+
   .feature-icon {
     width: 60px;
     height: 60px;
@@ -672,12 +675,12 @@ body {
   .btn {
     display: none !important;
   }
-  
+
   body {
     font-size: 12pt;
     line-height: 1.4;
   }
-  
+
   h1, h2, h3 {
     page-break-after: avoid;
   }

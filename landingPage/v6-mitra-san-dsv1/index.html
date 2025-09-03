@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>hellointi | Transform Your Network Into a Living Ecosystem</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -85,22 +86,24 @@
                     <div class="relative">
                         <div class="hero-visual">
                             <div class="network-animation">
-                                <!-- Animated network nodes -->
-                                <div class="network-node node-1" data-tooltip="Distributed Leaders"></div>
-                                <div class="network-node node-2" data-tooltip="Emerging Collaborators"></div>
-                                <div class="network-node node-3" data-tooltip="Hidden Connectors"></div>
-                                <div class="network-node node-4" data-tooltip="Innovation Catalysts"></div>
-                                <div class="network-node node-5" data-tooltip="Community Builders"></div>
-                                <div class="network-node node-6" data-tooltip="Change Agents"></div>
-
-                                <!-- Connection lines -->
-                                <svg class="connection-lines" viewBox="0 0 400 400">
-                                    <path class="connection-line line-1" d="M100,100 Q200,50 300,100"/>
-                                    <path class="connection-line line-2" d="M100,200 Q150,100 300,200"/>
-                                    <path class="connection-line line-3" d="M100,300 Q200,350 300,300"/>
-                                    <path class="connection-line line-4" d="M150,150 Q200,200 250,250"/>
-                                    <path class="connection-line line-5" d="M200,100 L200,300"/>
+                                <!-- SVG for connection lines -->
+                                <svg class="connections-svg" id="connectionsSvg">
+                                    <!-- Connection lines will be dynamically generated -->
                                 </svg>
+
+                                <!-- Network nodes - 12 people with random colors and positions -->
+                                <div class="network-node color-poppy" id="node1"></div>
+                                <div class="network-node color-sunbeam" id="node2"></div>
+                                <div class="network-node color-peach" id="node3"></div>
+                                <div class="network-node color-avocado" id="node4"></div>
+                                <div class="network-node color-lavender" id="node5"></div>
+                                <div class="network-node color-poppy" id="node6"></div>
+                                <div class="network-node color-sunbeam" id="node7"></div>
+                                <div class="network-node color-peach" id="node8"></div>
+                                <div class="network-node color-avocado" id="node9"></div>
+                                <div class="network-node color-lavender" id="node10"></div>
+                                <div class="network-node color-poppy" id="node11"></div>
+                                <div class="network-node color-sunbeam" id="node12"></div>
                             </div>
                         </div>
                     </div>
