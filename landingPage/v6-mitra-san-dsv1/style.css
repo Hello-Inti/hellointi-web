@@ -816,3 +816,29 @@ section + .organic-divider {
     page-break-after: avoid;
   }
 }
+
+/* Living Ecosystem Animation Styles */
+#livingEcosystem {
+  opacity: 0;
+  transform: scale(0.9);
+  filter: drop-shadow(0 0 0px rgba(166, 166, 27, 0));
+  transition: filter 0.3s ease;
+}
+
+#livingEcosystem.animate-ready {
+   opacity: 0;
+   transform: scale(0.9);
+}
+
+/* Drift apart text animation */
+.drift-left {
+   display: inline-block;
+   transform: skewX(10deg);
+   transition: transform 0.3s ease;
+}
+
+.drift-right {
+   display: inline-block;
+   transform: skewX(-10deg);
+   transition: transform 0.3s ease;
+}

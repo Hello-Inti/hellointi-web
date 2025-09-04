@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize all functionality
   initNavigation();
   initAnimations();
+  initLivingEcosystemAnimation();
   initFAQ();
   initScrollEffects();
   initNetworkAnimation();
@@ -369,32 +370,40 @@ function initNetworkAnimation() {
     activateSuperOrganism() {
       this.isTransformed = true;
 
-      // Upgrade all connections to super organism state
-      this.connections.forEach(connection => {
-        connection.classList.remove('active');
-        connection.classList.add('super-organism');
+      // Gradually upgrade connections to super organism state one by one
+      const shuffledConnections = [...this.connections].sort(() => Math.random() - 0.5);
+
+      shuffledConnections.forEach((connection, index) => {
+        setTimeout(() => {
+          connection.classList.remove('active');
+          connection.classList.add('super-organism');
+        }, index * 150); // 150ms delay between each connection upgrade
       });
 
-      // Kill individual pulsing animations and start synchronized pulsing
-      this.nodes.forEach(node => {
-        // Kill existing GSAP animations on this node
-        gsap.killTweensOf(node);
+      // Start synchronized pulsing after all connections are upgraded
+      const totalUpgradeTime = shuffledConnections.length * 150;
+      setTimeout(() => {
+        // Kill individual pulsing animations and start synchronized pulsing
+        this.nodes.forEach(node => {
+          // Kill existing GSAP animations on this node
+          gsap.killTweensOf(node);
 
-        // Reset scale to 1
-        gsap.set(node, { scale: 1 });
+          // Reset scale to 1
+          gsap.set(node, { scale: 1 });
 
-        // Start synchronized pulsing with GSAP (2x faster)
-        gsap.to(node, {
-          scale: 1.15,
-          duration: 0.5, // 2x faster
-          ease: "power2.inOut",
-          yoyo: true,
-          repeat: -1,
-          transformOrigin: "center center"
+          // Start synchronized pulsing with GSAP (2x faster)
+          gsap.to(node, {
+            scale: 1.15,
+            duration: 0.5, // 2x faster
+            ease: "power2.inOut",
+            yoyo: true,
+            repeat: -1,
+            transformOrigin: "center center"
+          });
         });
-      });
 
-      console.log('Super organism state activated');
+        console.log('Super organism state activated');
+      }, totalUpgradeTime + 200); // Small buffer after all connections are upgraded
     }
   }
 
@@ -456,6 +465,60 @@ function initAnimations() {
   if (statsSection) {
     statsObserver.observe(statsSection);
   }
+}
+
+// Living Ecosystem Animation
+function initLivingEcosystemAnimation() {
+  const livingEcosystem = document.getElementById('livingEcosystem');
+  if (!livingEcosystem) return;
+
+  let pulseAnimation;
+
+  function playLivingEcosystemAnimation() {
+    // Set initial state
+    gsap.set(livingEcosystem, {
+      opacity: 0,
+      scale: 0.9,
+      filter: 'drop-shadow(0 0 0px rgba(166, 166, 27, 0))'
+    });
+
+    // Create timeline for the entrance animation
+    const tl = gsap.timeline();
+
+    // Sequence #2: Delayed entrance with bounce
+    tl.to(livingEcosystem, {
+      opacity: 1,
+      scale: 1,
+      duration: 0.8,
+      ease: "back.out(1.7)",
+      delay: 1.5
+    });
+
+    // Sequence #3: Start pulsing animation after entrance
+    tl.call(() => {
+      startPulsingAnimation();
+    });
+  }
+
+  function startPulsingAnimation() {
+    // Stop any existing pulse animation
+    if (pulseAnimation) {
+      pulseAnimation.kill();
+    }
+
+    // Create infinite pulsing animation (1.5x more pronounced)
+    pulseAnimation = gsap.to(livingEcosystem, {
+      scale: 1.075,
+      filter: 'drop-shadow(0 0 12px rgba(166, 166, 27, 0.6))',
+      duration: 2,
+      ease: "power2.inOut",
+      yoyo: true,
+      repeat: -1
+    });
+  }
+
+  // Auto-play animation on page load
+  setTimeout(playLivingEcosystemAnimation, 500);
 }
 
 // Utility function for debouncing
