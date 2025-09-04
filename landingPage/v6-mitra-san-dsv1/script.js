@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavigation();
   initAnimations();
   initLivingEcosystemAnimation();
+  initScrollIndicator();
   initFAQ();
   initScrollEffects();
   initNetworkAnimation();
@@ -519,6 +520,114 @@ function initLivingEcosystemAnimation() {
 
   // Auto-play animation on page load
   setTimeout(playLivingEcosystemAnimation, 500);
+}
+
+// Scroll Indicator Animation
+function initScrollIndicator() {
+  const scrollIndicator = document.getElementById('scrollIndicator');
+  if (!scrollIndicator) return;
+
+  let bounceAnimation;
+  let isVisible = false; // Initialize as false, as it's initially hidden
+
+  function showScrollIndicator() {
+    // Sequence #1: Fade in and scale up after page load
+    gsap.set(scrollIndicator, {
+      opacity: 0,
+      scale: 0.8,
+      y: 20
+    });
+
+    gsap.to(scrollIndicator, {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      duration: 0.8,
+      ease: "back.out(1.7)",
+      delay: 4.5,
+      onComplete: () => {
+        isVisible = true;
+        startBounceAnimation();
+      }
+    });
+  }
+
+  function startBounceAnimation() {
+    const arrow = scrollIndicator.querySelector('.scroll-arrow');
+
+    // Sequence #2: Continuous gentle bounce with glow effect
+    bounceAnimation = gsap.timeline({ repeat: -1 });
+
+    bounceAnimation
+      .to(arrow, {
+        y: -8,
+        duration: 1.2,
+        ease: "power2.inOut"
+      })
+      .to(arrow, {
+        y: 0,
+        duration: 1.2,
+        ease: "power2.inOut"
+      });
+
+    // Sequence #3: Subtle glow pulse animation
+    gsap.to(arrow, {
+      boxShadow: "0 4px 25px rgba(166, 166, 27, 0.4)",
+      duration: 2,
+      ease: "power2.inOut",
+      yoyo: true,
+      repeat: -1
+    });
+  }
+
+  function hideScrollIndicator() {
+    if (!isVisible) return;
+
+    // Sequence #4: Fade out when scrolling
+    gsap.to(scrollIndicator, {
+      opacity: 0,
+      y: 20,
+      duration: 0.5,
+      ease: "power2.inOut",
+      onComplete: () => {
+        isVisible = false;
+        if (bounceAnimation) {
+          bounceAnimation.kill();
+        }
+      }
+    });
+  }
+
+  // Click handler to scroll to next section
+  scrollIndicator.addEventListener('click', () => {
+    const testimonialsSection = document.getElementById('testimonials-section');
+    if (testimonialsSection) {
+      testimonialsSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  });
+
+  // Hide indicator when user scrolls down
+  let lastScrollY = window.scrollY;
+  window.addEventListener('scroll', () => {
+    const currentScrollY = window.scrollY;
+
+    if (currentScrollY > 100 && isVisible) {
+      hideScrollIndicator();
+    } else if (currentScrollY <= 50 && !isVisible) {
+      // Show again if user scrolls back to top
+      isVisible = true;
+      gsap.set(scrollIndicator, { opacity: 1, y: 0 });
+      startBounceAnimation();
+    }
+
+    lastScrollY = currentScrollY;
+  });
+
+  // Start the animation sequence
+  showScrollIndicator();
 }
 
 // Utility function for debouncing
