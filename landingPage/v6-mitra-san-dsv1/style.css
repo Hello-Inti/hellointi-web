@@ -333,7 +333,7 @@ body {
 
 .btn-primary:hover {
   background-color: transparent;
-  color: var(--color-poppy);
+  color: var(--color-sunbeam); /* Changed to sunbeam */
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
@@ -706,7 +706,7 @@ body {
 }
 
 .faq-answer p {
-  padding: 0 var(--space-xl) var(--space-xl);
+  padding: var(--space-lg) var(--space-xl) var(--space-xl); /* Increased padding-top */
   color: var(--color-charcoal);
   opacity: 0.8;
   line-height: 1.6;
