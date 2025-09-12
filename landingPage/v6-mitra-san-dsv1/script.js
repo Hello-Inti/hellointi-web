@@ -1,29 +1,35 @@
 // Enhanced helloInti Landing Page JavaScript
 // Adds smooth interactions, animations, and accessibility features
+'use strict';
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize all functionality
-  initNavigation();
-  initAnimations();
-  initLivingEcosystemAnimation();
-  initScrollIndicator();
-  initFAQ();
-  initScrollEffects();
-  initNetworkAnimation();
+  try {
+    // Initialize all functionality
+    initNavigation();
+    initAnimations();
+    initLivingEcosystemAnimation();
+    initScrollIndicator();
+    initFAQ();
+    initScrollEffects();
+    initNetworkAnimation();
+    initPeerActivationAnimation();
 
-  // Smooth scroll for anchor links
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
     });
-  });
+  } catch (error) {
+    console.error('Error initializing landing page:', error);
+  }
 });
 
 // Navigation functionality
@@ -270,7 +276,7 @@ function initNetworkAnimation() {
 
     startAnimation() {
       // Animation starts automatically on page load
-      console.log('Network transformation animation started');
+      // Removed console.log for production
     }
 
     startIndividualPulsing() {
@@ -409,7 +415,11 @@ function initNetworkAnimation() {
   }
 
   // Initialize the animation when page loads
-  new NetworkTransformation();
+  try {
+    new NetworkTransformation();
+  } catch (error) {
+    console.error('Error initializing network animation:', error);
+  }
 }
 
 // Add entrance animations to elements
@@ -706,4 +716,210 @@ document.addEventListener('error', (e) => {
   }
 }, true);
 
-console.log('helloInti landing page initialized successfully! 🌟');
+// Initialization complete
+
+// Peer Activation Before/After GSAP animation
+function initPeerActivationAnimation() {
+  try {
+    const container = document.getElementById('peerActivation');
+    const svg = document.getElementById('peerActivationSvg');
+    if (!container || !svg || typeof gsap === 'undefined') return;
+
+  const nodesGroup = svg.querySelector('#nodes');
+  const linksGroup = svg.querySelector('#links');
+  const beforeLabel = container.querySelector('.label-before');
+  const afterLabel = container.querySelector('.label-after');
+
+  // Work in viewBox coordinates for crisp rendering
+  const width = 600;
+  const height = 320;
+  const nodeCount = 12;
+  const radius = 7;
+
+  const brandColors = [
+    getComputedStyle(document.documentElement).getPropertyValue('--color-poppy').trim() || '#E65C4F',
+    getComputedStyle(document.documentElement).getPropertyValue('--color-sunbeam').trim() || '#F2B705',
+    getComputedStyle(document.documentElement).getPropertyValue('--color-peach').trim() || '#F2A08D',
+    getComputedStyle(document.documentElement).getPropertyValue('--color-avocado').trim() || '#A6A61B',
+    getComputedStyle(document.documentElement).getPropertyValue('--color-lavender').trim() || '#D4C1EC'
+  ];
+
+  // Build node elements - start in greyscale
+  const nodes = [];
+  const greyColors = ['#666666', '#777777', '#888888', '#999999', '#aaaaaa']; // Greyscale colors
+
+  for (let i = 0; i < nodeCount; i++) {
+    const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    c.setAttribute('r', radius);
+    c.setAttribute('cx', 0);
+    c.setAttribute('cy', 0);
+    c.setAttribute('fill', greyColors[i % greyColors.length]); // Start greyscale
+    c.setAttribute('opacity', '0');
+    c.style.filter = 'drop-shadow(0 1px 2px rgba(64,63,62,0.25))';
+    nodesGroup.appendChild(c);
+    nodes.push(c);
+  }
+
+  // Connection pairs: ring + cross-links for a lively network
+  const linkPairs = [];
+  for (let i = 0; i < nodeCount; i++) {
+    linkPairs.push([i, (i + 1) % nodeCount]); // ring
+  }
+  for (let i = 0; i < nodeCount / 2; i++) {
+    linkPairs.push([i, (i + nodeCount / 2) % nodeCount]); // diameters
+  }
+
+  const links = linkPairs.map(([a, b]) => {
+    const l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    l.setAttribute('x1', '0');
+    l.setAttribute('y1', '0');
+    l.setAttribute('x2', '0');
+    l.setAttribute('y2', '0');
+    l.setAttribute('stroke', getComputedStyle(document.documentElement).getPropertyValue('--color-avocado').trim() || '#A6A61B');
+    l.setAttribute('stroke-width', '2');
+    l.setAttribute('opacity', '0');
+    l.setAttribute('vector-effect', 'non-scaling-stroke');
+    linksGroup.appendChild(l);
+    return { el: l, a, b };
+  });
+
+  const pad = 28;
+
+  function randomScatter() {
+    // Scatter on the left side to reinforce "Before"
+    const usableW = width * 0.44;
+    return nodes.map(() => ({
+      x: pad + Math.random() * Math.max(usableW - pad * 2, 40),
+      y: pad + Math.random() * Math.max(height - pad * 2, 40)
+    }));
+  }
+
+  function circlePositions() {
+    // Circle on the right side to reinforce "After"
+    const cx = width * 0.74;
+    const cy = height / 2;
+    const R = Math.min(width, height) * 0.28;
+    return nodes.map((_, i) => {
+      const angle = (i / nodeCount) * Math.PI * 2;
+      return { x: cx + Math.cos(angle) * R, y: cy + Math.sin(angle) * R };
+    });
+  }
+
+  function updateLinkPositions(posSet) {
+    links.forEach(({ el, a, b }) => {
+      el.setAttribute('x1', posSet[a].x);
+      el.setAttribute('y1', posSet[a].y);
+      el.setAttribute('x2', posSet[b].x);
+      el.setAttribute('y2', posSet[b].y);
+    });
+  }
+
+  let scatter = randomScatter();
+  let cluster = circlePositions();
+
+  // Initialize to scattered positions
+  nodes.forEach((n, i) => {
+    n.setAttribute('cx', scatter[i].x);
+    n.setAttribute('cy', scatter[i].y);
+  });
+  updateLinkPositions(scatter);
+
+  // Label states
+  gsap.set(beforeLabel, { opacity: 1 });
+  gsap.set(afterLabel, { opacity: 0.35 });
+
+  // Timeline: Before -> Transition -> After (no reset)
+  const tl = gsap.timeline();
+
+  // Sequence #1: Before (fragmented) - reveal scattered nodes
+  tl.to(nodes, {
+    opacity: 1,
+    duration: 0.6,
+    stagger: 0.04,
+    ease: 'power2.out',
+    onStart: () => {
+      gsap.to(beforeLabel, { opacity: 1, duration: 0.4, ease: 'power1.out' });
+      gsap.to(afterLabel, { opacity: 0.35, duration: 0.4, ease: 'power1.out' });
+      links.forEach(({ el }) => {
+        gsap.set(el, { opacity: 0, strokeDasharray: 0, strokeDashoffset: 0 });
+      });
+    }
+  });
+
+  // Brief hold
+  tl.to({}, { duration: 0.5 });
+
+  // Sequence #2: Transition nodes to a connected cluster (circle)
+  tl.to(nodes, {
+    duration: 1.5,
+    ease: 'power2.inOut',
+    stagger: { each: 0.035, from: 'random' },
+    // animate circle center positions using attr plugin
+    attr: (i) => ({ cx: cluster[i].x, cy: cluster[i].y }),
+    onStart: () => {
+      gsap.to(beforeLabel, { opacity: 0.35, duration: 0.6, ease: 'power1.out' });
+      gsap.to(afterLabel, { opacity: 1, duration: 0.6, ease: 'power1.out' });
+    },
+    onUpdate: () => {
+      const current = nodes.map(n => ({
+        x: parseFloat(n.getAttribute('cx')),
+        y: parseFloat(n.getAttribute('cy'))
+      }));
+      updateLinkPositions(current);
+    }
+  })
+  // Add color transition during the movement
+  .to(nodes, {
+    duration: 1.5,
+    ease: 'power2.inOut',
+    stagger: { each: 0.035, from: 'random' },
+    attr: (i) => ({ fill: brandColors[i % brandColors.length] }),
+  }, '<'); // Start at the same time as the movement animation
+
+  // Sequence #3: Draw links between nodes
+  tl.add(() => {
+    // Prepare dash for draw animation
+    links.forEach(({ el }) => {
+      const x1 = parseFloat(el.getAttribute('x1'));
+      const y1 = parseFloat(el.getAttribute('y1'));
+      const x2 = parseFloat(el.getAttribute('x2'));
+      const y2 = parseFloat(el.getAttribute('y2'));
+      const len = Math.hypot(x2 - x1, y2 - y1);
+      el.setAttribute('stroke-dasharray', `${len}`);
+      el.setAttribute('stroke-dashoffset', `${len}`);
+    });
+  });
+  tl.to(links.map(l => l.el), {
+    opacity: 1,
+    strokeDashoffset: 0,
+    duration: 0.9,
+    ease: 'power2.out',
+    stagger: 0.015
+  });
+
+  // Hold in the connected state indefinitely
+  tl.to({}, { duration: 0 });
+
+  // Respect reduced motion: render static "after" frame with links and final colors
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (prefersReduced.matches) {
+    tl.kill();
+    nodes.forEach((n, i) => {
+      n.setAttribute('cx', cluster[i].x);
+      n.setAttribute('cy', cluster[i].y);
+      n.setAttribute('fill', brandColors[i % brandColors.length]); // Set final colors
+      n.setAttribute('opacity', '1');
+    });
+    updateLinkPositions(cluster);
+    links.forEach(({ el }) => {
+      el.setAttribute('opacity', '1');
+      el.removeAttribute('stroke-dasharray');
+      el.removeAttribute('stroke-dashoffset');
+    });
+    gsap.set(beforeLabel, { opacity: 0.35 });
+    gsap.set(afterLabel, { opacity: 1 });
+  }
+  } catch (error) {
+    console.error('Error initializing peer activation animation:', error);
+  }
+}

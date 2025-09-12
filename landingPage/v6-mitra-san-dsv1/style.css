@@ -51,6 +51,10 @@ body {
   overflow-x: hidden;
 }
 
+html {
+  scroll-padding-top: 100px;
+}
+
 /* Typography Classes */
 .font-display {
   font-family: var(--font-display);
@@ -332,8 +336,9 @@ body {
 }
 
 .btn-primary:hover {
-  background-color: transparent;
-  color: var(--color-sunbeam); /* Changed to sunbeam */
+  background-color: var(--color-avocado);
+  border-color: var(--color-sunbeam);
+  color: white;
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
@@ -518,67 +523,98 @@ body {
   box-shadow: var(--shadow-md);
 }
 
-/* Transformation Visual */
+/* Transformation Visual - removed for page integration */
 .transformation-visual {
-  background: white;
-  padding: var(--space-2xl);
-  border-radius: 20px;
-  box-shadow: var(--shadow-md);
+  /* Styles removed - animation now integrates directly into page */
 }
 
-.before-after {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  gap: var(--space-xl);
-  align-items: center;
-}
-
-.scattered-nodes, .connected-network {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-md);
-  justify-items: center;
+/* Peer Activation SVG Animation */
+.peer-activation-anim {
   position: relative;
+  transform: translateY(0); /* Reset transform to prevent overlay issues */
+  margin-top: var(--space-xl); /* Add proper top margin for spacing */
 }
 
-.isolated-node, .connected-node {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: var(--color-beige);
-  transition: all var(--transition-normal);
+.peer-activation-anim .peer-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-lg); /* Use consistent spacing variable */
+  padding: 0 var(--space-lg); /* Increase padding to align with animation content */
+  position: relative;
+  height: 24px;
 }
 
-.connected-node.active {
-  background: linear-gradient(135deg, var(--color-avocado), var(--color-sunbeam));
-  animation: glow 2s ease-in-out infinite alternate;
-}
-
-.network-connections {
-  position: absolute;
+.peer-activation-anim .label-before,
+.peer-activation-anim .label-after {
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: opacity var(--transition-normal);
+  position: relative;
   top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
 }
 
-.transformation-arrow {
-  font-size: 2rem;
+.peer-activation-anim .label-before {
+  color: var(--color-charcoal);
+  opacity: 0.6;
+  align-self: center;
+  text-align: left; /* Align with left side where scattered nodes appear */
+}
+
+.peer-activation-anim .label-after {
   color: var(--color-avocado);
-  animation: bounce 2s ease-in-out infinite;
+  opacity: 0.35;
+  align-self: center;
+  text-align: right; /* Align with right side where connected circle appears */
 }
 
-@keyframes glow {
-  0% { box-shadow: 0 0 5px var(--color-avocado); }
-  100% { box-shadow: 0 0 20px var(--color-avocado), 0 0 30px var(--color-avocado); }
+#peerActivationSvg {
+  width: 100%;
+  height: auto;
+  min-height: 320px;
+  /* Removed border, background, and shadow for seamless page integration */
+  background: transparent;
 }
 
-@keyframes bounce {
-  0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(10px); }
+/* Tablet and smaller desktop screens */
+@media (max-width: 1024px) {
+  .peer-activation-anim {
+    margin-top: var(--space-2xl); /* Increase spacing for tablet */
+  }
+  .peer-activation-anim .peer-labels {
+    margin-bottom: var(--space-xl);
+  }
 }
 
+/* Mobile and small tablet screens */
+@media (max-width: 768px) {
+  #peerActivationSvg {
+    min-height: 240px;
+  }
+  .peer-activation-anim {
+    margin-top: var(--space-3xl); /* Even more spacing for mobile */
+  }
+  .peer-activation-anim .peer-labels {
+    font-size: 0.9rem;
+    height: 20px;
+    margin-bottom: var(--space-xl);
+  }
+  .peer-activation-anim .label-before,
+  .peer-activation-anim .label-after {
+    font-size: 0.85rem;
+  }
+}
+
+/* Very small mobile screens */
+@media (max-width: 480px) {
+  .peer-activation-anim {
+    margin-top: calc(var(--space-3xl) + var(--space-lg)); /* Maximum spacing for very small screens */
+  }
+  .peer-activation-anim .label-before,
+  .peer-activation-anim .label-after {
+    font-size: 0.8rem;
+  }
+}
 /* Team Cards */
 .team-card {
   background: white;
@@ -591,6 +627,20 @@ body {
 
 .team-card:hover {
   transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Team Member Cards */
+.team-member {
+  background: white;
+  border-radius: 20px;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-normal);
+  overflow: hidden;
+}
+
+.team-member:hover {
+  transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
 }
 
@@ -751,15 +801,6 @@ section + .organic-divider {
     padding-top: var(--space-xl);
   }
 
-  .before-after {
-    grid-template-columns: 1fr;
-    gap: var(--space-lg);
-  }
-
-  .transformation-arrow {
-    transform: rotate(90deg);
-  }
-
   .network-node {
     width: 24px;
     height: 24px;
@@ -897,6 +938,14 @@ section + .organic-divider {
   transform: translateY(2px);
 }
 
+/* Cost Chart Styles */
+.cost-chart {
+  max-width: 100%;
+  height: auto;
+}
+
+
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .scroll-indicator {
@@ -914,5 +963,9 @@ section + .organic-divider {
 
   .scroll-text {
     font-size: 0.75rem;
+  }
+
+  .cost-chart {
+    height: 150px;
   }
 }

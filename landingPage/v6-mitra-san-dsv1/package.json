@@ -1,0 +1,13 @@
+{
+  "name": "hellointi-landing-v6",
+  "version": "1.0.0",
+  "description": "Basic Node.js server for serving hello Inti landing page v6-mitra-san-dsv1 locally",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
