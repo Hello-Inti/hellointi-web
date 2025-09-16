@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/home/wunluv/DEV/"
+      ],
+      "disabled": false,
+      "alwaysAllow": []
+    }
+  }
+}

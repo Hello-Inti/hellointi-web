@@ -721,6 +721,7 @@ document.addEventListener('error', (e) => {
 // Peer Activation Before/After GSAP animation
 function initPeerActivationAnimation() {
   try {
+    gsap.registerPlugin(ScrollTrigger);
     const container = document.getElementById('peerActivation');
     const svg = document.getElementById('peerActivationSvg');
     if (!container || !svg || typeof gsap === 'undefined') return;
@@ -829,7 +830,7 @@ function initPeerActivationAnimation() {
   gsap.set(afterLabel, { opacity: 0.35 });
 
   // Timeline: Before -> Transition -> After (no reset)
-  const tl = gsap.timeline();
+  const tl = gsap.timeline({ paused: true });
 
   // Sequence #1: Before (fragmented) - reveal scattered nodes
   tl.to(nodes, {
@@ -897,9 +898,6 @@ function initPeerActivationAnimation() {
     stagger: 0.015
   });
 
-  // Hold in the connected state indefinitely
-  tl.to({}, { duration: 0 });
-
   // Respect reduced motion: render static "after" frame with links and final colors
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   if (prefersReduced.matches) {
@@ -918,6 +916,18 @@ function initPeerActivationAnimation() {
     });
     gsap.set(beforeLabel, { opacity: 0.35 });
     gsap.set(afterLabel, { opacity: 1 });
+  } else {
+    // Set up ScrollTrigger to play animation when section is fully visible
+    ScrollTrigger.create({
+      trigger: container,
+      start: "top center",
+      onEnter: () => {
+        setTimeout(() => {
+          tl.play();
+        }, 500);
+      },
+      once: true
+    });
   }
   } catch (error) {
     console.error('Error initializing peer activation animation:', error);
