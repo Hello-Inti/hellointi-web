@@ -1,2 +1,5 @@
 .roo/*
 node_modules
+server.js
+package.json
+pnpm-lock.yaml

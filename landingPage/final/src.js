@@ -1,3 +1,8 @@
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
 // Enhanced helloInti Landing Page JavaScript
 // Adds smooth interactions, animations, and accessibility features
 'use strict';
@@ -169,11 +174,79 @@ function initNetworkAnimation() {
       this.connections = [];
       this.connectionsSvg = document.getElementById('connectionsSvg');
       this.isTransformed = false;
+      this.animationFrameId = null;
+      this.updatePending = false;
+      this.isAnimationPaused = false;
+      this.isAnimationComplete = false;
+      this.animationTimeouts = [];
+      this.gsapAnimations = [];
 
       if (!this.connectionsSvg) return;
 
       this.init();
+      this.setupViewportObserver();
       this.startAnimation();
+    }
+
+    setupViewportObserver() {
+      // Create an intersection observer to detect when hero section is in viewport
+      const heroSection = document.querySelector('.hero-section');
+      if (!heroSection) return;
+
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1 // Trigger when at least 10% of the section is visible
+      };
+
+      this.viewportObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && this.isAnimationPaused) {
+            // Resume animations when in viewport
+            this.resumeAnimations();
+          } else if (!entry.isIntersecting && !this.isAnimationPaused) {
+            // Pause animations when out of viewport
+            this.pauseAnimations();
+          }
+        });
+      }, observerOptions);
+
+      this.viewportObserver.observe(heroSection);
+    }
+
+    pauseAnimations() {
+      this.isAnimationPaused = true;
+
+      // Pause all GSAP animations on nodes
+      this.nodes.forEach(node => {
+        const tweens = gsap.getTweensOf(node);
+        tweens.forEach(tween => tween.pause());
+      });
+
+      // Clear any pending animation frames
+      if (this.animationFrameId) {
+        cancelAnimationFrame(this.animationFrameId);
+        this.animationFrameId = null;
+      }
+
+      // Clear all timeouts
+      this.animationTimeouts.forEach(timeout => clearTimeout(timeout));
+      this.animationTimeouts = [];
+    }
+
+    resumeAnimations() {
+      this.isAnimationPaused = false;
+
+      // Resume all GSAP animations on nodes
+      this.nodes.forEach(node => {
+        const tweens = gsap.getTweensOf(node);
+        tweens.forEach(tween => tween.resume());
+      });
+
+      // Resume any pending connection updates
+      if (this.updatePending) {
+        this.batchUpdateConnectionPositions();
+      }
     }
 
     init() {
@@ -182,11 +255,11 @@ function initNetworkAnimation() {
 
       if (this.nodes.length === 0) return;
 
-      // Position nodes randomly without overlap
-      this.positionNodesRandomly();
+      // Position nodes using efficient grid-based approach with randomization
+      this.positionNodesEfficiently();
 
-      // Generate connection lines
-      this.generateConnections();
+      // Generate selective connections (not all pairs)
+      this.generateSelectiveConnections();
 
       // Start individual pulsing animations immediately
       this.startIndividualPulsing();
@@ -197,54 +270,53 @@ function initNetworkAnimation() {
       }, 5000); // Increased to 5 seconds total (3 seconds for connections + 2 seconds buffer)
     }
 
-    positionNodesRandomly() {
+    positionNodesEfficiently() {
       const container = document.querySelector('.network-animation');
       const containerRect = container.getBoundingClientRect();
       const nodeSize = 29; // Updated for 20% larger nodes
-      const margin = nodeSize + 10;
+      const margin = nodeSize + 15;
       const positions = [];
 
+      // Calculate optimal grid dimensions
+      const nodeCount = this.nodes.length;
+      const cols = Math.ceil(Math.sqrt(nodeCount * 1.5)); // Slightly wider grid
+      const rows = Math.ceil(nodeCount / cols);
+
+      // Calculate cell dimensions
+      const cellWidth = (containerRect.width - 2 * margin) / cols;
+      const cellHeight = (containerRect.height - 2 * margin) / rows;
+
       this.nodes.forEach((node, index) => {
-        let x, y, attempts = 0;
-        let validPosition = false;
+        // Calculate base grid position
+        const row = Math.floor(index / cols);
+        const col = index % cols;
 
-        // Try to find a non-overlapping position
-        while (!validPosition && attempts < 50) {
-          x = margin + Math.random() * (containerRect.width - 2 * margin);
-          y = margin + Math.random() * (containerRect.height - 2 * margin);
+        // Add randomization within cell boundaries to avoid rigid grid look
+        const randomOffsetX = (Math.random() - 0.5) * cellWidth * 0.6;
+        const randomOffsetY = (Math.random() - 0.5) * cellHeight * 0.6;
 
-          // Check for overlaps with existing positions
-          validPosition = positions.every(pos => {
-            const distance = Math.sqrt(Math.pow(x - pos.x, 2) + Math.pow(y - pos.y, 2));
-            return distance >= nodeSize * 2;
-          });
+        const x = margin + (col + 0.5) * cellWidth + randomOffsetX;
+        const y = margin + (row + 0.5) * cellHeight + randomOffsetY;
 
-          attempts++;
-        }
+        // Ensure position stays within container bounds
+        const finalX = Math.max(margin, Math.min(containerRect.width - margin, x));
+        const finalY = Math.max(margin, Math.min(containerRect.height - margin, y));
 
-        // If we couldn't find a non-overlapping position, use a grid fallback
-        if (!validPosition) {
-          const cols = 4;
-          const row = Math.floor(index / cols);
-          const col = index % cols;
-          x = (containerRect.width / cols) * col + (containerRect.width / cols) / 2;
-          y = (containerRect.height / 3) * row + (containerRect.height / 6);
-        }
-
-        positions.push({ x, y });
-        node.style.left = `${x - nodeSize/2}px`;
-        node.style.top = `${y - nodeSize/2}px`;
+        positions.push({ x: finalX, y: finalY });
+        node.style.left = `${finalX - nodeSize/2}px`;
+        node.style.top = `${finalY - nodeSize/2}px`;
       });
 
       this.nodePositions = positions;
     }
 
-    generateConnections() {
+    generateSelectiveConnections() {
       // Clear existing connections
       this.connectionsSvg.innerHTML = '';
       this.connections = [];
 
-      // Create connection lines between all nodes
+      // Create ALL pairwise connections for full network effect (n*(n-1)/2)
+      // This maintains the visual impact while using optimized update methods
       for (let i = 0; i < this.nodes.length; i++) {
         for (let j = i + 1; j < this.nodes.length; j++) {
           const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
@@ -256,10 +328,25 @@ function initNetworkAnimation() {
         }
       }
 
-      this.updateConnectionPositions();
+      // Use batched updates for better performance even with all connections
+      this.batchUpdateConnectionPositions();
+    }
+
+    batchUpdateConnectionPositions() {
+      // Use requestAnimationFrame for smooth updates
+      if (!this.updatePending && !this.isAnimationPaused && !this.isAnimationComplete) {
+        this.updatePending = true;
+        this.animationFrameId = requestAnimationFrame(() => {
+          if (!this.isAnimationPaused && !this.isAnimationComplete) {
+            this.updateConnectionPositions();
+          }
+          this.updatePending = false;
+        });
+      }
     }
 
     updateConnectionPositions() {
+      // Update all connections in a single batch
       this.connections.forEach(line => {
         const fromIndex = parseInt(line.getAttribute('data-from'));
         const toIndex = parseInt(line.getAttribute('data-to'));
@@ -308,28 +395,40 @@ function initNetworkAnimation() {
       if (this.isTransformed) return;
 
       // Phase 1: Gradually activate connections (weeks 1-4) - starts 3 seconds after page load
-      setTimeout(() => {
-        this.activateConnectionsGradually();
+      const timeout1 = setTimeout(() => {
+        if (!this.isAnimationPaused) {
+          this.activateConnectionsGradually();
+        }
       }, 3000);
+      this.animationTimeouts.push(timeout1);
 
       // Phase 2: Move to coordinated positions (weeks 5-6)
-      setTimeout(() => {
-        this.moveToCoordinatedPositions();
+      const timeout2 = setTimeout(() => {
+        if (!this.isAnimationPaused) {
+          this.moveToCoordinatedPositions();
+        }
       }, 7000);
+      this.animationTimeouts.push(timeout2);
 
       // Phase 3: Synchronized super organism (week 7)
-      setTimeout(() => {
-        this.activateSuperOrganism();
+      const timeout3 = setTimeout(() => {
+        if (!this.isAnimationPaused) {
+          this.activateSuperOrganism();
+        }
       }, 11000);
+      this.animationTimeouts.push(timeout3);
     }
 
     activateConnectionsGradually() {
       const shuffledConnections = [...this.connections].sort(() => Math.random() - 0.5);
 
       shuffledConnections.forEach((connection, index) => {
-        setTimeout(() => {
-          connection.classList.add('active');
+        const timeout = setTimeout(() => {
+          if (!this.isAnimationPaused) {
+            connection.classList.add('active');
+          }
         }, index * 200); // Increased from 100ms to 200ms (50% slower)
+        this.animationTimeouts.push(timeout);
       });
     }
 
@@ -340,38 +439,68 @@ function initNetworkAnimation() {
       const centerY = containerRect.height / 2;
       const radius = Math.min(containerRect.width, containerRect.height) * 0.35;
 
-      // Create a timeline for coordinated movement with sticky connections
+      // Create a timeline for coordinated movement with optimized updates
       const tl = gsap.timeline();
+
+      // Track update frequency to avoid excessive updates
+      let lastUpdateTime = 0;
+      const updateThrottle = 50; // Update at most every 50ms (20fps for connections)
 
       this.nodes.forEach((node, index) => {
         const angle = (index / this.nodes.length) * Math.PI * 2;
         const targetX = centerX + Math.cos(angle) * radius;
         const targetY = centerY + Math.sin(angle) * radius;
 
-        // Animate to new position with continuous connection updates
+        // Animate to new position with throttled connection updates
         tl.to(node, {
           left: `${targetX - 14.5}px`, // Half of 29px
           top: `${targetY - 14.5}px`,  // Half of 29px
           duration: 2,
           ease: "power2.inOut",
           onUpdate: () => {
+            const now = Date.now();
+
             // Update this node's position in our tracking array
             const currentLeft = parseFloat(node.style.left) + 14.5;
             const currentTop = parseFloat(node.style.top) + 14.5;
             this.nodePositions[index] = { x: currentLeft, y: currentTop };
 
-            // Update all connection positions to keep them sticky
-            this.updateConnectionPositions();
+            // Throttle connection updates to improve performance
+            if (now - lastUpdateTime > updateThrottle) {
+              this.batchUpdateConnectionPositions();
+              lastUpdateTime = now;
+            }
           },
           onComplete: () => {
             // Ensure final position is exactly where we want it
             this.nodePositions[index] = { x: targetX, y: targetY };
-            this.updateConnectionPositions();
+            // Final update to ensure connections are in correct position
+            this.batchUpdateConnectionPositions();
           }
         }, index * 0.1);
       });
 
       return tl;
+    }
+
+    // Clean up animation frames and observers when needed
+    destroy() {
+      // Pause all animations first
+      this.pauseAnimations();
+
+      // Disconnect viewport observer
+      if (this.viewportObserver) {
+        this.viewportObserver.disconnect();
+      }
+
+      // Kill all GSAP animations on nodes
+      this.nodes.forEach(node => {
+        gsap.killTweensOf(node);
+      });
+
+      // Clear all timeouts
+      this.animationTimeouts.forEach(timeout => clearTimeout(timeout));
+      this.animationTimeouts = [];
     }
 
     activateSuperOrganism() {
@@ -381,36 +510,73 @@ function initNetworkAnimation() {
       const shuffledConnections = [...this.connections].sort(() => Math.random() - 0.5);
 
       shuffledConnections.forEach((connection, index) => {
-        setTimeout(() => {
-          connection.classList.remove('active');
-          connection.classList.add('super-organism');
+        const timeout = setTimeout(() => {
+          if (!this.isAnimationPaused) {
+            connection.classList.remove('active');
+            connection.classList.add('super-organism');
+          }
         }, index * 150); // 150ms delay between each connection upgrade
+        this.animationTimeouts.push(timeout);
       });
 
       // Start synchronized pulsing after all connections are upgraded
       const totalUpgradeTime = shuffledConnections.length * 150;
-      setTimeout(() => {
-        // Kill individual pulsing animations and start synchronized pulsing
-        this.nodes.forEach(node => {
-          // Kill existing GSAP animations on this node
-          gsap.killTweensOf(node);
+      const finalTimeout = setTimeout(() => {
+        if (!this.isAnimationPaused) {
+          // Kill individual pulsing animations and start synchronized pulsing
+          this.nodes.forEach(node => {
+            // Kill existing GSAP animations on this node
+            gsap.killTweensOf(node);
 
-          // Reset scale to 1
-          gsap.set(node, { scale: 1 });
+            // Reset scale to 1
+            gsap.set(node, { scale: 1 });
 
-          // Start synchronized pulsing with GSAP (2x faster)
-          gsap.to(node, {
-            scale: 1.15,
-            duration: 0.5, // 2x faster
-            ease: "power2.inOut",
-            yoyo: true,
-            repeat: -1,
-            transformOrigin: "center center"
+            // Start synchronized pulsing with GSAP - limited duration
+            gsap.to(node, {
+              scale: 1.15,
+              duration: 0.5,
+              ease: "power2.inOut",
+              yoyo: true,
+              repeat: 5, // Only pulse 3 times (5 repeats = 3 full cycles)
+              transformOrigin: "center center",
+              onComplete: () => {
+                // Return to normal scale when pulsing completes
+                gsap.to(node, {
+                  scale: 1,
+                  duration: 0.3,
+                  ease: "power2.out",
+                  onComplete: () => {
+                    // Kill all tweens on this node to prevent any lingering animations
+                    gsap.killTweensOf(node);
+                  }
+                });
+              }
+            });
           });
-        });
 
-        console.log('Super organism state activated');
+          // Mark animation as fully complete after pulsing ends
+          const pulsingDuration = (0.5 * 2) * 6; // 6 seconds total (3 full pulse cycles)
+          const completionTimeout = setTimeout(() => {
+            this.isAnimationComplete = true;
+
+            // Kill ALL GSAP animations on all nodes to prevent any lingering updates
+            this.nodes.forEach(node => {
+              gsap.killTweensOf(node);
+            });
+
+            // Stop any remaining connection position updates
+            if (this.animationFrameId) {
+              cancelAnimationFrame(this.animationFrameId);
+              this.animationFrameId = null;
+            }
+
+            // Clear the updatePending flag
+            this.updatePending = false;
+          }, pulsingDuration * 1000);
+          this.animationTimeouts.push(completionTimeout);
+        }
       }, totalUpgradeTime + 200); // Small buffer after all connections are upgraded
+      this.animationTimeouts.push(finalTimeout);
     }
   }
 
@@ -726,209 +892,209 @@ function initPeerActivationAnimation() {
     const svg = document.getElementById('peerActivationSvg');
     if (!container || !svg || typeof gsap === 'undefined') return;
 
-  const nodesGroup = svg.querySelector('#nodes');
-  const linksGroup = svg.querySelector('#links');
-  const beforeLabel = container.querySelector('.label-before');
-  const afterLabel = container.querySelector('.label-after');
+    const nodesGroup = svg.querySelector('#nodes');
+    const linksGroup = svg.querySelector('#links');
+    const beforeLabel = container.querySelector('.label-before');
+    const afterLabel = container.querySelector('.label-after');
 
-  // Work in viewBox coordinates for crisp rendering
-  const width = 600;
-  const height = 320;
-  const nodeCount = 12;
-  const radius = 7;
+    // Work in viewBox coordinates for crisp rendering
+    const width = 600;
+    const height = 320;
+    const nodeCount = 12;
+    const radius = 7;
 
-  const brandColors = [
-    getComputedStyle(document.documentElement).getPropertyValue('--color-poppy').trim() || '#E65C4F',
-    getComputedStyle(document.documentElement).getPropertyValue('--color-sunbeam').trim() || '#F2B705',
-    getComputedStyle(document.documentElement).getPropertyValue('--color-peach').trim() || '#F2A08D',
-    getComputedStyle(document.documentElement).getPropertyValue('--color-avocado').trim() || '#A6A61B',
-    getComputedStyle(document.documentElement).getPropertyValue('--color-lavender').trim() || '#D4C1EC'
-  ];
+    const brandColors = [
+      getComputedStyle(document.documentElement).getPropertyValue('--color-poppy').trim() || '#E65C4F',
+      getComputedStyle(document.documentElement).getPropertyValue('--color-sunbeam').trim() || '#F2B705',
+      getComputedStyle(document.documentElement).getPropertyValue('--color-peach').trim() || '#F2A08D',
+      getComputedStyle(document.documentElement).getPropertyValue('--color-avocado').trim() || '#A6A61B',
+      getComputedStyle(document.documentElement).getPropertyValue('--color-lavender').trim() || '#D4C1EC'
+    ];
 
-  // Build node elements - start in greyscale
-  const nodes = [];
-  const greyColors = ['#666666', '#777777', '#888888', '#999999', '#aaaaaa']; // Greyscale colors
+    // Build node elements - start in greyscale
+    const nodes = [];
+    const greyColors = ['#666666', '#777777', '#888888', '#999999', '#aaaaaa']; // Greyscale colors
 
-  for (let i = 0; i < nodeCount; i++) {
-    const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    c.setAttribute('r', radius);
-    c.setAttribute('cx', 0);
-    c.setAttribute('cy', 0);
-    c.setAttribute('fill', greyColors[i % greyColors.length]); // Start greyscale
-    c.setAttribute('opacity', '0');
-    c.style.filter = 'drop-shadow(0 1px 2px rgba(64,63,62,0.25))';
-    nodesGroup.appendChild(c);
-    nodes.push(c);
-  }
+    for (let i = 0; i < nodeCount; i++) {
+      const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      c.setAttribute('r', radius);
+      c.setAttribute('cx', 0);
+      c.setAttribute('cy', 0);
+      c.setAttribute('fill', greyColors[i % greyColors.length]); // Start greyscale
+      c.setAttribute('opacity', '0');
+      c.style.filter = 'drop-shadow(0 1px 2px rgba(64,63,62,0.25))';
+      nodesGroup.appendChild(c);
+      nodes.push(c);
+    }
 
-  // Connection pairs: ring + cross-links for a lively network
-  const linkPairs = [];
-  for (let i = 0; i < nodeCount; i++) {
-    linkPairs.push([i, (i + 1) % nodeCount]); // ring
-  }
-  for (let i = 0; i < nodeCount / 2; i++) {
-    linkPairs.push([i, (i + nodeCount / 2) % nodeCount]); // diameters
-  }
+    // Connection pairs: ring + cross-links for a lively network
+    const linkPairs = [];
+    for (let i = 0; i < nodeCount; i++) {
+      linkPairs.push([i, (i + 1) % nodeCount]); // ring
+    }
+    for (let i = 0; i < nodeCount / 2; i++) {
+      linkPairs.push([i, (i + nodeCount / 2) % nodeCount]); // diameters
+    }
 
-  const links = linkPairs.map(([a, b]) => {
-    const l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-    l.setAttribute('x1', '0');
-    l.setAttribute('y1', '0');
-    l.setAttribute('x2', '0');
-    l.setAttribute('y2', '0');
-    l.setAttribute('stroke', getComputedStyle(document.documentElement).getPropertyValue('--color-avocado').trim() || '#A6A61B');
-    l.setAttribute('stroke-width', '2');
-    l.setAttribute('opacity', '0');
-    l.setAttribute('vector-effect', 'non-scaling-stroke');
-    linksGroup.appendChild(l);
-    return { el: l, a, b };
-  });
-
-  const pad = 28;
-
-  function randomScatter() {
-    // Scatter on the left side to reinforce "Before"
-    const usableW = width * 0.44;
-    return nodes.map(() => ({
-      x: pad + Math.random() * Math.max(usableW - pad * 2, 40),
-      y: pad + Math.random() * Math.max(height - pad * 2, 40)
-    }));
-  }
-
-  function circlePositions() {
-    // Circle on the right side to reinforce "After"
-    const cx = width * 0.74;
-    const cy = height / 2;
-    const R = Math.min(width, height) * 0.28;
-    return nodes.map((_, i) => {
-      const angle = (i / nodeCount) * Math.PI * 2;
-      return { x: cx + Math.cos(angle) * R, y: cy + Math.sin(angle) * R };
+    const links = linkPairs.map(([a, b]) => {
+      const l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      l.setAttribute('x1', '0');
+      l.setAttribute('y1', '0');
+      l.setAttribute('x2', '0');
+      l.setAttribute('y2', '0');
+      l.setAttribute('stroke', getComputedStyle(document.documentElement).getPropertyValue('--color-avocado').trim() || '#A6A61B');
+      l.setAttribute('stroke-width', '2');
+      l.setAttribute('opacity', '0');
+      l.setAttribute('vector-effect', 'non-scaling-stroke');
+      linksGroup.appendChild(l);
+      return { el: l, a, b };
     });
-  }
 
-  function updateLinkPositions(posSet) {
-    links.forEach(({ el, a, b }) => {
-      el.setAttribute('x1', posSet[a].x);
-      el.setAttribute('y1', posSet[a].y);
-      el.setAttribute('x2', posSet[b].x);
-      el.setAttribute('y2', posSet[b].y);
-    });
-  }
+    const pad = 28;
 
-  let scatter = randomScatter();
-  let cluster = circlePositions();
+    function randomScatter() {
+      // Scatter on the left side to reinforce "Before"
+      const usableW = width * 0.44;
+      return nodes.map(() => ({
+        x: pad + Math.random() * Math.max(usableW - pad * 2, 40),
+        y: pad + Math.random() * Math.max(height - pad * 2, 40)
+      }));
+    }
 
-  // Initialize to scattered positions
-  nodes.forEach((n, i) => {
-    n.setAttribute('cx', scatter[i].x);
-    n.setAttribute('cy', scatter[i].y);
-  });
-  updateLinkPositions(scatter);
-
-  // Label states
-  gsap.set(beforeLabel, { opacity: 1 });
-  gsap.set(afterLabel, { opacity: 0.35 });
-
-  // Timeline: Before -> Transition -> After (no reset)
-  const tl = gsap.timeline({ paused: true });
-
-  // Sequence #1: Before (fragmented) - reveal scattered nodes
-  tl.to(nodes, {
-    opacity: 1,
-    duration: 0.6,
-    stagger: 0.04,
-    ease: 'power2.out',
-    onStart: () => {
-      gsap.to(beforeLabel, { opacity: 1, duration: 0.4, ease: 'power1.out' });
-      gsap.to(afterLabel, { opacity: 0.35, duration: 0.4, ease: 'power1.out' });
-      links.forEach(({ el }) => {
-        gsap.set(el, { opacity: 0, strokeDasharray: 0, strokeDashoffset: 0 });
+    function circlePositions() {
+      // Circle on the right side to reinforce "After"
+      const cx = width * 0.74;
+      const cy = height / 2;
+      const R = Math.min(width, height) * 0.28;
+      return nodes.map((_, i) => {
+        const angle = (i / nodeCount) * Math.PI * 2;
+        return { x: cx + Math.cos(angle) * R, y: cy + Math.sin(angle) * R };
       });
     }
-  });
 
-  // Brief hold
-  tl.to({}, { duration: 0.5 });
-
-  // Sequence #2: Transition nodes to a connected cluster (circle)
-  tl.to(nodes, {
-    duration: 1.5,
-    ease: 'power2.inOut',
-    stagger: { each: 0.035, from: 'random' },
-    // animate circle center positions using attr plugin
-    attr: (i) => ({ cx: cluster[i].x, cy: cluster[i].y }),
-    onStart: () => {
-      gsap.to(beforeLabel, { opacity: 0.35, duration: 0.6, ease: 'power1.out' });
-      gsap.to(afterLabel, { opacity: 1, duration: 0.6, ease: 'power1.out' });
-    },
-    onUpdate: () => {
-      const current = nodes.map(n => ({
-        x: parseFloat(n.getAttribute('cx')),
-        y: parseFloat(n.getAttribute('cy'))
-      }));
-      updateLinkPositions(current);
+    function updateLinkPositions(posSet) {
+      links.forEach(({ el, a, b }) => {
+        el.setAttribute('x1', posSet[a].x);
+        el.setAttribute('y1', posSet[a].y);
+        el.setAttribute('x2', posSet[b].x);
+        el.setAttribute('y2', posSet[b].y);
+      });
     }
-  })
-  // Add color transition during the movement
-  .to(nodes, {
-    duration: 1.5,
-    ease: 'power2.inOut',
-    stagger: { each: 0.035, from: 'random' },
-    attr: (i) => ({ fill: brandColors[i % brandColors.length] }),
-  }, '<'); // Start at the same time as the movement animation
 
-  // Sequence #3: Draw links between nodes
-  tl.add(() => {
-    // Prepare dash for draw animation
-    links.forEach(({ el }) => {
-      const x1 = parseFloat(el.getAttribute('x1'));
-      const y1 = parseFloat(el.getAttribute('y1'));
-      const x2 = parseFloat(el.getAttribute('x2'));
-      const y2 = parseFloat(el.getAttribute('y2'));
-      const len = Math.hypot(x2 - x1, y2 - y1);
-      el.setAttribute('stroke-dasharray', `${len}`);
-      el.setAttribute('stroke-dashoffset', `${len}`);
-    });
-  });
-  tl.to(links.map(l => l.el), {
-    opacity: 1,
-    strokeDashoffset: 0,
-    duration: 0.9,
-    ease: 'power2.out',
-    stagger: 0.015
-  });
+    let scatter = randomScatter();
+    let cluster = circlePositions();
 
-  // Respect reduced motion: render static "after" frame with links and final colors
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-  if (prefersReduced.matches) {
-    tl.kill();
+    // Initialize to scattered positions
     nodes.forEach((n, i) => {
-      n.setAttribute('cx', cluster[i].x);
-      n.setAttribute('cy', cluster[i].y);
-      n.setAttribute('fill', brandColors[i % brandColors.length]); // Set final colors
-      n.setAttribute('opacity', '1');
+      n.setAttribute('cx', scatter[i].x);
+      n.setAttribute('cy', scatter[i].y);
     });
-    updateLinkPositions(cluster);
-    links.forEach(({ el }) => {
-      el.setAttribute('opacity', '1');
-      el.removeAttribute('stroke-dasharray');
-      el.removeAttribute('stroke-dashoffset');
+    updateLinkPositions(scatter);
+
+    // Label states
+    gsap.set(beforeLabel, { opacity: 1 });
+    gsap.set(afterLabel, { opacity: 0.35 });
+
+    // Timeline: Before -> Transition -> After (no reset)
+    const tl = gsap.timeline({ paused: true });
+
+    // Sequence #1: Before (fragmented) - reveal scattered nodes
+    tl.to(nodes, {
+      opacity: 1,
+      duration: 0.6,
+      stagger: 0.04,
+      ease: 'power2.out',
+      onStart: () => {
+        gsap.to(beforeLabel, { opacity: 1, duration: 0.4, ease: 'power1.out' });
+        gsap.to(afterLabel, { opacity: 0.35, duration: 0.4, ease: 'power1.out' });
+        links.forEach(({ el }) => {
+          gsap.set(el, { opacity: 0, strokeDasharray: 0, strokeDashoffset: 0 });
+        });
+      }
     });
-    gsap.set(beforeLabel, { opacity: 0.35 });
-    gsap.set(afterLabel, { opacity: 1 });
-  } else {
-    // Set up ScrollTrigger to play animation when section is fully visible
-    ScrollTrigger.create({
-      trigger: container,
-      start: "top center",
-      onEnter: () => {
-        setTimeout(() => {
-          tl.play();
-        }, 500);
+
+    // Brief hold
+    tl.to({}, { duration: 0.5 });
+
+    // Sequence #2: Transition nodes to a connected cluster (circle)
+    tl.to(nodes, {
+      duration: 1.5,
+      ease: 'power2.inOut',
+      stagger: { each: 0.035, from: 'random' },
+      // animate circle center positions using attr plugin
+      attr: (i) => ({ cx: cluster[i].x, cy: cluster[i].y }),
+      onStart: () => {
+        gsap.to(beforeLabel, { opacity: 0.35, duration: 0.6, ease: 'power1.out' });
+        gsap.to(afterLabel, { opacity: 1, duration: 0.6, ease: 'power1.out' });
       },
-      once: true
+      onUpdate: () => {
+        const current = nodes.map(n => ({
+          x: parseFloat(n.getAttribute('cx')),
+          y: parseFloat(n.getAttribute('cy'))
+        }));
+        updateLinkPositions(current);
+      }
+    })
+    // Add color transition during the movement
+    .to(nodes, {
+      duration: 1.5,
+      ease: 'power2.inOut',
+      stagger: { each: 0.035, from: 'random' },
+      attr: (i) => ({ fill: brandColors[i % brandColors.length] }),
+    }, '<'); // Start at the same time as the movement animation
+
+    // Sequence #3: Draw links between nodes
+    tl.add(() => {
+      // Prepare dash for draw animation
+      links.forEach(({ el }) => {
+        const x1 = parseFloat(el.getAttribute('x1'));
+        const y1 = parseFloat(el.getAttribute('y1'));
+        const x2 = parseFloat(el.getAttribute('x2'));
+        const y2 = parseFloat(el.getAttribute('y2'));
+        const len = Math.hypot(x2 - x1, y2 - y1);
+        el.setAttribute('stroke-dasharray', `${len}`);
+        el.setAttribute('stroke-dashoffset', `${len}`);
+      });
     });
-  }
+    tl.to(links.map(l => l.el), {
+      opacity: 1,
+      strokeDashoffset: 0,
+      duration: 0.9,
+      ease: 'power2.out',
+      stagger: 0.015
+    });
+
+    // Respect reduced motion: render static "after" frame with links and final colors
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (prefersReduced.matches) {
+      tl.kill();
+      nodes.forEach((n, i) => {
+        n.setAttribute('cx', cluster[i].x);
+        n.setAttribute('cy', cluster[i].y);
+        n.setAttribute('fill', brandColors[i % brandColors.length]); // Set final colors
+        n.setAttribute('opacity', '1');
+      });
+      updateLinkPositions(cluster);
+      links.forEach(({ el }) => {
+        el.setAttribute('opacity', '1');
+        el.removeAttribute('stroke-dasharray');
+        el.removeAttribute('stroke-dashoffset');
+      });
+      gsap.set(beforeLabel, { opacity: 0.35 });
+      gsap.set(afterLabel, { opacity: 1 });
+    } else {
+      // Set up ScrollTrigger to play animation when section is fully visible
+      ScrollTrigger.create({
+        trigger: container,
+        start: "top center",
+        onEnter: () => {
+          setTimeout(() => {
+            tl.play();
+          }, 500);
+        },
+        once: true
+      });
+    }
   } catch (error) {
     console.error('Error initializing peer activation animation:', error);
   }

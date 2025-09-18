@@ -1,4 +1,6 @@
-/* Enhanced helloInti Landing Page Styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* CSS Variables (Design Tokens) */
 :root {
@@ -767,13 +769,11 @@ section {
   position: relative;
 }
 
-/* Better rhythm for section padding */
 section:not(.hero-section) {
   padding-top: var(--space-3xl);
   padding-bottom: var(--space-3xl);
 }
 
-/* Reduce excessive spacing around transitions */
 .section-transition + section,
 .organic-divider + section {
   padding-top: var(--space-2xl);
@@ -938,14 +938,6 @@ section + .organic-divider {
   transform: translateY(2px);
 }
 
-/* Cost Chart Styles */
-.cost-chart {
-  max-width: 100%;
-  height: auto;
-}
-
-
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .scroll-indicator {
@@ -963,9 +955,5 @@ section + .organic-divider {
 
   .scroll-text {
     font-size: 0.75rem;
-  }
-
-  .cost-chart {
-    height: 150px;
   }
 }
