@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hello Inti | Transform Your Network Into a Living Ecosystem</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Remove conflicting CSS transitions for GSAP animations */
+        .network-node {
+            transition: none !important;
+        }
+    </style>
+</head>
+<body class="font-body text-charcoal bg-eggshell">
+    <!-- Hero Section -->
+    <section id="hero-section" class="hero-section pt-20 pb-24 md:pt-32 md:pb-32 overflow-hidden min-h-screen">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-8">
+                        <div class="space-y-6">
+                            <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-semibold leading-tight">
+                                Transform Your Network Into a
+                                <span class="text-avocado relative" id="livingEcosystem">
+                                    Living Ecosystem
+                                    <div class="absolute -bottom-2 left-0 w-full h-1 bg-sunbeam/30 rounded transform rotate-1"></div>
+                                </span>
+                            </h1>
+                            <p class="text-xl md:text-2xl text-charcoal/80 leading-relaxed ml-4">
+                                Stop watching your community <span class="drift-left">drift</span> ... <span class="drift-right">apart</span>. <span class="text-avocado relative">Activate</span> dormant connections and ✨spark✨ chain reactions of collaboration through our proven peer-to-peer activation system.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <div class="hero-visual">
+                            <div class="network-animation">
+                                <!-- SVG for connection lines -->
+                                <svg class="connections-svg" id="connectionsSvg">
+                                    <!-- Connection lines will be dynamically generated -->
+                                </svg>
+
+                                <!-- Network nodes - 12 people with random colors and positions -->
+                                <div class="network-node color-poppy" id="node1"></div>
+                                <div class="network-node color-sunbeam" id="node2"></div>
+                                <div class="network-node color-peach" id="node3"></div>
+                                <div class="network-node color-avocado" id="node4"></div>
+                                <div class="network-node color-lavender" id="node5"></div>
+                                <div class="network-node color-poppy" id="node6"></div>
+                                <div class="network-node color-sunbeam" id="node7"></div>
+                                <div class="network-node color-peach" id="node8"></div>
+                                <div class="network-node color-avocado" id="node9"></div>
+                                <div class="network-node color-lavender" id="node10"></div>
+                                <div class="network-node color-poppy" id="node11"></div>
+                                <div class="network-node color-sunbeam" id="node12"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        'use strict';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initOptimizedNetworkAnimation();
+        });
+
+        function initOptimizedNetworkAnimation() {
+            const container = document.querySelector('.network-animation');
+            if (!container) {
+                console.warn('Network animation container not found');
+                return;
+            }
+
+            const animation = new OptimizedNetworkAnimation();
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        console.log('Hero section is visible, starting animation...');
+                        animation.start();
+                        observer.unobserve(container); // Run only once
+                    }
+                });
+            }, { threshold: animation.CONFIG.INTERSECTION_THRESHOLD });
+
+            animation.observer = observer;
+            observer.observe(container);
+        }
+
+        class OptimizedNetworkAnimation {
+            constructor() {
+                // Configuration constants
+                this.CONFIG = {
+                    NODE_SIZE: 29,
+                    MAX_CONNECTIONS: 24,
+                    CONNECTION_DISTANCE_THRESHOLD: 150,
+                    ANIMATION_DELAY: 0.1,
+                    PULSE_SCALE: 1.15,
+                    INTERSECTION_THRESHOLD: 0.1
+                };
+
+                this.container = document.querySelector('.network-animation');
+                this.nodes = Array.from(this.container?.querySelectorAll('.network-node') || []);
+                this.connectionsSvg = document.getElementById('connectionsSvg');
+                this.connections = [];
+                this.nodePositions = [];
+                this.isTransformed = false;
+                this.masterTimeline = gsap.timeline({ paused: true });
+                this.frameCount = 0; // For throttling updates
+                this.observer = null;
+                this.animationRunning = false;
+            }
+
+            init() {
+                if (this.nodes.length === 0 || !this.connectionsSvg) return;
+
+                this.setupNodes();
+                this.generateConnections();
+                this.buildMasterTimeline();
+                this.updateAllConnections(); // Set initial line positions
+            }
+
+            setupNodes() {
+                if (!this.container) return;
+
+                const containerRect = this.container.getBoundingClientRect();
+                const nodeSize = this.CONFIG.NODE_SIZE;
+                const margin = nodeSize + 10;
+                const positions = [];
+
+                this.nodes.forEach((node, index) => {
+                    let x, y, attempts = 0;
+                    let validPosition = false;
+
+                    while (!validPosition && attempts < 50) {
+                        x = margin + Math.random() * (containerRect.width - 2 * margin);
+                        y = margin + Math.random() * (containerRect.height - 2 * margin);
+                        validPosition = positions.every(pos => Math.hypot(x - pos.x, y - pos.y) >= nodeSize * 2);
+                        attempts++;
+                    }
+
+                    if (!validPosition) {
+                        const cols = 4;
+                        const row = Math.floor(index / cols);
+                        const col = index % cols;
+                        x = (containerRect.width / cols) * (col + 0.5);
+                        y = (containerRect.height / 3) * (row + 0.5);
+                    }
+
+                    positions.push({ x, y });
+                    // Use transforms for positioning
+                    gsap.set(node, { x: x - nodeSize / 2, y: y - nodeSize / 2 });
+                });
+
+                this.nodePositions = positions;
+            }
+
+            generateConnections() {
+                if (!this.connectionsSvg) return;
+
+                this.connectionsSvg.innerHTML = '';
+                this.connections = [];
+
+                // Create a list of all possible connections with distances
+                const possibleConnections = [];
+                for (let i = 0; i < this.nodes.length; i++) {
+                    for (let j = i + 1; j < this.nodes.length; j++) {
+                        const distance = Math.hypot(
+                            this.nodePositions[i].x - this.nodePositions[j].x,
+                            this.nodePositions[i].y - this.nodePositions[j].y
+                        );
+                        possibleConnections.push({ from: i, to: j, distance });
+                    }
+                }
+
+                // Sort by distance (closest first)
+                possibleConnections.sort((a, b) => a.distance - b.distance);
+
+                // Select connections - prioritize closer nodes, but limit total
+                const selectedConnections = new Set();
+                const connectionsPerNode = new Array(this.nodes.length).fill(0);
+                const maxConnectionsPerNode = 4;
+
+                for (const conn of possibleConnections) {
+                    if (this.connections.length >= this.CONFIG.MAX_CONNECTIONS) break;
+
+                    if (connectionsPerNode[conn.from] < maxConnectionsPerNode &&
+                        connectionsPerNode[conn.to] < maxConnectionsPerNode &&
+                        conn.distance < this.CONFIG.CONNECTION_DISTANCE_THRESHOLD) {
+
+                        const connectionKey = `${Math.min(conn.from, conn.to)}-${Math.max(conn.from, conn.to)}`;
+                        if (!selectedConnections.has(connectionKey)) {
+                            selectedConnections.add(connectionKey);
+                            connectionsPerNode[conn.from]++;
+                            connectionsPerNode[conn.to]++;
+
+                            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                            line.classList.add('connection-line');
+                            line.setAttribute('data-from', conn.from);
+                            line.setAttribute('data-to', conn.to);
+                            this.connectionsSvg.appendChild(line);
+                            this.connections.push(line);
+                        }
+                    }
+                }
+
+                this.updateConnectionPositions();
+            }
+
+            updateConnectionPositions() {
+                this.connections.forEach(line => {
+                    const fromIndex = parseInt(line.getAttribute('data-from'));
+                    const toIndex = parseInt(line.getAttribute('data-to'));
+                    const fromPos = this.nodePositions[fromIndex];
+                    const toPos = this.nodePositions[toIndex];
+                    line.setAttribute('x1', fromPos.x);
+                    line.setAttribute('y1', fromPos.y);
+                    line.setAttribute('x2', toPos.x);
+                    line.setAttribute('y2', toPos.y);
+                });
+            }
+
+            updateAllConnections() {
+                const halfNodeSize = this.CONFIG.NODE_SIZE / 2;
+                this.nodes.forEach((node, index) => {
+                    const x = gsap.getProperty(node, "x");
+                    const y = gsap.getProperty(node, "y");
+                    this.nodePositions[index] = { x: x + halfNodeSize, y: y + halfNodeSize };
+                });
+                this.updateConnectionPositions();
+            }
+
+            start() {
+                if (this.animationRunning) {
+                    this.destroy(); // Clean up any existing animations
+                }
+
+                this.init();
+                if (this.masterTimeline) {
+                    this.masterTimeline.play();
+                    this.animationRunning = true;
+                }
+            }
+
+            buildMasterTimeline() {
+                this.createIndividualPulsing(); // Start pulsing independently
+                this.masterTimeline
+                    .add(this.createConnectionActivation(), "+=3")
+                    .add(this.createCoordinatedMovement(), "+=2")
+                    .add(this.createSuperOrganismActivation(), "+=2");
+            }
+
+            createIndividualPulsing() {
+                this.nodes.forEach(node => {
+                    gsap.to(node, {
+                        scale: 1.05 + Math.random() * 0.1,
+                        duration: 1.25 + Math.random() * 0.55,
+                        ease: "power2.inOut",
+                        yoyo: true,
+                        repeat: -1,
+                        transformOrigin: "center center",
+                        delay: Math.random() * 1 // Staggered start
+                    });
+                });
+            }
+
+            createConnectionActivation() {
+                const shuffledConnections = [...this.connections].sort(() => Math.random() - 0.5);
+                const tl = gsap.timeline();
+                shuffledConnections.forEach(connection => {
+                    tl.call(() => connection.classList.add('active'), [], "+=0.05");
+                });
+                return tl;
+            }
+
+            createCoordinatedMovement() {
+                const tl = gsap.timeline();
+                if (!this.container) return tl;
+
+                const containerRect = this.container.getBoundingClientRect();
+                const centerX = containerRect.width / 2;
+                const centerY = containerRect.height / 2;
+                const radius = Math.min(containerRect.width, containerRect.height) * 0.35;
+                const halfNodeSize = this.CONFIG.NODE_SIZE / 2;
+
+                this.nodes.forEach((node, index) => {
+                    const angle = (index / this.nodes.length) * Math.PI * 2;
+                    const targetX = centerX + Math.cos(angle) * radius;
+                    const targetY = centerY + Math.sin(angle) * radius;
+
+                    tl.to(node, {
+                        x: targetX - halfNodeSize,
+                        y: targetY - halfNodeSize,
+                        duration: 2,
+                        ease: "power2.inOut",
+                        onUpdate: () => {
+                            // Throttle connection updates to every 3 frames
+                            this.frameCount++;
+                            if (this.frameCount % 3 === 0) {
+                                const x = gsap.getProperty(node, "x");
+                                const y = gsap.getProperty(node, "y");
+                                this.nodePositions[index] = { x: x + halfNodeSize, y: y + halfNodeSize };
+                                this.updateConnectionPositions();
+                            }
+                        },
+                        onComplete: () => {
+                            // Ensure final update
+                            const x = gsap.getProperty(node, "x");
+                            const y = gsap.getProperty(node, "y");
+                            this.nodePositions[index] = { x: x + halfNodeSize, y: y + halfNodeSize };
+                            this.updateConnectionPositions();
+                        }
+                    }, index * this.CONFIG.ANIMATION_DELAY);
+                });
+                return tl;
+            }
+
+            createSuperOrganismActivation() {
+                const tl = gsap.timeline();
+
+                // Kill individual pulsing animations
+                tl.call(() => {
+                    this.nodes.forEach(node => gsap.killTweensOf(node, "scale"));
+                    gsap.to(this.nodes, { scale: 1, duration: 0.2 }); // Reset scale
+                });
+
+                const shuffledConnections = [...this.connections].sort(() => Math.random() - 0.5);
+                shuffledConnections.forEach(connection => {
+                    tl.call(() => {
+                        connection.classList.remove('active');
+                        connection.classList.add('super-organism');
+                    }, [], "+=0.15");
+                });
+
+                // Synchronized pulsing
+                tl.to(this.nodes, {
+                    scale: this.CONFIG.PULSE_SCALE,
+                    duration: 0.5,
+                    ease: "power2.inOut",
+                    yoyo: true,
+                    repeat: -1,
+                    transformOrigin: "center center"
+                }, ">"); // Start after last connection change
+
+                return tl;
+            }
+
+            // Cleanup method to fix memory leaks
+            destroy() {
+                if (this.masterTimeline) {
+                    this.masterTimeline.kill();
+                }
+
+                this.nodes.forEach(node => {
+                    gsap.killTweensOf(node);
+                });
+
+                if (this.observer) {
+                    this.observer.disconnect();
+                }
+
+                this.animationRunning = false;
+            }
+        }
+    </script>
+</body>
+</html>

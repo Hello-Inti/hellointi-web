@@ -169,79 +169,11 @@ function initNetworkAnimation() {
       this.connections = [];
       this.connectionsSvg = document.getElementById('connectionsSvg');
       this.isTransformed = false;
-      this.animationFrameId = null;
-      this.updatePending = false;
-      this.isAnimationPaused = false;
-      this.isAnimationComplete = false;
-      this.animationTimeouts = [];
-      this.gsapAnimations = [];
 
       if (!this.connectionsSvg) return;
 
       this.init();
-      this.setupViewportObserver();
       this.startAnimation();
-    }
-
-    setupViewportObserver() {
-      // Create an intersection observer to detect when hero section is in viewport
-      const heroSection = document.querySelector('.hero-section');
-      if (!heroSection) return;
-
-      const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1 // Trigger when at least 10% of the section is visible
-      };
-
-      this.viewportObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting && this.isAnimationPaused) {
-            // Resume animations when in viewport
-            this.resumeAnimations();
-          } else if (!entry.isIntersecting && !this.isAnimationPaused) {
-            // Pause animations when out of viewport
-            this.pauseAnimations();
-          }
-        });
-      }, observerOptions);
-
-      this.viewportObserver.observe(heroSection);
-    }
-
-    pauseAnimations() {
-      this.isAnimationPaused = true;
-
-      // Pause all GSAP animations on nodes
-      this.nodes.forEach(node => {
-        const tweens = gsap.getTweensOf(node);
-        tweens.forEach(tween => tween.pause());
-      });
-
-      // Clear any pending animation frames
-      if (this.animationFrameId) {
-        cancelAnimationFrame(this.animationFrameId);
-        this.animationFrameId = null;
-      }
-
-      // Clear all timeouts
-      this.animationTimeouts.forEach(timeout => clearTimeout(timeout));
-      this.animationTimeouts = [];
-    }
-
-    resumeAnimations() {
-      this.isAnimationPaused = false;
-
-      // Resume all GSAP animations on nodes
-      this.nodes.forEach(node => {
-        const tweens = gsap.getTweensOf(node);
-        tweens.forEach(tween => tween.resume());
-      });
-
-      // Resume any pending connection updates
-      if (this.updatePending) {
-        this.batchUpdateConnectionPositions();
-      }
     }
 
     init() {
@@ -250,11 +182,11 @@ function initNetworkAnimation() {
 
       if (this.nodes.length === 0) return;
 
-      // Position nodes using efficient grid-based approach with randomization
-      this.positionNodesEfficiently();
+      // Position nodes randomly without overlap
+      this.positionNodesRandomly();
 
-      // Generate selective connections (not all pairs)
-      this.generateSelectiveConnections();
+      // Generate connection lines
+      this.generateConnections();
 
       // Start individual pulsing animations immediately
       this.startIndividualPulsing();
@@ -265,53 +197,54 @@ function initNetworkAnimation() {
       }, 5000); // Increased to 5 seconds total (3 seconds for connections + 2 seconds buffer)
     }
 
-    positionNodesEfficiently() {
+    positionNodesRandomly() {
       const container = document.querySelector('.network-animation');
       const containerRect = container.getBoundingClientRect();
       const nodeSize = 29; // Updated for 20% larger nodes
-      const margin = nodeSize + 15;
+      const margin = nodeSize + 10;
       const positions = [];
 
-      // Calculate optimal grid dimensions
-      const nodeCount = this.nodes.length;
-      const cols = Math.ceil(Math.sqrt(nodeCount * 1.5)); // Slightly wider grid
-      const rows = Math.ceil(nodeCount / cols);
-
-      // Calculate cell dimensions
-      const cellWidth = (containerRect.width - 2 * margin) / cols;
-      const cellHeight = (containerRect.height - 2 * margin) / rows;
-
       this.nodes.forEach((node, index) => {
-        // Calculate base grid position
-        const row = Math.floor(index / cols);
-        const col = index % cols;
+        let x, y, attempts = 0;
+        let validPosition = false;
 
-        // Add randomization within cell boundaries to avoid rigid grid look
-        const randomOffsetX = (Math.random() - 0.5) * cellWidth * 0.6;
-        const randomOffsetY = (Math.random() - 0.5) * cellHeight * 0.6;
+        // Try to find a non-overlapping position
+        while (!validPosition && attempts < 50) {
+          x = margin + Math.random() * (containerRect.width - 2 * margin);
+          y = margin + Math.random() * (containerRect.height - 2 * margin);
 
-        const x = margin + (col + 0.5) * cellWidth + randomOffsetX;
-        const y = margin + (row + 0.5) * cellHeight + randomOffsetY;
+          // Check for overlaps with existing positions
+          validPosition = positions.every(pos => {
+            const distance = Math.sqrt(Math.pow(x - pos.x, 2) + Math.pow(y - pos.y, 2));
+            return distance >= nodeSize * 2;
+          });
 
-        // Ensure position stays within container bounds
-        const finalX = Math.max(margin, Math.min(containerRect.width - margin, x));
-        const finalY = Math.max(margin, Math.min(containerRect.height - margin, y));
+          attempts++;
+        }
 
-        positions.push({ x: finalX, y: finalY });
-        node.style.left = `${finalX - nodeSize/2}px`;
-        node.style.top = `${finalY - nodeSize/2}px`;
+        // If we couldn't find a non-overlapping position, use a grid fallback
+        if (!validPosition) {
+          const cols = 4;
+          const row = Math.floor(index / cols);
+          const col = index % cols;
+          x = (containerRect.width / cols) * col + (containerRect.width / cols) / 2;
+          y = (containerRect.height / 3) * row + (containerRect.height / 6);
+        }
+
+        positions.push({ x, y });
+        node.style.left = `${x - nodeSize/2}px`;
+        node.style.top = `${y - nodeSize/2}px`;
       });
 
       this.nodePositions = positions;
     }
 
-    generateSelectiveConnections() {
+    generateConnections() {
       // Clear existing connections
       this.connectionsSvg.innerHTML = '';
       this.connections = [];
 
-      // Create ALL pairwise connections for full network effect (n*(n-1)/2)
-      // This maintains the visual impact while using optimized update methods
+      // Create connection lines between all nodes
       for (let i = 0; i < this.nodes.length; i++) {
         for (let j = i + 1; j < this.nodes.length; j++) {
           const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
@@ -323,25 +256,10 @@ function initNetworkAnimation() {
         }
       }
 
-      // Use batched updates for better performance even with all connections
-      this.batchUpdateConnectionPositions();
-    }
-
-    batchUpdateConnectionPositions() {
-      // Use requestAnimationFrame for smooth updates
-      if (!this.updatePending && !this.isAnimationPaused && !this.isAnimationComplete) {
-        this.updatePending = true;
-        this.animationFrameId = requestAnimationFrame(() => {
-          if (!this.isAnimationPaused && !this.isAnimationComplete) {
-            this.updateConnectionPositions();
-          }
-          this.updatePending = false;
-        });
-      }
+      this.updateConnectionPositions();
     }
 
     updateConnectionPositions() {
-      // Update all connections in a single batch
       this.connections.forEach(line => {
         const fromIndex = parseInt(line.getAttribute('data-from'));
         const toIndex = parseInt(line.getAttribute('data-to'));
@@ -390,40 +308,28 @@ function initNetworkAnimation() {
       if (this.isTransformed) return;
 
       // Phase 1: Gradually activate connections (weeks 1-4) - starts 3 seconds after page load
-      const timeout1 = setTimeout(() => {
-        if (!this.isAnimationPaused) {
-          this.activateConnectionsGradually();
-        }
+      setTimeout(() => {
+        this.activateConnectionsGradually();
       }, 3000);
-      this.animationTimeouts.push(timeout1);
 
       // Phase 2: Move to coordinated positions (weeks 5-6)
-      const timeout2 = setTimeout(() => {
-        if (!this.isAnimationPaused) {
-          this.moveToCoordinatedPositions();
-        }
+      setTimeout(() => {
+        this.moveToCoordinatedPositions();
       }, 7000);
-      this.animationTimeouts.push(timeout2);
 
       // Phase 3: Synchronized super organism (week 7)
-      const timeout3 = setTimeout(() => {
-        if (!this.isAnimationPaused) {
-          this.activateSuperOrganism();
-        }
+      setTimeout(() => {
+        this.activateSuperOrganism();
       }, 11000);
-      this.animationTimeouts.push(timeout3);
     }
 
     activateConnectionsGradually() {
       const shuffledConnections = [...this.connections].sort(() => Math.random() - 0.5);
 
       shuffledConnections.forEach((connection, index) => {
-        const timeout = setTimeout(() => {
-          if (!this.isAnimationPaused) {
-            connection.classList.add('active');
-          }
+        setTimeout(() => {
+          connection.classList.add('active');
         }, index * 200); // Increased from 100ms to 200ms (50% slower)
-        this.animationTimeouts.push(timeout);
       });
     }
 
@@ -434,68 +340,38 @@ function initNetworkAnimation() {
       const centerY = containerRect.height / 2;
       const radius = Math.min(containerRect.width, containerRect.height) * 0.35;
 
-      // Create a timeline for coordinated movement with optimized updates
+      // Create a timeline for coordinated movement with sticky connections
       const tl = gsap.timeline();
-
-      // Track update frequency to avoid excessive updates
-      let lastUpdateTime = 0;
-      const updateThrottle = 50; // Update at most every 50ms (20fps for connections)
 
       this.nodes.forEach((node, index) => {
         const angle = (index / this.nodes.length) * Math.PI * 2;
         const targetX = centerX + Math.cos(angle) * radius;
         const targetY = centerY + Math.sin(angle) * radius;
 
-        // Animate to new position with throttled connection updates
+        // Animate to new position with continuous connection updates
         tl.to(node, {
           left: `${targetX - 14.5}px`, // Half of 29px
           top: `${targetY - 14.5}px`,  // Half of 29px
           duration: 2,
           ease: "power2.inOut",
           onUpdate: () => {
-            const now = Date.now();
-
             // Update this node's position in our tracking array
             const currentLeft = parseFloat(node.style.left) + 14.5;
             const currentTop = parseFloat(node.style.top) + 14.5;
             this.nodePositions[index] = { x: currentLeft, y: currentTop };
 
-            // Throttle connection updates to improve performance
-            if (now - lastUpdateTime > updateThrottle) {
-              this.batchUpdateConnectionPositions();
-              lastUpdateTime = now;
-            }
+            // Update all connection positions to keep them sticky
+            this.updateConnectionPositions();
           },
           onComplete: () => {
             // Ensure final position is exactly where we want it
             this.nodePositions[index] = { x: targetX, y: targetY };
-            // Final update to ensure connections are in correct position
-            this.batchUpdateConnectionPositions();
+            this.updateConnectionPositions();
           }
         }, index * 0.1);
       });
 
       return tl;
-    }
-
-    // Clean up animation frames and observers when needed
-    destroy() {
-      // Pause all animations first
-      this.pauseAnimations();
-
-      // Disconnect viewport observer
-      if (this.viewportObserver) {
-        this.viewportObserver.disconnect();
-      }
-
-      // Kill all GSAP animations on nodes
-      this.nodes.forEach(node => {
-        gsap.killTweensOf(node);
-      });
-
-      // Clear all timeouts
-      this.animationTimeouts.forEach(timeout => clearTimeout(timeout));
-      this.animationTimeouts = [];
     }
 
     activateSuperOrganism() {
@@ -505,73 +381,36 @@ function initNetworkAnimation() {
       const shuffledConnections = [...this.connections].sort(() => Math.random() - 0.5);
 
       shuffledConnections.forEach((connection, index) => {
-        const timeout = setTimeout(() => {
-          if (!this.isAnimationPaused) {
-            connection.classList.remove('active');
-            connection.classList.add('super-organism');
-          }
+        setTimeout(() => {
+          connection.classList.remove('active');
+          connection.classList.add('super-organism');
         }, index * 150); // 150ms delay between each connection upgrade
-        this.animationTimeouts.push(timeout);
       });
 
       // Start synchronized pulsing after all connections are upgraded
       const totalUpgradeTime = shuffledConnections.length * 150;
-      const finalTimeout = setTimeout(() => {
-        if (!this.isAnimationPaused) {
-          // Kill individual pulsing animations and start synchronized pulsing
-          this.nodes.forEach(node => {
-            // Kill existing GSAP animations on this node
-            gsap.killTweensOf(node);
+      setTimeout(() => {
+        // Kill individual pulsing animations and start synchronized pulsing
+        this.nodes.forEach(node => {
+          // Kill existing GSAP animations on this node
+          gsap.killTweensOf(node);
 
-            // Reset scale to 1
-            gsap.set(node, { scale: 1 });
+          // Reset scale to 1
+          gsap.set(node, { scale: 1 });
 
-            // Start synchronized pulsing with GSAP - limited duration
-            gsap.to(node, {
-              scale: 1.15,
-              duration: 0.5,
-              ease: "power2.inOut",
-              yoyo: true,
-              repeat: 5, // Only pulse 3 times (5 repeats = 3 full cycles)
-              transformOrigin: "center center",
-              onComplete: () => {
-                // Return to normal scale when pulsing completes
-                gsap.to(node, {
-                  scale: 1,
-                  duration: 0.3,
-                  ease: "power2.out",
-                  onComplete: () => {
-                    // Kill all tweens on this node to prevent any lingering animations
-                    gsap.killTweensOf(node);
-                  }
-                });
-              }
-            });
+          // Start synchronized pulsing with GSAP (2x faster)
+          gsap.to(node, {
+            scale: 1.15,
+            duration: 0.5, // 2x faster
+            ease: "power2.inOut",
+            yoyo: true,
+            repeat: -1,
+            transformOrigin: "center center"
           });
+        });
 
-          // Mark animation as fully complete after pulsing ends
-          const pulsingDuration = (0.5 * 2) * 6; // 6 seconds total (3 full pulse cycles)
-          const completionTimeout = setTimeout(() => {
-            this.isAnimationComplete = true;
-
-            // Kill ALL GSAP animations on all nodes to prevent any lingering updates
-            this.nodes.forEach(node => {
-              gsap.killTweensOf(node);
-            });
-
-            // Stop any remaining connection position updates
-            if (this.animationFrameId) {
-              cancelAnimationFrame(this.animationFrameId);
-              this.animationFrameId = null;
-            }
-
-            // Clear the updatePending flag
-            this.updatePending = false;
-          }, pulsingDuration * 1000);
-          this.animationTimeouts.push(completionTimeout);
-        }
+        console.log('Super organism state activated');
       }, totalUpgradeTime + 200); // Small buffer after all connections are upgraded
-      this.animationTimeouts.push(finalTimeout);
     }
   }
 
