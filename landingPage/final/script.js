@@ -124,3 +124,102 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error('Accessibility script error:', err);
   }
 });
+
+// Scrollspy: highlight current nav item on scroll
+(function() {
+  function initScrollSpy() {
+    try {
+      const nav = document.querySelector('.nav');
+      const links = Array.from(document.querySelectorAll('.nav-link'));
+      if (!links.length) return;
+
+      // Map nav links to their target sections
+      const map = links.map(link => {
+        const href = link.getAttribute('href') || '';
+        const id = href.startsWith('#') ? href.slice(1) : href;
+        const el = id ? document.getElementById(id) : null;
+        return el ? { id, el, link } : null;
+      }).filter(Boolean);
+
+      const clearActive = () => links.forEach(l => l.classList.remove('active'));
+      const setActive = (id) => {
+        clearActive();
+        const item = map.find(s => s.id === id);
+        if (item) item.link.classList.add('active');
+      };
+
+      const offset = ((nav && nav.offsetHeight) || 80) + 8; // account for fixed nav height
+      const hero = document.getElementById('hero-section');
+      let currentId = null;
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const id = entry.target.id;
+              if (id === 'hero-section') {
+                currentId = null;
+                clearActive(); // no section highlighted when hero is in view
+              } else {
+                currentId = id;
+                setActive(id);
+              }
+            }
+          });
+        }, {
+          root: null,
+          rootMargin: `-${offset}px 0px -55% 0px`, // top offset for nav; bias bottom so current section stays active longer
+          threshold: 0.01
+        });
+
+        map.forEach(s => observer.observe(s.el));
+        if (hero) observer.observe(hero);
+      } else {
+        // Fallback: scroll listener
+        const getTop = (el) => el.getBoundingClientRect().top - offset;
+        const onScroll = () => {
+          const inHero = hero ? getTop(hero) < window.innerHeight * 0.4 : false;
+          if (inHero) {
+            if (currentId !== null) {
+              currentId = null;
+              clearActive();
+            }
+            return;
+          }
+          let best = null;
+          let bestAbs = Infinity;
+          map.forEach(s => {
+            const d = Math.abs(getTop(s.el));
+            if (d < bestAbs) {
+              bestAbs = d;
+              best = s;
+            }
+          });
+          if (best && best.id !== currentId) {
+            currentId = best.id;
+            setActive(currentId);
+          }
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      }
+
+      // Immediate feedback on click
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          const href = link.getAttribute('href') || '';
+          const id = href.startsWith('#') ? href.slice(1) : href;
+          if (id) setActive(id);
+        });
+      });
+    } catch (err) {
+      console.error('ScrollSpy init error:', err);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initScrollSpy);
+  } else {
+    initScrollSpy();
+  }
+})();

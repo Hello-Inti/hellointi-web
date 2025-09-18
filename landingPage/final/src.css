@@ -957,3 +957,11 @@ section + .organic-divider {
     font-size: 0.75rem;
   }
 }
+/* Scrollspy highlight for current section in nav (included in build) */
+@layer components {
+  .nav-link.active {
+    color: var(--color-poppy) !important;
+    /* underline effect without layout shift */
+    box-shadow: inset 0 -2px 0 var(--color-poppy);
+  }
+}

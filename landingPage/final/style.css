@@ -5,3 +5,9 @@
   opacity: 1 !important;
   transition: opacity 0.3s ease-in-out !important;
 }
+/* Scrollspy highlight for current section in nav */
+.nav-link.active {
+  color: var(--color-poppy) !important;
+  /* underline effect without layout shift */
+  box-shadow: inset 0 -2px 0 var(--color-poppy);
+}
