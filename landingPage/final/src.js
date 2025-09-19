@@ -267,7 +267,7 @@ function initNetworkAnimation() {
       // Start the transformation after a delay (but connections appear 3 seconds after page load)
       setTimeout(() => {
         this.startTransformation();
-      }, 5000); // Increased to 5 seconds total (3 seconds for connections + 2 seconds buffer)
+      }, 2000); // Reduced to 2 seconds total (3 seconds for connections - 1 second buffer)
     }
 
     positionNodesEfficiently() {
