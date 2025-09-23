@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initFAQ();
     initScrollEffects();
     initNetworkAnimation();
+    initScrollSpy();
     initPeerActivationAnimation();
 
     // Smooth scroll for anchor links
@@ -827,6 +828,52 @@ document.addEventListener('keydown', (e) => {
     if (nav && nav.classList.contains('nav--open')) {
       nav.classList.remove('nav--open');
       document.querySelector('.nav__toggle').setAttribute('aria-expanded', 'false');
+// Scrollspy functionality for navigation highlighting
+function initScrollSpy() {
+  const navLinks = document.querySelectorAll('.nav-link');
+  const sections = document.querySelectorAll('section[id]');
+
+  if (!navLinks.length || !sections.length) return;
+
+  // Configuration for scrollspy
+  const offset = 100; // Offset from top of viewport to trigger section
+
+  function setActiveLink() {
+    const scrollPosition = window.scrollY + offset;
+
+    // Find the current section
+    let currentSection = null;
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+
+      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+        currentSection = section;
+      }
+    });
+
+    // Update active link
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+
+      if (currentSection) {
+        const linkHref = link.getAttribute('href');
+        if (linkHref && linkHref === `#${currentSection.id}`) {
+          link.classList.add('active');
+        }
+      }
+    });
+  }
+
+  // Set initial active link on page load
+  setActiveLink();
+
+  // Update active link on scroll
+  window.addEventListener('scroll', setActiveLink);
+
+  // Update active link on resize (in case section positions change)
+  window.addEventListener('resize', setActiveLink);
+}
     }
   }
 });
@@ -851,8 +898,9 @@ preloadImages();
 const lazyElements = document.querySelectorAll('img[src*="assets/"]');
 const imageObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) {
+    if (entry.isIntersecting && !entry.target.hasAttribute('data-loaded')) {
       const img = entry.target;
+      img.setAttribute('data-loaded', 'true');
       img.style.opacity = '0';
       img.style.transition = 'opacity 0.3s ease-in-out';
 
@@ -868,6 +916,7 @@ const imageObserver = new IntersectionObserver((entries) => {
 lazyElements.forEach(img => {
   if (img.complete) {
     img.style.opacity = '1';
+    img.setAttribute('data-loaded', 'true');
   } else {
     imageObserver.observe(img);
   }
