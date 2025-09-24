@@ -116,11 +116,22 @@ function initFAQ() {
       faqItems.forEach(otherItem => {
         if (otherItem !== item) {
           otherItem.classList.remove('active');
+          const otherAnswer = otherItem.querySelector('.faq-answer');
+          if (otherAnswer) {
+            otherAnswer.setAttribute('hidden', '');
+          }
         }
       });
 
       // Toggle current item
       item.classList.toggle('active', !isActive);
+
+      // Toggle hidden attribute on answer
+      if (!isActive) {
+        answer.removeAttribute('hidden');
+      } else {
+        answer.setAttribute('hidden', '');
+      }
     });
   });
 }
@@ -820,14 +831,6 @@ function debounce(func, wait) {
   };
 }
 
-// Add keyboard navigation support
-document.addEventListener('keydown', (e) => {
-  // Escape key closes mobile menu
-  if (e.key === 'Escape') {
-    const nav = document.querySelector('.nav');
-    if (nav && nav.classList.contains('nav--open')) {
-      nav.classList.remove('nav--open');
-      document.querySelector('.nav__toggle').setAttribute('aria-expanded', 'false');
 // Scrollspy functionality for navigation highlighting
 function initScrollSpy() {
   const navLinks = document.querySelectorAll('.nav-link');
@@ -874,6 +877,15 @@ function initScrollSpy() {
   // Update active link on resize (in case section positions change)
   window.addEventListener('resize', setActiveLink);
 }
+
+// Add keyboard navigation support
+document.addEventListener('keydown', (e) => {
+  // Escape key closes mobile menu
+  if (e.key === 'Escape') {
+    const nav = document.querySelector('.nav');
+    if (nav && nav.classList.contains('nav--open')) {
+      nav.classList.remove('nav--open');
+      document.querySelector('.nav__toggle').setAttribute('aria-expanded', 'false');
     }
   }
 });
