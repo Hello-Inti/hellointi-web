@@ -913,12 +913,16 @@ const imageObserver = new IntersectionObserver((entries) => {
     if (entry.isIntersecting && !entry.target.hasAttribute('data-loaded')) {
       const img = entry.target;
       img.setAttribute('data-loaded', 'true');
-      img.style.opacity = '0';
       img.style.transition = 'opacity 0.3s ease-in-out';
 
-      img.addEventListener('load', () => {
+      if (img.complete) {
         img.style.opacity = '1';
-      });
+      } else {
+        img.style.opacity = '0';
+        img.addEventListener('load', () => {
+          img.style.opacity = '1';
+        });
+      }
 
       imageObserver.unobserve(img);
     }
