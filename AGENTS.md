@@ -19,4 +19,4 @@ This file provides guidance to agents when working with code in this repository.
 - Responsive: Mobile-first w/ media queries; Tailwind bundled for production (custom CSS vars for main pages)
 - Gotchas: FOIT w/ Google Fonts (Crimson Text/Inter) - preload if needed; z-index mgmt for fixed nav (z-50); bundled deps reduce load times
 - business context in ./business_blueprint
-- ./landingPage the latest working copy of the landing page
+- ./landingPage the latest working copy of the landing page website
