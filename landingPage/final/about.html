@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth" style="scroll-padding-top: 100px;">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,9 +33,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-</head>
-<body class="font-body text-charcoal bg-eggshell">
-    <!-- Navigation -->
+ </head>
+ <body class="font-body text-charcoal bg-eggshell">
+     <a href="#main-content" class="skip-link sr-only focus:not-sr-only">Skip to content</a>
+     <!-- Navigation -->
     <nav class="nav fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-beige transition-all duration-300">
         <div class="container mx-auto px-4">
             <div class="flex items-center justify-between py-4">
@@ -53,22 +54,23 @@
                 </button>
 
                 <ul id="primary-menu" class="menu hidden md:flex md:items-center md:space-x-8">
-                    <li><a href="index.html#testimonials-section" class="nav-link">Reviews</a></li>
-                    <li><a href="index.html#problem-section" class="nav-link">The Problem</a></li>
-                    <li><a href="index.html#solution-section" class="nav-link">Our Solution</a></li>
-                    <li><a href="index.html#program-section" class="nav-link">The Program</a></li>
-                    <li><a href="index.html#team-section" class="nav-link">Team</a></li>
+                    <li><a href="index.html#testimonials-section" class="nav-link" aria-label="Go to Testimonials section on home page">Reviews</a></li>
+                    <li><a href="index.html#problem-section" class="nav-link" aria-label="Go to The Problem section on home page">The Problem</a></li>
+                    <li><a href="index.html#solution-section" class="nav-link" aria-label="Go to Our Solution section on home page">Our Solution</a></li>
+                    <li><a href="index.html#program-section" class="nav-link" aria-label="Go to The Program section on home page">The Program</a></li>
+                    <li><a href="index.html#team-section" class="nav-link" aria-label="Go to Team section on home page">Team</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <section id="about-hero" class="pt-48 pb-12 md:pt-52 md:pb-16 overflow-hidden bg-lavender/20">
+    <main id="main-content">
+    <section id="about-hero" class="pt-48 pb-12 md:pt-52 md:pb-16 overflow-hidden bg-lavender/20" aria-labelledby="about-hero-heading">
         <div class="container mx-auto px-4">
             <div class="max-w-5xl mx-auto pt-8">
                 <div class="grid md:grid-cols-2 gap-8 items-center">
                     <div class="space-y-6">
-                        <h1 class="text-3xl md:text-4xl lg:text-5xl font-display font-semibold leading-tight">
+                        <h1 id="about-hero-heading" class="text-3xl md:text-4xl lg:text-5xl font-display font-semibold leading-tight">
                             About <span class="text-avocado">hello Inti</span>
                         </h1>
                         <p class="text-lg md:text-xl text-charcoal/80 leading-relaxed">
@@ -85,11 +87,11 @@
     </section>
 
     <!-- What Does "hello Inti" Mean? Section -->
-    <section id="meaning-section" class="pt-16 pb-16 md:pt-24 md:pb-24 bg-white">
+    <section id="meaning-section" class="pt-16 pb-16 md:pt-24 md:pb-24 bg-white" aria-labelledby="meaning-heading">
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto">
                 <div class="text-center space-y-6 mb-16">
-                    <h2 class="text-3xl md:text-4xl font-display font-semibold text-poppy">
+                    <h2 id="meaning-heading" class="text-3xl md:text-4xl font-display font-semibold text-poppy">
                         What Does "hello Inti" Mean?
                     </h2>
                 </div>
@@ -119,11 +121,11 @@
     </section>
 
     <!-- The Team Section -->
-    <section id="team-section" class="pt-16 pb-16 md:pt-24 md:pb-24 bg-beige/30">
+    <section id="team-section" class="pt-16 pb-16 md:pt-24 md:pb-24 bg-beige/30" aria-labelledby="team-heading">
         <div class="container mx-auto px-4">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center space-y-6 mb-16">
-                    <h2 class="text-3xl md:text-4xl font-display font-semibold">
+                    <h2 id="team-heading" class="text-3xl md:text-4xl font-display font-semibold">
                         The <span class="text-poppy">Team</span>
                     </h2>
                     <p class="text-xl text-charcoal/80 leading-relaxed">
@@ -213,6 +215,7 @@
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer class="bg-charcoal text-white py-12">

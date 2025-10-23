@@ -51,11 +51,11 @@
                     </div>
                 </button>
                 <ul id="primary-menu" class="menu hidden md:flex md:items-center md:space-x-8" role="menubar">
-                    <li role="none"><a role="menuitem" href="index.html#testimonials-section" class="nav-link">Reviews</a></li>
-                    <li role="none"><a role="menuitem" href="index.html#problem-section" class="nav-link">The Problem</a></li>
-                    <li role="none"><a role="menuitem" href="index.html#solution-section" class="nav-link">Our Solution</a></li>
-                    <li role="none"><a role="menuitem" href="index.html#program-section" class="nav-link">The Program</a></li>
-                    <li role="none"><a role="menuitem" href="index.html#team-section" class="nav-link">Team</a></li>
+                    <li role="none"><a role="menuitem" href="index.html#testimonials-section" aria-label="Go to Testimonials section on home page" class="nav-link">Reviews</a></li>
+                    <li role="none"><a role="menuitem" href="index.html#problem-section" aria-label="Go to The Problem section on home page" class="nav-link">The Problem</a></li>
+                    <li role="none"><a role="menuitem" href="index.html#solution-section" aria-label="Go to Our Solution section on home page" class="nav-link">Our Solution</a></li>
+                    <li role="none"><a role="menuitem" href="index.html#program-section" aria-label="Go to The Program section on home page" class="nav-link">The Program</a></li>
+                    <li role="none"><a role="menuitem" href="index.html#team-section" aria-label="Go to Team section on home page" class="nav-link">Team</a></li>
                 </ul>
             </div>
         </div>
@@ -63,7 +63,7 @@
 
     <main id="main-content">
         <!-- Hero Section -->
-        <section id="hero-section" class="pt-32 pb-20 md:pt-40 md:pb-24 bg-lavender/20" aria-labelledby="hero-heading">
+        <section id="hero-section" class="pt-32 pb-20 md:pt-40 md:pb-24 bg-lavender/20" aria-labelledby="hero-heading" aria-label="Pairathons Hero">
             <div class="container mx-auto px-4">
                 <div class="max-w-4xl mx-auto text-center pt-8">
                     <h1 id="hero-heading" class="text-4xl md:text-5xl lg:text-6xl font-display font-semibold leading-tight">
@@ -77,8 +77,9 @@
         </section>
 
         <!-- Main Content Section -->
-        <section class="py-20 md:py-24">
+        <section id="content-section" class="py-20 md:py-24" aria-labelledby="content-heading" aria-label="Pairathons Content">
             <div class="container mx-auto px-4">
+                <h2 id="content-heading" class="sr-only">Pairathons Information</h2>
                 <div class="max-w-4xl mx-auto space-y-16">
                     <div>
                         <h2 class="text-3xl md:text-4xl font-display font-semibold text-center mb-8">What are Pairathons?</h2>
@@ -113,7 +114,7 @@
         </section>
 
         <!-- CTA Section -->
-        <section id="cta-section" class="py-16 md:py-24 bg-poppy text-white">
+        <section id="cta-section" class="py-16 md:py-24 bg-poppy text-white" aria-labelledby="cta-heading" aria-label="Call to Action">
             <div class="container mx-auto px-4">
                 <div class="max-w-4xl mx-auto text-center">
                     <h2 class="text-3xl md:text-4xl font-display font-semibold">Ready to Activate Your Network?</h2>

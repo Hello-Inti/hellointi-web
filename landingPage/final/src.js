@@ -1,7 +1,8 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 // Enhanced helloInti Landing Page JavaScript
 // Adds smooth interactions, animations, and accessibility features
@@ -20,19 +21,49 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollSpy();
     initPeerActivationAnimation();
 
-    // Smooth scroll for anchor links
+    // Smooth scroll for anchor links using GSAP ScrollToPlugin
+    // Function to handle smooth scrolling
+    const smoothScrollTo = (target) => {
+      // Immediately jump to the top before starting the scroll animation
+      window.scrollTo(0, 0);
+      gsap.to(window, {
+        duration: 0.8,
+        scrollTo: {
+          y: target,
+          offsetY: 100 // Account for fixed navigation
+        },
+        ease: "power2.inOut",
+        // Add a small delay to ensure the jump happens first
+        delay: 0.05
+      });
+    };
+
+    // Handle same-page anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
+          smoothScrollTo(target);
         }
       });
     });
+
+    // Handle cross-page anchor links
+    if (window.location.hash) {
+      if (history.scrollRestoration) {
+        history.scrollRestoration = 'manual';
+      }
+      window.scrollTo(0, 0);
+
+      const target = document.querySelector(window.location.hash);
+      if (target) {
+        // Use a small timeout to ensure the page is fully rendered
+        setTimeout(() => {
+          smoothScrollTo(target);
+        }, 100);
+      }
+    }
   } catch (error) {
     console.error('Error initializing landing page:', error);
   }

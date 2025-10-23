@@ -7,46 +7,37 @@ This repository contains the marketing and landing page assets for Hello Inti, a
 hellointi-web/
 ├── README.md                           # Project overview and guidance
 ├── AGENTS.md                          # AI assistant guidelines
-├── index.html                         # Primary landing page (production)
-├── landingPage/                      # Historical and variant pages
-│   ├── v1/                           # Original landing page version
-│   ├── v2/                           # Second iteration
-│   ├── v3/                           # Third iteration
-│   ├── v4/                           # Fourth iteration
-│   ├── v5/                           # Fifth iteration (final non-custom)
-│   ├── v5-mitra/                     # Mitra client-specific variant
-│   ├── v5-mitra-dsv1/                # Mitra + design system variant
-│   ├── v6-mitra-san-dsv1/           # v6 with mitra + san variants
-│   ├── v6-mitra-san-dsv1-v2/        # v6 variant with second revision
-│   └── v6-mitra-san-dsv2/           # v6 with different design system
+├── landingPage/final/                  # Main website files
+│   ├── index.html                    # Primary landing page
+│   ├── src.css                       # Source CSS file
+│   ├── style.css                     # Compiled CSS file
+│   ├── src.js                        # Source JavaScript file
+│   └── script.js                     # Compiled JavaScript file
 ```
 
 ## Getting Started
 
 ### Local Development
-1. Simply open any `.html` file in your browser - no web server required
-2. All assets are self-contained with inline CSS and minimal JavaScript
-3. Modern browser recommended for best experience
+1.  Install dependencies if you have not already:
+    ```bash
+    npm install
+    ```
+2.  From the repository root, start the development workflow (CSS/JS rebuild + live-reloading server):
+    ```bash
+    npm run dev
+    ```
+3.  Open `http://localhost:3000` in your browser. Changes to `src.css`, `src.js`, or any HTML file under `landingPage/final/` will trigger automatic rebuilds and browser refreshes.
 
 ### Testing & Preview
+To preview the compiled assets without the watcher pipeline, run the Express server on its own:
 ```bash
-# View any legacy version
-cd landingPage/v5-mitra/
-python -m http.server 8000  # or any simple server
-open http://localhost:8000/index.html
+npm run serve
 ```
-
-## Version History & Evolution
-
-### Major Versions
-- **v1-v4**: Early iterations with feature testing and design refinement
-- **v5**: Production-ready version with finalized messaging and design
-- **v6**: Latest version with enhanced features and optimizations
-
-### Variant Types
-- **Client-specific** (`-mitra`): Customized for specific client needs
-- **Design system** (`-dsv1`, `-dsv2`): Alternative design implementations
-- **Location/geographic** (`-san`): Localized variants for specific markets
+This command uses Nodemon to run [`landingPage/final/server.js`](landingPage/final/server.js:1). For a single-run preview without file watching, execute:
+```bash
+node landingPage/final/server.js
+```
+Then open `http://localhost:3000` in your browser.
 
 ## Technical Architecture
 
@@ -55,6 +46,12 @@ open http://localhost:8000/index.html
 - **CSS3**: Custom properties, Flexbox/Grid layouts, responsive design
 - **Vanilla JavaScript**: Minimal DOM manipulation and interactions
 - **Mobile-first**: Progressive enhancement with responsive breakpoints
+
+### Animations
+This project uses the **GSAP (GreenSock Animation Platform)** for animations. Key points to consider:
+
+-   **Existing Animations**: The hero section of the home page features a GSAP-powered animation. Be mindful of this when adding new scripts to avoid conflicts.
+-   **Future Development**: For any new animation-related functionality, it is recommended to use GSAP to maintain consistency and leverage its powerful features.
 
 ### Performance & Optimization
 - **Critical path optimization**: Inline CSS prevents render blocking
@@ -84,8 +81,21 @@ open http://localhost:8000/index.html
 - **External calendars**: Google Calendar/Outlook integration messaging
 - **Communication tools**: Slack/Teams integration descriptions
 
+## Build Process
+
+This project uses `postcss` and `esbuild` to process CSS and JavaScript files.
+
+-   **CSS**: The build process, triggered by `npm run build-css`, takes the source file [`landingPage/final/src.css`](landingPage/final/src.css) and generates the output file [`landingPage/final/style.css`](landingPage/final/style.css).
+-   **JavaScript**: The `npm run build-js` command bundles and minifies [`landingPage/final/src.js`](landingPage/final/src.js), creating the final script at [`landingPage/final/script.js`](landingPage/final/script.js).
+
+To run the entire build process, use the following command:
+
+```bash
+npm run build
+```
+
 ## Deployment & Hosting
-- **Static hosting ready**: No build process required
+- **Static hosting ready**: The project can be deployed to any static hosting provider.
 - **CDN compatible**: All assets relative or CDN-ready
 - **Cache optimization**: Long-term caching headers for performance
 - **Global delivery**: Content Delivery Network hosting recommended

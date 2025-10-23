@@ -3,6 +3,8 @@
 This file provides guidance to agents when working with code in this repository.
 
 ## Commands (Non-Obvious)
+- Dev workflow: `npm run dev` (runs CSS/JS watchers + live-reloading Express server on port 3000)
+- Serve only: `npm run serve` (Nodemon-driven Express server at http://localhost:3000)
 - Build process: `npm run build` (runs CSS + JS optimization); replaces ~3MB CDN with ~126KB bundled assets
 - No lint/test automation; manual Lighthouse audits for perf/accessibility/SEO (run in Chrome DevTools)
 - Preview variants: cd landingPage/[variant] && python -m http.server 8000 (avoids CORS for local assets/CDNs)
