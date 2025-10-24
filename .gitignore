@@ -8,3 +8,4 @@ lerna-debug.log*
 server.js
 package.json
 pnpm-lock.yaml
+docker-compose.yaml
