@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initNetworkAnimation();
     initScrollSpy();
     initPeerActivationAnimation();
+    initSchedulerPopup();
 
     // Smooth scroll for anchor links using GSAP ScrollToPlugin
     // Function to handle smooth scrolling
@@ -1193,5 +1194,126 @@ function initPeerActivationAnimation() {
     }
   } catch (error) {
     console.error('Error initializing peer activation animation:', error);
+  }
+}
+
+// Scheduler Popup
+function initSchedulerPopup() {
+  console.log("initSchedulerPopup called");
+  const schedulerPopup = document.getElementById('scheduler-popup');
+  const schedulerButtons = document.querySelectorAll('.scheduler-cta');
+  const closeButton = schedulerPopup.querySelector('.scheduler-popup-close');
+  const popupContent = schedulerPopup.querySelector('.scheduler-popup-content');
+  const schedulerIframe = document.getElementById('scheduler-iframe');
+  const pipedriveUrl = "https://intispaces.pipedrive.com/scheduler/xKA6dvTY/mitra-collaborator";
+  let lastFocusedElement;
+
+  if (!schedulerPopup || schedulerButtons.length === 0 || !closeButton || !schedulerIframe) {
+    console.error("Scheduler popup elements not found. Aborting initialization.");
+    return;
+  }
+  console.log(`Found ${schedulerButtons.length} scheduler CTA buttons.`);
+
+  // Function to open the popup
+  function openPopup(button) {
+    lastFocusedElement = button || document.activeElement;
+    // Lazy-load the iframe content
+    if (!schedulerIframe.src) {
+      schedulerIframe.src = pipedriveUrl;
+      console.log("Setting iframe src to:", pipedriveUrl);
+    }
+
+    schedulerPopup.classList.add('is-visible');
+    gsap.to(schedulerPopup, {
+      duration: 0.3,
+      autoAlpha: 1,
+      display: 'block',
+      ease: 'power2.out',
+      onComplete: () => {
+        trapFocus(schedulerPopup);
+        schedulerPopup.setAttribute('aria-hidden', 'false');
+        console.log("Popup opened successfully");
+      }
+    });
+  }
+
+  // Function to close the popup
+  function closePopup() {
+    gsap.to(schedulerPopup, {
+      duration: 0.3,
+      autoAlpha: 0,
+      display: 'none',
+      ease: 'power2.in',
+      onComplete: () => {
+        schedulerPopup.setAttribute('aria-hidden', 'true');
+        if (lastFocusedElement) {
+          lastFocusedElement.focus();
+        }
+      }
+    });
+  }
+
+  // Event listeners for the CTA buttons
+  schedulerButtons.forEach(button => {
+    console.log("Attaching listener to button:", button);
+    button.addEventListener('click', (e) => {
+      console.log("Scheduler button clicked:", e.target);
+      e.preventDefault();
+      openPopup(button);
+    });
+  });
+
+  // Event listener for the close button
+  closeButton.addEventListener('click', closePopup);
+
+  // Event listener for the overlay
+  schedulerPopup.addEventListener('click', (e) => {
+    if (e.target === schedulerPopup) {
+      closePopup();
+    }
+  });
+
+  // Close popup with the Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && schedulerPopup.getAttribute('aria-hidden') === 'false') {
+      closePopup();
+    }
+  });
+
+  function trapFocus(element) {
+    const focusableSelectors = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+    const focusableElements = Array.from(element.querySelectorAll(focusableSelectors)).filter(el => !el.hasAttribute('disabled'));
+    if (focusableElements.length === 0) {
+      console.warn('No focusable elements found within scheduler popup.');
+      return;
+    }
+
+    const firstFocusableElement = focusableElements[0];
+    const lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+    const handleKeyDown = (e) => {
+      if (e.key !== 'Tab') {
+        return;
+      }
+
+      if (e.shiftKey) {
+        if (document.activeElement === firstFocusableElement) {
+          e.preventDefault();
+          lastFocusableElement.focus();
+        }
+      } else {
+        if (document.activeElement === lastFocusableElement) {
+          e.preventDefault();
+          firstFocusableElement.focus();
+        }
+      }
+    };
+
+    if (element.dataset.trapInitialized !== 'true') {
+      element.addEventListener('keydown', handleKeyDown);
+      element.dataset.trapInitialized = 'true';
+    }
+
+    firstFocusableElement.focus();
   }
 }

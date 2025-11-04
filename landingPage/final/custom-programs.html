@@ -117,7 +117,7 @@
                     <h2 class="text-3xl md:text-4xl font-display font-semibold">Ready to Build a Custom Program?</h2>
                     <p class="mt-4 text-xl text-white/90">Let's design a peer activation program that's perfect for your community.</p>
                     <div class="mt-8">
-                        <a href="#" class="btn btn-white btn-lg group">
+                        <a class="btn btn-white btn-lg group scheduler-cta">
                             Book Your Network Activation Call
                             <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform" aria-hidden="true"></i>
                         </a>
@@ -202,3 +202,15 @@
     <script src="script.js"></script>
 </body>
 </html>
+    <!-- Pipedrive Scheduler Popup -->
+    <div id="scheduler-popup" class="scheduler-popup" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1">
+        <div class="scheduler-popup-overlay" aria-label="Close scheduler"></div>
+        <div class="scheduler-popup-content">
+            <button class="scheduler-popup-close" aria-label="Close scheduler">
+                <i class="fas fa-times"></i>
+            </button>
+            <iframe id="scheduler-iframe" src="https://intispaces.pipedrive.com/scheduler/xKA6dvTY/mitra-collaborator" title="Pipedrive Scheduler Embed" frameborder="0" height="600px" width="100%" style="max-width: 800px" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
