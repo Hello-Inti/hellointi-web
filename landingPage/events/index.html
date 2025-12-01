@@ -53,8 +53,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="font-body text-charcoal bg-eggshell">
@@ -93,7 +91,7 @@
     <section id="hero-section" class="hero-section pt-20 pb-24 md:pt-32 md:pb-32 overflow-hidden min-h-screen" aria-labelledby="hero-heading">
         <div class="container mx-auto px-4">
             <div class="max-w-6xl mx-auto">
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="max-w-4xl mx-auto text-center">
                     <div class="space-y-8">
                         <div class="space-y-6">
                             <h1 id="hero-heading" class="text-4xl md:text-5xl lg:text-6xl font-display font-semibold leading-tight">
@@ -107,13 +105,13 @@
                             </p>
                         </div>
 
-                        <div class="flex flex-col items-start gap-4">
+                        <div class="flex flex-col items-center gap-4">
                             <a href="#cta-section" class="btn btn-primary btn-lg group">
                                 Book Your Network Activation Call
                                 <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform" aria-hidden="true"></i>
                             </a>
 
-                            <div class="flex flex-col sm:flex-row items-start justify-start space-y-4 sm:space-y-0 sm:space-x-8 text-sm opacity-80">
+                            <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8 text-sm opacity-80">
                                 <div class="flex items-center space-x-2">
                                     <i class="fas fa-clock"></i>
                                     <span>30m discovery call</span>
@@ -129,7 +127,7 @@
                             </div>
                         </div>
 
-                        <div class="flex items-center space-x-8 text-sm text-charcoal/60" role="list" aria-label="Key statistics">
+                        <div class="flex items-center justify-center space-x-8 text-sm text-charcoal/60" role="list" aria-label="Key statistics">
                             <div class="flex items-center space-x-2" role="listitem">
                                 <i class="fas fa-users text-avocado" aria-hidden="true"></i>
                                 <span>338+ individuals connected</span>
@@ -141,43 +139,10 @@
                         </div>
                     </div>
 
-                    <div class="relative">
-                        <div class="hero-visual">
-                            <div class="network-animation" aria-hidden="true">
-                                <!-- SVG for connection lines -->
-                                <svg class="connections-svg" id="connectionsSvg" aria-hidden="true">
-                                    <!-- Connection lines will be dynamically generated -->
-                                </svg>
-
-                                <!-- Network nodes - 12 people with random colors and positions -->
-                                <div class="network-node color-poppy" id="node1" aria-hidden="true"></div>
-                                <div class="network-node color-sunbeam" id="node2" aria-hidden="true"></div>
-                                <div class="network-node color-peach" id="node3" aria-hidden="true"></div>
-                                <div class="network-node color-avocado" id="node4" aria-hidden="true"></div>
-                                <div class="network-node color-lavender" id="node5" aria-hidden="true"></div>
-                                <div class="network-node color-poppy" id="node6" aria-hidden="true"></div>
-                                <div class="network-node color-sunbeam" id="node7" aria-hidden="true"></div>
-                                <div class="network-node color-peach" id="node8" aria-hidden="true"></div>
-                                <div class="network-node color-avocado" id="node9" aria-hidden="true"></div>
-                                <div class="network-node color-lavender" id="node10" aria-hidden="true"></div>
-                                <div class="network-node color-poppy" id="node11" aria-hidden="true"></div>
-                                <div class="network-node color-sunbeam" id="node12" aria-hidden="true"></div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Scroll Indicator Arrow -->
-        <div class="scroll-indicator" id="scrollIndicator" aria-hidden="true">
-            <div class="scroll-arrow">
-                <i class="fas fa-chevron-down" aria-hidden="true"></i>
-            </div>
-        </div>
-
-        <!-- Elegant section transition -->
-        <div class="section-transition" aria-hidden="true"></div>
     </section>
 
     <!-- Testimonials Section -->
@@ -579,18 +544,6 @@
                         </div>
                     </div>
 
-                    <div class="relative">
-                        <div class="peer-activation-anim" id="peerActivation" aria-hidden="true">
-                            <div class="peer-labels">
-                                <span class="label-before">Before: Fragmented</span>
-                                <span class="label-after">After: Connected</span>
-                            </div>
-                            <svg id="peerActivationSvg" viewBox="0 0 600 320" role="img" aria-label="Network transformation from fragmented to connected" focusable="false" preserveAspectRatio="xMidYMid meet">
-                                <g id="links"></g>
-                                <g id="nodes"></g>
-                            </svg>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
