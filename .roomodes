@@ -89,3 +89,12 @@ customModes:
       - Data validation
       - Performance requirements
       - Security implications
+  - slug: askv2
+    name: Askv2
+    description: Ask low token
+    roleDefinition: simpler ask agent
+    groups:
+      - read
+      - edit
+      - mcp
+    source: project
