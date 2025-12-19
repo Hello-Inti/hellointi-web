@@ -7,11 +7,13 @@
             <label for="first-name" class="block text-sm font-semibold text-charcoal mb-1">First Name</label>
             <input type="text" id="first-name" name="entry.35533427" placeholder="e.g., Alex" required
                    class="w-full px-4 py-2 border border-beige rounded-lg focus:ring-2 focus:ring-sunbeam focus:border-sunbeam outline-none transition-all">
+            <p class="text-red-500 text-xs italic mt-1 hidden" id="first-name-error">First name is required.</p>
         </div>
         <div class="mb-6">
             <label for="email-address" class="block text-sm font-semibold text-charcoal mb-1">Email Address</label>
             <input type="email" id="email-address" name="entry.642459452" placeholder="e.g., alex@example.com" required
                    class="w-full px-4 py-2 border border-beige rounded-lg focus:ring-2 focus:ring-sunbeam focus:border-sunbeam outline-none transition-all">
+            <p class="text-red-500 text-xs italic mt-1 hidden" id="email-address-error">Please enter a valid email address.</p>
         </div>
         <button type="submit"
                 class="w-full bg-poppy text-white text-lg font-bold px-6 py-3 rounded-lg shadow-md hover:bg-poppy/90 transition-all flex items-center justify-center gap-2">

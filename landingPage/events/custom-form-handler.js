@@ -48,8 +48,36 @@ document.addEventListener('DOMContentLoaded', () => {
                         event.preventDefault(); // Prevent default form submission
 
                         const formData = new FormData(this);
-                        const firstName = formData.get('entry.35533427');
-                        const emailAddress = formData.get('entry.642459452');
+                        const firstNameInput = customForm.querySelector('#first-name');
+                        const emailAddressInput = customForm.querySelector('#email-address');
+                        const firstName = firstNameInput.value.trim();
+                        const emailAddress = emailAddressInput.value.trim();
+
+                        // Basic client-side validation
+                        let isValid = true;
+
+                        // Validate First Name
+                        if (firstName === '') {
+                            firstNameInput.classList.add('border-red-500');
+                            isValid = false;
+                        } else {
+                            firstNameInput.classList.remove('border-red-500');
+                        }
+
+                        // Validate Email Address
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailRegex.test(emailAddress)) {
+                            emailAddressInput.classList.add('border-red-500');
+                            isValid = false;
+                        } else {
+                            emailAddressInput.classList.remove('border-red-500');
+                        }
+
+                        if (!isValid) {
+                            // Optionally, display a general error message or specific field errors
+                            console.error('Form validation failed.');
+                            return; // Stop submission if validation fails
+                        }
 
                         // Construct the URL for Google Forms submission
                         const googleFormUrl = `${formActionUrl}&entry.35533427=${encodeURIComponent(firstName)}&entry.642459452=${encodeURIComponent(emailAddress)}`;
