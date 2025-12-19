@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Post-Course Alumni Engagement Blueprint</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Nunito+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        poppy: '#E65C4F',
+                        sunbeam: '#F2B705',
+                        peach: '#F2A08D',
+                        avocado: '#A6A61B',
+                        lavender: '#D4C1EC',
+                        eggshell: '#F2F2F2',
+                        beige: '#D9D4C1',
+                        charcoal: '#403F3E',
+                    },
+                    fontFamily: {
+                        lora: ['Lora', 'serif'],
+                        nunito: ['Nunito Sans', 'sans-serif'],
+                    },
+                    spacing: {
+                        'a4-h': '297mm',
+                        'a4-w': '210mm',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Print Optimization */
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+            .no-break {
+                page-break-inside: avoid;
+            }
+        }
+        
+        /* Base Styling */
+        body {
+            font-family: 'Nunito Sans', sans-serif;
+            color: #403F3E;
+            background-color: #555; /* Dark background for web view to see pages */
+            line-height: 1.5;
+        }
+
+        .page-container {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 20px auto;
+            background: white;
+            position: relative;
+            overflow: hidden;
+            box-sizing: border-box;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        @media print {
+            body {
+                background-color: white;
+            }
+            .page-container {
+                width: 100%;
+                height: 297mm; /* Force fixed height for print */
+                box-shadow: none;
+                margin: 0;
+                border: none;
+                overflow: hidden; /* Ensure content doesn't bleed */
+            }
+        }
+
+        /* Typography Tweaks */
+        h1, h2, h3, h4 {
+            font-family: 'Lora', serif;
+        }
+        
+        .text-body {
+            font-size: 11pt;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body class="print:bg-white">
+
+    <!-- PAGE 1: COVER -->
+    <div class="page-container flex flex-col relative bg-eggshell">
+        <!-- Decorative Elements -->
+        <div class="absolute top-0 left-0 w-full h-4 bg-poppy"></div>
+        <div class="absolute bottom-0 left-0 w-full h-8 bg-beige"></div>
+        
+        <!-- Main Content Centered -->
+        <div class="flex-1 flex flex-col justify-center px-12 z-10">
+            <div class="mb-8">
+                <h1 class="text-6xl font-bold text-poppy font-lora leading-tight mb-8">
+                    The Post-Course Alumni Engagement Blueprint
+                </h1>
+                <div class="w-24 h-2 bg-charcoal mb-8"></div>
+                <h2 class="text-3xl text-charcoal font-nunito font-light italic leading-relaxed border-l-4 border-avocado pl-6">
+                    Create a high-retention flywheel for your course grads without the headache of online platforms.
+                </h2>
+                <p class="mt-4 text-charcoal/60 font-semibold">(no new content needed!)</p>
+            </div>
+        </div>
+
+        <!-- Footer Brand -->
+        <div class="absolute bottom-12 right-12">
+            <h3 class="font-lora text-xl font-bold text-charcoal">hellointi</h3>
+        </div>
+        
+        <!-- Graphic Element -->
+        <div class="absolute -right-20 top-1/2 w-80 h-80 bg-peach rounded-full opacity-50 blur-3xl"></div>
+    </div>
+
+    <!-- PAGE 2: VISUAL INTRO (THE PROBLEM) -->
+    <div class="page-container page-break pt-16 px-12 pb-12 bg-white flex flex-col relative">
+        <div class="absolute top-0 left-0 w-3 h-full bg-poppy"></div>
+
+        <section class="mb-10">
+            <h2 class="text-5xl font-bold text-charcoal mb-6 font-lora">Don’t let your grads drift away.</h2>
+            <div class="w-full h-px bg-beige mb-8"></div>
+            
+            <p class="text-xl text-charcoal/90 mb-8 font-nunito font-light leading-relaxed">
+                It sucks to teach an amazing, heartfelt, transformative course and then have everything you’ve built just fizzle away.
+            </p>
+            
+            <div class="space-y-6">
+                <div class="flex gap-4 items-start">
+                    <div class="mt-1 min-w-[24px]"><i data-feather="target" class="text-poppy"></i></div>
+                    <p class="text-lg text-charcoal/80">You bust your butt on marketing. Even though it’s not your thing, you do it to find the people who need you. And then facilitating the course takes a ton of energy.</p>
+                </div>
+                
+                <div class="flex gap-4 items-start">
+                    <div class="mt-1 min-w-[24px]"><i data-feather="users" class="text-poppy"></i></div>
+                    <p class="text-lg text-charcoal/80">You know that your students need practice and motivation but you know what? You can’t babysit a Facebook group on top of all your other jobs.</p>
+                </div>
+
+                <div class="flex gap-4 items-start">
+                    <div class="mt-1 min-w-[24px]"><i data-feather="wind" class="text-poppy"></i></div>
+                    <p class="text-lg text-charcoal/80">So grads just scatter and you’re lucky if they open your emails again.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Authority Box -->
+        <div class="mt-auto bg-eggshell p-8 rounded-xl border border-beige no-break relative overflow-hidden">
+            <div class="absolute -right-4 -top-4 w-24 h-24 bg-sunbeam rounded-full opacity-20"></div>
+            <p class="text-charcoal/90 font-nunito text-lg leading-relaxed relative z-10">
+                <span class="font-bold text-poppy">We poured a decade of research into solving this problem.</span> Eventually friends and colleagues who run courses wanted to use it too! We think it’s the simplest, easiest, least-burdensome way to keep your keep alumni connected to each other and your work — <strong>WITHOUT more content, facilitation or “community”-building</strong>, because you have enough to do!
+            </p>
+        </div>
+    </div>
+
+    <!-- PAGE 3: VISUAL INTRO (THE SOLUTION) -->
+    <div class="page-container page-break pt-16 px-12 pb-12 bg-charcoal text-eggshell flex flex-col relative">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-sunbeam rounded-bl-full opacity-10"></div>
+
+        <h2 class="text-5xl font-lora font-bold text-sunbeam mb-8 leading-tight">
+            The answer is the art of <br/>
+            <span class="text-white border-b-4 border-poppy">alumni-to-alumni conversations.</span>
+        </h2>
+
+        <div class="space-y-10 mt-4">
+            <!-- Agitate -->
+            <div class="flex gap-6 items-start">
+                <div class="bg-poppy/20 p-4 rounded-full border border-poppy/30">
+                    <i data-feather="alert-octagon" class="text-poppy w-8 h-8"></i>
+                </div>
+                <div>
+                    <h4 class="text-2xl font-bold text-white mb-3 font-lora">Building community is a hard job.</h4>
+                    <p class="text-eggshell/80 text-lg leading-relaxed">It’s exhausting to burden yourself with the heavy work of facilitating an online community — and end up giving away free content, time, and consultations to the loudest members, while your quiet talent and hidden leaders slowly drift away.</p>
+                </div>
+            </div>
+
+            <!-- The Solution -->
+            <div class="bg-white/5 p-10 rounded-xl border border-white/20 relative overflow-hidden shadow-2xl">
+                <h3 class="text-4xl font-lora font-bold text-white mb-6">WHAT IF?</h3>
+                <p class="text-xl leading-relaxed font-nunito text-eggshell/90 mb-8">
+                    Imagine a scalable way to keep people connected across cohorts, that keeps them coming back for something that’s <span class="text-sunbeam font-bold">NOT your content</span>, that doesn’t depend on your precious life-force. An elegant way for them to stay involved that keeps them learning, growing, and training in the skills and awarenesses you already worked so hard to teach them.
+                </p>
+                
+                <div class="bg-sunbeam text-charcoal p-6 rounded-lg shadow-lg">
+                    <p class="text-xl font-bold font-lora mb-2">Here’s the AHA:</p>
+                    <p class="text-lg">Stop trying to gather them into groups, online or off. Instead, pair them up for conversations related to their shared interest, that give them value. 1:1 conversations are easier to schedule, more likely to be successful, and less work for you.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 4: DEEP DIVE - 5 WAYS TO PAIR -->
+    <div class="page-container page-break pt-12 px-12 pb-12 bg-eggshell relative">
+        <div class="absolute top-0 left-0 w-full h-3 bg-beige"></div>
+        
+        <h2 class="text-4xl font-bold font-lora text-charcoal mb-6 text-center">5 Valuable Ways to Pair Grads</h2>
+        
+        <!-- Grid Layout for Density -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            
+            <!-- Item 1 -->
+            <div class="bg-white p-5 rounded-xl border-l-4 border-peach shadow-sm">
+                <h3 class="font-lora font-bold text-xl text-charcoal mb-2 flex items-center gap-2">
+                    <i data-feather="mic" class="w-5 h-5 text-poppy"></i> Practice Partner
+                </h3>
+                <p class="text-body text-charcoal/80">If they need to practice a new interpersonal skill like interviewing, pitching, nonviolent communication, or even a martial art or social dance, they’ll value the chance to practice live.</p>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="bg-white p-5 rounded-xl border-l-4 border-sunbeam shadow-sm">
+                <h3 class="font-lora font-bold text-xl text-charcoal mb-2 flex items-center gap-2">
+                    <i data-feather="check-circle" class="w-5 h-5 text-avocado"></i> Accountability Partner
+                </h3>
+                <p class="text-body text-charcoal/80">If they are trying to establish a new habit, like writing, storytelling practice, social media, or lucid dreaming, they’ll want an accountability partner where they can share snippets of work, little victories, and metrics.</p>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="bg-white p-5 rounded-xl border-l-4 border-lavender shadow-sm">
+                <h3 class="font-lora font-bold text-xl text-charcoal mb-2 flex items-center gap-2">
+                    <i data-feather="zap" class="w-5 h-5 text-charcoal"></i> Brainstorm Buddy
+                </h3>
+                <p class="text-body text-charcoal/80">If they are applying your new framework, paradigm, or philosophy to their life and work, they’ll want someone for more open-ended, generative dialogue and sense-making.</p>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="bg-white p-5 rounded-xl border-l-4 border-poppy shadow-sm">
+                <h3 class="font-lora font-bold text-xl text-charcoal mb-2 flex items-center gap-2">
+                    <i data-feather="heart" class="w-5 h-5 text-poppy"></i> Empathy Buddy
+                </h3>
+                <p class="text-body text-charcoal/80">If they are on the front lines, engaged with high intensity work, or facing major paradigmatic changes, they will benefit from being paired up for listening and reflection within a clear framework.</p>
+            </div>
+            
+            <!-- Item 5 - Spans full width -->
+            <div class="bg-white p-5 rounded-xl border-l-4 border-beige shadow-sm md:col-span-2">
+                <h3 class="font-lora font-bold text-xl text-charcoal mb-2 flex items-center gap-2">
+                    <i data-feather="anchor" class="w-5 h-5 text-charcoal"></i> Identity Reinforcement
+                </h3>
+                <p class="text-body text-charcoal/80">If your community members are part of an innovative or early stage new idea, they will want to have opportunitites to reinforce the meaning of their network membership and activate the shared identity and sense of mission it gives them.</p>
+            </div>
+        </div>
+
+        <div class="mt-6 p-4 bg-beige/30 rounded-lg text-center border border-beige">
+            <p class="font-lora font-bold text-charcoal text-lg">Which of these do you think your grads would value the most?</p>
+            <p class="text-sm text-charcoal/70 uppercase tracking-widest mt-1">Remember, we’ll do all the heavy lifting!</p>
+        </div>
+    </div>
+
+    <!-- PAGE 5: PITFALLS -->
+    <div class="page-container page-break pt-12 px-12 pb-12 bg-white relative">
+        <h2 class="text-4xl font-bold font-lora text-charcoal mb-8 flex items-center gap-3">
+            <i data-feather="alert-triangle" class="text-poppy w-10 h-10"></i>
+            5 Pitfalls of Buddy Systems
+        </h2>
+        
+        <div class="flex flex-col gap-5">
+            <!-- Pitfall 1 -->
+            <div class="flex gap-5 no-break">
+                <div class="w-12 h-12 rounded-full bg-eggshell flex items-center justify-center shrink-0 border border-beige font-lora font-bold text-xl text-poppy">1</div>
+                <div>
+                    <h4 class="font-bold text-xl text-charcoal mb-1">You just tell people to “find a buddy.”</h4>
+                    <p class="text-body text-charcoal/80">Telling people to look around the Zoom room or to go to your Facebook group and “find a buddy to practice with” is a joke, it won’t actually happen. That is overwhelming and confusing for most people.</p>
+                </div>
+            </div>
+
+            <!-- Pitfall 2 -->
+            <div class="flex gap-5 no-break">
+                <div class="w-12 h-12 rounded-full bg-eggshell flex items-center justify-center shrink-0 border border-beige font-lora font-bold text-xl text-poppy">2</div>
+                <div>
+                    <h4 class="font-bold text-xl text-charcoal mb-1">You pair people up once and never revisit.</h4>
+                    <p class="text-body text-charcoal/80">This is a recipe for awkwardness. You might think they are perfect but you really don’t know. And then they don’t know how long they are stuck with each other and what to do if it doesn’t work out.</p>
+                </div>
+            </div>
+
+            <!-- Pitfall 3 -->
+            <div class="flex gap-5 no-break">
+                <div class="w-12 h-12 rounded-full bg-eggshell flex items-center justify-center shrink-0 border border-beige font-lora font-bold text-xl text-poppy">3</div>
+                <div>
+                    <h4 class="font-bold text-xl text-charcoal mb-1">You decided to install an auto-matching foreverbot.</h4>
+                    <p class="text-body text-charcoal/80">Free random coffee integrations like Donut might work for a little while but most communities find they quickly become irritating and conversation stays superficial.</p>
+                </div>
+            </div>
+
+            <!-- Pitfall 4 -->
+            <div class="flex gap-5 no-break">
+                <div class="w-12 h-12 rounded-full bg-eggshell flex items-center justify-center shrink-0 border border-beige font-lora font-bold text-xl text-poppy">4</div>
+                <div>
+                    <h4 class="font-bold text-xl text-charcoal mb-1">You figure, “it’s easy, I’ll just pair people up myself.”</h4>
+                    <p class="text-body text-charcoal/80">It’s not easy, Believe us. You’ll find yourself in spreadsheet hell, trying to remember who gets along with who, and irritated by chasing flaky people.</p>
+                </div>
+            </div>
+
+            <!-- Pitfall 5 -->
+            <div class="flex gap-5 no-break">
+                <div class="w-12 h-12 rounded-full bg-eggshell flex items-center justify-center shrink-0 border border-beige font-lora font-bold text-xl text-poppy">5</div>
+                <div>
+                    <h4 class="font-bold text-xl text-charcoal mb-1">You do nothing.</h4>
+                    <p class="text-body text-charcoal/80">This is also the wrong answer, because people who could become loyal advocates and raving fans and serious practitioners scatter to the winds.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 6: PRINCIPLES -->
+    <div class="page-container page-break pt-12 px-12 pb-12 bg-eggshell relative">
+        <h2 class="text-4xl font-bold font-lora text-charcoal mb-2">The Art & Science</h2>
+        <p class="text-lg text-charcoal/70 mb-8 font-nunito">In our years of experimentation we have found the following five principles work:</p>
+
+        <div class="space-y-4">
+            <!-- Principle 1 -->
+            <div class="bg-white p-6 rounded-xl border border-beige flex gap-4 no-break shadow-sm">
+                <i data-feather="calendar" class="text-avocado w-8 h-8 shrink-0"></i>
+                <div>
+                    <h4 class="font-lora font-bold text-xl text-charcoal">1. Programs, not forever.</h4>
+                    <p class="text-body text-charcoal/80 mt-1">Your alums get invited to join a 7-week program where they’ll be paired up with someone in the network who wants to work on what they want to work on.</p>
+                </div>
+            </div>
+
+            <!-- Principle 2 -->
+            <div class="bg-white p-6 rounded-xl border border-beige flex gap-4 no-break shadow-sm">
+                <i data-feather="layers" class="text-avocado w-8 h-8 shrink-0"></i>
+                <div>
+                    <h4 class="font-lora font-bold text-xl text-charcoal">2. Depth, not surface.</h4>
+                    <p class="text-body text-charcoal/80 mt-1">Your grads need priming to bring the best of their attention to the conversation, so cues like how to prepare, and guidelines like a 1-hour default meeting really help.</p>
+                </div>
+            </div>
+
+            <!-- Principle 3 -->
+            <div class="bg-white p-6 rounded-xl border border-beige flex gap-4 no-break shadow-sm">
+                <i data-feather="check-square" class="text-avocado w-8 h-8 shrink-0"></i>
+                <div>
+                    <h4 class="font-lora font-bold text-xl text-charcoal">3. Opt in, opt in, opt in.</h4>
+                    <p class="text-body text-charcoal/80 mt-1">People should be prompted to meet with a fellow alum who is explicitly available and wants to meet THAT WEEK.</p>
+                </div>
+            </div>
+
+            <!-- Principle 4 -->
+            <div class="bg-white p-6 rounded-xl border border-beige flex gap-4 no-break shadow-sm">
+                <i data-feather="user-check" class="text-avocado w-8 h-8 shrink-0"></i>
+                <div>
+                    <h4 class="font-lora font-bold text-xl text-charcoal">4. Assign roles.</h4>
+                    <p class="text-body text-charcoal/80 mt-1">It is a huge mistake to just pair people up and tell them to “find a time to meet.” You also need to assign who will take point to schedule the meeting, or it won’t happen. This is gold!</p>
+                </div>
+            </div>
+
+            <!-- Principle 5 -->
+            <div class="bg-white p-6 rounded-xl border border-beige flex gap-4 no-break shadow-sm">
+                <i data-feather="clipboard" class="text-avocado w-8 h-8 shrink-0"></i>
+                <div>
+                    <h4 class="font-lora font-bold text-xl text-charcoal">5. Log the conversation.</h4>
+                    <p class="text-body text-charcoal/80 mt-1">You want to get insight into what happened in the conversation, OR if it didn’t happen, so you have conversation-starters with network members, ideas for new content, and can identify who’s systematically flaking.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 7: CTA -->
+    <div class="page-container page-break pt-16 px-16 pb-16 bg-white flex flex-col justify-center text-center">
+        
+        <div class="mb-10">
+             <h2 class="text-5xl font-lora font-bold text-poppy mb-6">We can help you.</h2>
+             <div class="w-16 h-2 bg-sunbeam mx-auto rounded-full"></div>
+        </div>
+       
+        <div class="text-left space-y-6 text-xl text-charcoal/80 font-nunito leading-relaxed max-w-2xl mx-auto">
+            <p>
+                <strong class="text-charcoal">Don’t suffer on.</strong> It’s a huge waste, and infinitely demoralizing, to have people you’ve hustled to recruit and labored to teach fizzle away from you after you’ve created so much amazing momentum with your incredible course. When they leave the Zoom room that last time, you lose out if you don’t have a post-course alumni engagement flywheel.
+            </p>
+            <p>
+                Keep all those people who have already fallen in love with you connected to your work, while you go on to serve the next cohort. All those adorable, motivated, hardworking students can become a huge lift to your community with a simple engagement program that takes you out of the loop.
+            </p>
+            <p>
+                Then they can become future assistants, peer mentors, and people who could inspire others with their process and practice, advocating for you and championing your work. All while getting good at the skills you taught them and creating lifelong friendships.
+            </p>
+        </div>
+
+        <div class="mt-16 bg-beige/20 border border-beige rounded-2xl p-10 max-w-xl mx-auto">
+            <h3 class="font-lora text-2xl font-bold text-charcoal mb-4">Book a call and join the 2026 waitlist</h3>
+            <p class="text-charcoal/70 mb-8">Let's get your alumni community connected!</p>
+            
+            <a href="#" class="inline-flex items-center gap-2 bg-poppy text-white font-bold py-4 px-10 rounded-lg shadow-xl hover:bg-poppy/90 hover:-translate-y-1 transition-all text-lg">
+                <span>Join the Waitlist</span>
+                <i data-feather="arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>

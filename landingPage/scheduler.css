@@ -1,0 +1,98 @@
+/* Scheduler Popup Styles */
+.scheduler-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: none;
+    opacity: 0;
+}
+
+.scheduler-popup-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    cursor: pointer;
+}
+
+.scheduler-popup-content {
+    position: relative;
+    max-width: 900px;
+    margin: 2rem auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    transform: scale(0.9);
+    transition: transform 0.3s ease-out;
+}
+
+.scheduler-popup.is-visible .scheduler-popup-content {
+    transform: scale(1);
+}
+
+.scheduler-popup-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #333;
+    font-size: 18px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.scheduler-popup-close:hover {
+    background: white;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.scheduler-popup-close:focus {
+    outline: 2px solid #E65C4F;
+    outline-offset: 2px;
+}
+
+#scheduler-iframe {
+    display: block;
+    border: none;
+    width: 100%;
+    height: 600px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .scheduler-popup-content {
+        margin: 1rem;
+        max-width: none;
+    }
+
+    #scheduler-iframe {
+        height: 500px;
+    }
+}
+
+@media (max-width: 480px) {
+    .scheduler-popup-content {
+        margin: 0.5rem;
+    }
+
+    #scheduler-iframe {
+        height: 400px;
+    }
+}

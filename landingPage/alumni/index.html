@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Post-Course Alumni Engagement Blueprint</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Nunito+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="scheduler.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        poppy: '#E65C4F',
+                        sunbeam: '#F2B705',
+                        peach: '#F2A08D',
+                        avocado: '#A6A61B',
+                        lavender: '#D4C1EC',
+                        eggshell: '#F2F2F2',
+                        beige: '#D9D4C1',
+                        charcoal: '#403F3E',
+                    },
+                    fontFamily: {
+                        lora: ['Lora', 'serif'],
+                        nunito: ['Nunito Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-eggshell text-charcoal font-nunito antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-beige transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="font-lora font-bold text-2xl text-poppy tracking-tight">hellointi</a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#problem" class="text-charcoal font-semibold hover:text-poppy transition-colors">The Problem</a>
+                <a href="#solution" class="text-charcoal font-semibold hover:text-poppy transition-colors">The Solution</a>
+                <a href="#blueprint" class="text-charcoal font-semibold hover:text-poppy transition-colors">The Blueprint</a>
+                <a href="#cta" class="bg-poppy text-white px-6 py-2.5 rounded-lg font-bold hover:bg-poppy/90 transition-all shadow-md">Book a Call</a>
+            </div>
+            <!-- Mobile Menu Icon -->
+            <button class="md:hidden text-charcoal">
+                <i data-feather="menu"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <!-- Background Decor -->
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-beige/20 -skew-x-12 transform origin-top-right"></div>
+        <div class="absolute top-40 -left-20 w-72 h-72 bg-peach/30 rounded-full blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="font-lora font-bold text-5xl md:text-6xl lg:text-7xl text-charcoal mb-8 leading-tight">
+                    The Post-Course Alumni <br class="hidden md:block" /> <span class="text-poppy">Engagement Blueprint</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-charcoal/70 font-light mb-10 max-w-2xl mx-auto leading-relaxed">
+                    Create a high-retention flywheel for your course grads without the headache of online platforms.
+                </p>
+                <div class="flex flex-col md:flex-row gap-4 justify-center">
+                    <a href="alumni_blueprint.pdf" class="bg-poppy text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl hover:bg-poppy/90 hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
+                        <span>Get the Blueprint</span>
+                        <i data-feather="arrow-down"></i>
+                    </a>
+                    <a href="#problem" class="bg-white border border-beige text-charcoal px-8 py-4 rounded-xl font-bold text-lg hover:bg-beige/20 transition-all scheduler-cta">
+                        Read More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECTION 1: THE PROBLEM (Visual Intro) -->
+    <section id="problem" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                <!-- Content -->
+                <div class="lg:w-1/2">
+                    <h2 class="font-lora font-bold text-4xl md:text-5xl text-charcoal mb-8">
+                        Don’t let your grads <br><span class="text-poppy decoration-4 underline decoration-sunbeam">drift away.</span>
+                    </h2>
+                    <p class="text-lg text-charcoal/80 mb-6 leading-relaxed">
+                        It sucks to teach an amazing, heartfelt, transformative course and then have everything you’ve built just fizzle away.
+                    </p>
+                    <div class="space-y-6 mt-8">
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 bg-eggshell rounded-full flex items-center justify-center text-poppy shrink-0">
+                                <i data-feather="frown"></i>
+                            </div>
+                            <p class="text-charcoal/80">You bust your butt on marketing to find the people who need you. Facilitating the course takes a ton of energy.</p>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 bg-eggshell rounded-full flex items-center justify-center text-poppy shrink-0">
+                                <i data-feather="slash"></i>
+                            </div>
+                            <p class="text-charcoal/80">You can’t babysit a Facebook group on top of all your other jobs. So grads just scatter and you’re lucky if they open your emails again.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Visual/Quote Box -->
+                <div class="lg:w-1/2">
+                    <div class="bg-eggshell p-10 rounded-2xl border border-beige relative">
+                        <i data-feather="message-circle" class="w-16 h-16 text-beige absolute -top-8 -right-8"></i>
+                        <h3 class="font-lora font-bold text-2xl mb-4">The Reality Check</h3>
+                        <p class="text-lg leading-relaxed text-charcoal/90">
+                            "We poured a decade of research into solving this problem. We think it’s the simplest, easiest, least-burdensome way to keep your alumni connected... <strong class="text-poppy">WITHOUT more content, facilitation or 'community'-building</strong>, because you have enough to do!"
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: THE SOLUTION (Dark Mode Transition) -->
+    <section id="solution" class="py-24 bg-charcoal text-eggshell relative overflow-hidden">
+        <!-- Decor -->
+        <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-poppy via-sunbeam to-poppy"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-sunbeam/10 rounded-full blur-3xl translate-y-1/2 translate-x-1/2"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10 text-center max-w-4xl">
+            <h2 class="font-lora font-bold text-4xl md:text-5xl text-sunbeam mb-6">
+                The answer is the art of <br>
+                <span class="text-white border-b-2 border-poppy pb-2">alumni-to-alumni conversations</span>
+            </h2>
+
+            <div class="mt-12 grid md:grid-cols-2 gap-8 text-left">
+                <div class="bg-white/5 p-8 rounded-xl border border-white/10 hover:border-poppy/50 transition-colors">
+                    <h4 class="font-lora font-bold text-xl text-white mb-3 flex items-center gap-2">
+                        <i data-feather="x-circle" class="text-poppy"></i> The Old Way
+                    </h4>
+                    <p class="text-eggshell/70">Building community is a hard job. It’s exhausting to burden yourself with facilitation, giving away free time to the loudest members while hidden leaders drift away.</p>
+                </div>
+                <div class="bg-white/5 p-8 rounded-xl border border-white/10 hover:border-sunbeam/50 transition-colors">
+                    <h4 class="font-lora font-bold text-xl text-sunbeam mb-3 flex items-center gap-2">
+                        <i data-feather="check-circle" class="text-avocado"></i> The New Way
+                    </h4>
+                    <p class="text-eggshell/70">Stop trying to gather them into groups. Pair them up for conversations related to their shared interest. 1:1 conversations are easier to schedule and less work for you.</p>
+                </div>
+            </div>
+
+            <div class="mt-12 bg-poppy text-white p-6 rounded-lg inline-block shadow-lg transform rotate-1 hover:rotate-0 transition-transform">
+                <p class="font-bold text-lg">"Imagine a scalable way to keep people connected that keeps them coming back for something that’s NOT your content."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: THE 5 WAYS (Grid Layout) -->
+    <section id="blueprint" class="py-24 bg-eggshell">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="font-lora font-bold text-4xl text-charcoal mb-4">5 Ways to Pair Your Grads</h2>
+                <p class="text-xl text-charcoal/70">Which of these do you think your grads would value the most? Remember, we’ll do all the heavy lifting!</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 border-t-4 border-peach group">
+                    <div class="w-14 h-14 bg-peach/20 rounded-xl flex items-center justify-center text-poppy mb-6 group-hover:bg-poppy group-hover:text-white transition-colors">
+                        <i data-feather="mic"></i>
+                    </div>
+                    <h3 class="font-lora font-bold text-xl text-charcoal mb-3">Practice Partner</h3>
+                    <p class="text-charcoal/80">Perfect for interpersonal skills like interviewing, pitching, or nonviolent communication. They’ll value the chance to practice live.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 border-t-4 border-sunbeam group">
+                    <div class="w-14 h-14 bg-sunbeam/20 rounded-xl flex items-center justify-center text-avocado mb-6 group-hover:bg-sunbeam group-hover:text-charcoal transition-colors">
+                        <i data-feather="activity"></i>
+                    </div>
+                    <h3 class="font-lora font-bold text-xl text-charcoal mb-3">Accountability Partner</h3>
+                    <p class="text-charcoal/80">For new habits like writing or lucid dreaming. A space to share snippets of work, little victories, and metrics.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 border-t-4 border-lavender group">
+                    <div class="w-14 h-14 bg-lavender/40 rounded-xl flex items-center justify-center text-charcoal mb-6 group-hover:bg-lavender group-hover:text-charcoal transition-colors">
+                        <i data-feather="zap"></i>
+                    </div>
+                    <h3 class="font-lora font-bold text-xl text-charcoal mb-3">Brainstorm Buddy</h3>
+                    <p class="text-charcoal/80">For applying your framework to life and work. Best for open-ended, generative dialogue and sense-making.</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 border-t-4 border-poppy group">
+                    <div class="w-14 h-14 bg-poppy/10 rounded-xl flex items-center justify-center text-poppy mb-6 group-hover:bg-poppy group-hover:text-white transition-colors">
+                        <i data-feather="heart"></i>
+                    </div>
+                    <h3 class="font-lora font-bold text-xl text-charcoal mb-3">Empathy Buddy</h3>
+                    <p class="text-charcoal/80">If they are on the front lines or facing major changes, they benefit from listening and reflection within a clear framework.</p>
+                </div>
+
+                <!-- Card 5 (Spans 2 cols on LG) -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 border-t-4 border-beige md:col-span-2 lg:col-span-2 group">
+                    <div class="flex flex-col md:flex-row gap-6 items-start md:items-center">
+                        <div class="w-14 h-14 bg-beige/40 rounded-xl flex items-center justify-center text-charcoal shrink-0 group-hover:bg-charcoal group-hover:text-white transition-colors">
+                            <i data-feather="anchor"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-lora font-bold text-xl text-charcoal mb-2">Identity Reinforcement</h3>
+                            <p class="text-charcoal/80">For innovative ideas. Opportunities to reinforce the meaning of their network membership and activate shared identity and mission.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: PITFALLS (Warning Section) -->
+    <section class="py-20 bg-white border-y border-beige">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="font-lora font-bold text-4xl text-charcoal mb-12 text-center flex items-center justify-center gap-3">
+                <i data-feather="alert-triangle" class="text-poppy"></i>
+                5 Pitfalls of Buddy Systems
+            </h2>
+
+            <div class="space-y-4 max-w-4xl mx-auto">
+                <!-- Accordion Style Items -->
+                <div class="bg-eggshell p-6 rounded-lg border border-beige flex gap-4">
+                    <span class="font-lora font-bold text-xl text-poppy">1.</span>
+                    <div>
+                        <h4 class="font-bold text-charcoal">You just tell people to “find a buddy.”</h4>
+                        <p class="text-sm text-charcoal/70 mt-1">Telling people to "look around the Zoom room" is overwhelming. It won't happen.</p>
+                    </div>
+                </div>
+
+                <div class="bg-eggshell p-6 rounded-lg border border-beige flex gap-4">
+                    <span class="font-lora font-bold text-xl text-poppy">2.</span>
+                    <div>
+                        <h4 class="font-bold text-charcoal">You pair people up once and never revisit.</h4>
+                        <p class="text-sm text-charcoal/70 mt-1">A recipe for awkwardness. What if they don't get along? How long are they stuck?</p>
+                    </div>
+                </div>
+
+                <div class="bg-eggshell p-6 rounded-lg border border-beige flex gap-4">
+                    <span class="font-lora font-bold text-xl text-poppy">3.</span>
+                    <div>
+                        <h4 class="font-bold text-charcoal">The Auto-matching Foreverbot.</h4>
+                        <p class="text-sm text-charcoal/70 mt-1">Random coffee bots (like Donut) quickly become irritating and conversations stay superficial.</p>
+                    </div>
+                </div>
+
+                <div class="bg-eggshell p-6 rounded-lg border border-beige flex gap-4">
+                    <span class="font-lora font-bold text-xl text-poppy">4.</span>
+                    <div>
+                        <h4 class="font-bold text-charcoal">DIY Spreadsheet Hell.</h4>
+                        <p class="text-sm text-charcoal/70 mt-1">Trying to pair them yourself leads to administrative nightmares and chasing flaky people.</p>
+                    </div>
+                </div>
+
+                <div class="bg-eggshell p-6 rounded-lg border border-beige flex gap-4">
+                    <span class="font-lora font-bold text-xl text-poppy">5.</span>
+                    <div>
+                        <h4 class="font-bold text-charcoal">You do nothing.</h4>
+                        <p class="text-sm text-charcoal/70 mt-1">Loyal advocates and serious practitioners scatter to the winds.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: PRINCIPLES (Steps) -->
+    <section class="py-24 bg-eggshell">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="font-lora font-bold text-4xl text-charcoal mb-4 text-center">The Art & Science</h2>
+            <p class="text-center text-charcoal/70 mb-16 max-w-2xl mx-auto">Creating an engagement strategy requires intentional design. Here are the five principles that work:</p>
+
+            <div class="relative max-w-4xl mx-auto">
+                <!-- Vertical Line for Desktop -->
+                <div class="hidden md:block absolute left-1/2 top-0 h-full w-1 bg-beige transform -translate-x-1/2"></div>
+
+                <div class="space-y-12">
+                    <!-- Step 1 -->
+                    <div class="flex flex-col md:flex-row items-center justify-between relative">
+                        <div class="md:w-5/12 text-center md:text-right md:pr-8">
+                            <h4 class="font-lora font-bold text-xl text-charcoal">Programs, not forever</h4>
+                            <p class="text-sm text-charcoal/80 mt-2">7-week programs, not open-ended commitments.</p>
+                        </div>
+                        <div class="w-10 h-10 bg-avocado rounded-full flex items-center justify-center text-white border-4 border-eggshell z-10 shrink-0 my-4 md:my-0">1</div>
+                        <div class="md:w-5/12 md:pl-8 hidden md:block"></div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="flex flex-col md:flex-row items-center justify-between relative">
+                        <div class="md:w-5/12 text-center md:text-right md:pr-8 hidden md:block"></div>
+                        <div class="w-10 h-10 bg-avocado rounded-full flex items-center justify-center text-white border-4 border-eggshell z-10 shrink-0 my-4 md:my-0">2</div>
+                        <div class="md:w-5/12 md:pl-8 text-center md:text-left">
+                            <h4 class="font-lora font-bold text-xl text-charcoal">Depth, not surface</h4>
+                            <p class="text-sm text-charcoal/80 mt-2">Prime them with prep cues. Default to 1 hour.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="flex flex-col md:flex-row items-center justify-between relative">
+                        <div class="md:w-5/12 text-center md:text-right md:pr-8">
+                            <h4 class="font-lora font-bold text-xl text-charcoal">Opt in, Opt in</h4>
+                            <p class="text-sm text-charcoal/80 mt-2">Only prompt people who want to meet THAT WEEK.</p>
+                        </div>
+                        <div class="w-10 h-10 bg-avocado rounded-full flex items-center justify-center text-white border-4 border-eggshell z-10 shrink-0 my-4 md:my-0">3</div>
+                        <div class="md:w-5/12 md:pl-8 hidden md:block"></div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="flex flex-col md:flex-row items-center justify-between relative">
+                        <div class="md:w-5/12 text-center md:text-right md:pr-8 hidden md:block"></div>
+                        <div class="w-10 h-10 bg-avocado rounded-full flex items-center justify-center text-white border-4 border-eggshell z-10 shrink-0 my-4 md:my-0">4</div>
+                        <div class="md:w-5/12 md:pl-8 text-center md:text-left">
+                            <h4 class="font-lora font-bold text-xl text-charcoal">Assign roles</h4>
+                            <p class="text-sm text-charcoal/80 mt-2">Assign who takes point to schedule. This is gold!</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="flex flex-col md:flex-row items-center justify-between relative">
+                        <div class="md:w-5/12 text-center md:text-right md:pr-8">
+                            <h4 class="font-lora font-bold text-xl text-charcoal">Log the conversation</h4>
+                            <p class="text-sm text-charcoal/80 mt-2">Get insight into what happened to identify flakiness.</p>
+                        </div>
+                        <div class="w-10 h-10 bg-avocado rounded-full flex items-center justify-center text-white border-4 border-eggshell z-10 shrink-0 my-4 md:my-0">5</div>
+                        <div class="md:w-5/12 md:pl-8 hidden md:block"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: CTA (Footer) -->
+    <section id="cta" class="py-24 bg-white relative">
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-beige via-sunbeam to-beige"></div>
+        <div class="max-w-7xl mx-auto px-6 text-center max-w-4xl">
+            <h2 class="font-lora font-bold text-5xl text-poppy mb-8">We can help you.</h2>
+
+            <div class="prose prose-lg mx-auto text-charcoal/80 mb-12">
+                <p>Don’t suffer on. It’s a huge waste, and infinitely demoralizing, to have people you’ve hustled to recruit and labored to teach fizzle away from you after you’ve created so much amazing momentum with your incredible course.</p>
+                <p class="font-bold mt-4">Keep all those people who have already fallen in love with you connected to your work.</p>
+            </div>
+
+            <div class="bg-charcoal text-white rounded-3xl p-12 shadow-2xl relative overflow-hidden group">
+                <!-- Hover Effect -->
+                <div class="absolute top-0 left-0 w-full h-full bg-poppy opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
+
+                <h3 class="font-lora font-bold text-3xl mb-4">Ready to build your flywheel?</h3>
+                <p class="text-white/70 mb-8 text-lg">Book a call and join the 2026 waitlist so we can get your alumni community connected!</p>
+
+                <button class="bg-sunbeam text-charcoal font-bold text-xl px-10 py-5 rounded-xl hover:bg-white transition-colors shadow-lg flex items-center gap-3 mx-auto">
+                    Book a Call & Join Waitlist
+                    <i data-feather="arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-charcoal text-white py-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div>
+                <span class="font-lora font-bold text-2xl tracking-tight">hellointi</span>
+                <p class="text-sm text-white/50 mt-1">© 2025 All rights reserved.</p>
+            </div>
+            <div class="flex gap-6">
+                <a href="#" class="text-white/70 hover:text-sunbeam transition-colors"><i data-feather="twitter"></i></a>
+                <a href="#" class="text-white/70 hover:text-sunbeam transition-colors"><i data-feather="linkedin"></i></a>
+                <a href="#" class="text-white/70 hover:text-sunbeam transition-colors"><i data-feather="instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Pipedrive Scheduler Popup -->
+    <div id="scheduler-popup" class="scheduler-popup" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1">
+        <div class="scheduler-popup-overlay" aria-label="Close scheduler"></div>
+        <div class="scheduler-popup-content">
+            <button class="scheduler-popup-close" aria-label="Close scheduler">
+                <i class="fas fa-times"></i>
+            </button>
+            <iframe id="scheduler-iframe" src="https://intispaces.pipedrive.com/scheduler/xKA6dvTY/mitra-collaborator" title="Pipedrive Scheduler Embed" frameborder="0" height="600px" width="100%" style="max-width: 800px" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        feather.replace();
+    </script>
+    <script src="scheduler.js"></script>
+</body>
+</html>
