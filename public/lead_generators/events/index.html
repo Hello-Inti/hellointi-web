@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HelloInti | Event Connection Engine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Nunito+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+      <!-- Reusable popup framework (shared across landing pages) -->
+      <link rel="stylesheet" href="popup-framework.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        poppy: '#E65C4F',
+                        sunbeam: '#F2B705',
+                        peach: '#F2A08D',
+                        avocado: '#A6A61B',
+                        lavender: '#D4C1EC',
+                        eggshell: '#F2F2F2',
+                        beige: '#D9D4C1',
+                        charcoal: '#403F3E',
+                    },
+                    fontFamily: {
+                        lora: ['Lora', 'serif'],
+                        nunito: ['Nunito Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+  <body class="bg-eggshell text-charcoal font-nunito antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-beige transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="font-lora font-bold text-2xl text-poppy tracking-tight hover:opacity-80 transition-opacity">hellointi</a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#problem" class="text-charcoal font-semibold hover:text-poppy transition-colors">The Stakes</a>
+                <a href="#solution" class="text-charcoal font-semibold hover:text-poppy transition-colors">The Solution</a>
+                <a href="#plan" class="text-charcoal font-semibold hover:text-poppy transition-colors">The Plan</a>
+                <a href="#cta" class="bg-poppy text-white px-6 py-2.5 rounded-lg font-bold hover:bg-poppy/90 transition-all shadow-md">Join Waitlist</a>
+            </div>
+            <!-- Mobile Menu Icon -->
+            <button class="md:hidden text-charcoal">
+                <i data-feather="menu"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-eggshell">
+        <!-- Background Decor -->
+        <div class="absolute top-0 right-0 w-2/3 h-full bg-beige/10 skew-x-12 origin-top-right"></div>
+        <div class="absolute bottom-20 left-10 w-64 h-64 bg-sunbeam/20 rounded-full blur-3xl"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-5xl mx-auto text-center">
+
+                <h1 class="font-lora font-bold text-5xl md:text-6xl lg:text-7xl text-charcoal mb-8 leading-tight">
+                    Turn your event into an <br class="hidden md:block" />
+                    <span class="text-poppy relative inline-block">
+                        engine of connection
+                        <svg class="absolute w-full h-3 -bottom-1 left-0 text-sunbeam opacity-60" viewBox="0 0 200 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.00025 6.99997C48.552 1.49221 154.551 -2.57016 198.001 3.50002" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+                    </span>
+                </h1>
+
+                <p class="text-xl md:text-2xl text-charcoal/70 font-light mb-4 max-w-3xl mx-auto leading-relaxed">
+                    Without adding facilitators or content.
+                </p>
+
+                <div class="flex flex-col md:flex-row justify-center items-center gap-6 mt-10 mb-12">
+                    <!-- The Hook: Problem/Solution Abstract -->
+                    <div class="bg-white border border-beige p-6 rounded-xl shadow-sm text-left max-w-md">
+                        <div class="flex items-start gap-3 mb-4">
+                            <i data-feather="frown" class="text-poppy mt-1"></i>
+                            <p class="text-sm text-charcoal/80"><strong>The Struggle:</strong> You work your ass off to produce an epic event, but you can’t control the pre-event "meh" and post-event "blah."</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i data-feather="sun" class="text-avocado mt-1"></i>
+                            <p class="text-sm text-charcoal/80"><strong>The Fix:</strong> We connect participants beforehand so they come warm and ready, and keep building success afterwards.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="#cta" class="inline-flex items-center gap-2 bg-poppy text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl hover:bg-poppy/90 hover:-translate-y-1 transition-all">
+                    <span>Join the 2026 Waitlist</span>
+                    <i data-feather="arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECTION: THE STAKES (Problem) -->
+    <section id="problem" class="py-24 bg-white relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-poppy font-bold tracking-widest uppercase text-sm mb-2 block">The Reality</span>
+                <h2 class="font-lora font-bold text-4xl text-charcoal mb-4">You put so much into production.</h2>
+                <p class="text-xl text-charcoal/70">It sucks to watch event participants struggle to connect despite your amazing program.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Pain Point 1 -->
+                <div class="bg-eggshell p-8 rounded-2xl border-t-4 border-poppy group hover:shadow-lg transition-all">
+                    <div class="w-12 h-12 bg-poppy/10 rounded-full flex items-center justify-center text-poppy mb-4">
+                        <i data-feather="users"></i>
+                    </div>
+                    <h3 class="font-lora font-bold text-xl text-charcoal mb-3">Uneven Participation</h3>
+                    <p class="text-charcoal/80">Everyone brings different skills and expectations. Introverts slip through the cracks while you put out fires.</p>
+                </div>
+
+                <!-- Pain Point 2 -->
+                <div class="bg-eggshell p-8 rounded-2xl border-t-4 border-poppy group hover:shadow-lg transition-all">
+                    <div class="w-12 h-12 bg-poppy/10 rounded-full flex items-center justify-center text-poppy mb-4">
+                        <i data-feather="alert-circle"></i>
+                    </div>
+                    <h3 class="font-lora font-bold text-xl text-charcoal mb-3">Cliques & Drama</h3>
+                    <p class="text-charcoal/80">Without structure, social dynamics can derail your intentions. People leave feeling lonely or overwhelmed.</p>
+                </div>
+
+                <!-- Pain Point 3 -->
+                <div class="bg-eggshell p-8 rounded-2xl border-t-4 border-poppy group hover:shadow-lg transition-all">
+                    <div class="w-12 h-12 bg-poppy/10 rounded-full flex items-center justify-center text-poppy mb-4">
+                        <i data-feather="wind"></i>
+                    </div>
+                    <h3 class="font-lora font-bold text-xl text-charcoal mb-3">Evaporation</h3>
+                    <p class="text-charcoal/80">They leave unfocused, unsure what's next. All the potential and inspiration evaporates—along with your hard work!</p>
+                </div>
+            </div>
+
+            <!-- Empathy Block -->
+            <div class="mt-16 bg-beige/20 border border-beige rounded-xl p-8 text-center max-w-4xl mx-auto">
+                <p class="font-lora italic text-xl text-charcoal/90">
+                    "We know what it’s like to pour your heart into producing an amazing event with incredible talent and inspiring content, and watch participants struggle to connect."
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: VALUE PROPOSITION (Solution) -->
+    <section id="solution" class="py-24 bg-charcoal text-eggshell relative overflow-hidden">
+        <!-- Decor -->
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-sunbeam/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-poppy via-sunbeam to-poppy"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+
+                <div class="lg:w-1/2">
+                    <h2 class="font-lora font-bold text-4xl md:text-5xl text-sunbeam mb-6">
+                        Build lasting, deep connections...
+                    </h2>
+                    <h3 class="font-lora text-2xl text-white mb-8 border-l-4 border-poppy pl-6">
+                        ...without creating more content or hiring more staff.
+                    </h3>
+
+                    <div class="space-y-8">
+                        <div class="flex gap-4">
+                            <div class="mt-1"><i data-feather="check-circle" class="text-avocado"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg text-white">Arrive Confident</h4>
+                                <p class="text-eggshell/70">We help participants get revved up about who they will meet, so they arrive warm and ready.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="mt-1"><i data-feather="check-circle" class="text-avocado"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg text-white">Deepen Presence</h4>
+                                <p class="text-eggshell/70">Foster a culture of deeper, intentional conversation during the event itself.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="mt-1"><i data-feather="check-circle" class="text-avocado"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg text-white">Effortless Follow-through</h4>
+                                <p class="text-eggshell/70">Connecting post-event turns them into engaged advocates for the work you do together.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial Card -->
+                <div class="lg:w-1/2">
+                    <div class="bg-white/10 backdrop-blur-sm border border-white/20 p-10 rounded-2xl relative">
+                        <i data-feather="message-square" class="text-poppy w-12 h-12 mb-6 opacity-80"></i>
+                        <p class="font-lora text-lg leading-relaxed text-eggshell mb-6">
+                            “We didn't have an easy, decentralized way to support low-threshold involvement. HelloInti really worked! I was surprised by how popular it was. I got to see the energy and the coherence of the network increased, which I count as both a tangible and an emotional benefit.”
+                        </p>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-sunbeam rounded-full flex items-center justify-center text-charcoal font-bold font-lora text-xl">R</div>
+                            <div>
+                                <p class="font-bold text-white">Robert Gilman</p>
+                                <p class="text-sm text-eggshell/60">Context Institute, Global Changemaker Network</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: AUTHORITY & PLAN -->
+    <section id="plan" class="py-24 bg-eggshell">
+        <div class="container mx-auto px-6">
+
+            <!-- Authority -->
+            <div class="grid md:grid-cols-2 gap-12 mb-20">
+                <div class="bg-white p-8 rounded-xl border border-beige">
+                    <i data-feather="layers" class="text-avocado w-8 h-8 mb-4"></i>
+                    <h3 class="font-lora font-bold text-2xl text-charcoal mb-2">Decades Building Gatherings</h3>
+                    <p class="text-charcoal/80">We have deep roots in designing learning gatherings, fostering engagement, and producing unique co-created events.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl border border-beige">
+                    <i data-feather="message-circle" class="text-avocado w-8 h-8 mb-4"></i>
+                    <h3 class="font-lora font-bold text-2xl text-charcoal mb-2">Expertise in Peer Connections</h3>
+                    <p class="text-charcoal/80">We have facilitated thousands of hours of inspired, generative conversations between members of values-aligned communities.</p>
+                </div>
+            </div>
+
+            <!-- The Plan -->
+            <div class="text-center mb-12">
+                <h2 class="font-lora font-bold text-4xl text-charcoal">How it works</h2>
+            </div>
+
+            <div class="relative max-w-5xl mx-auto">
+                <!-- Connector Line (Desktop) -->
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-beige transform -translate-y-1/2 z-0"></div>
+
+                <div class="grid md:grid-cols-3 gap-8 relative z-10">
+                    <!-- Step 1 -->
+                    <div class="bg-white p-8 rounded-xl border border-beige shadow-sm text-center group hover:-translate-y-2 transition-transform">
+                        <div class="w-14 h-14 bg-sunbeam rounded-full flex items-center justify-center text-charcoal font-bold text-xl mx-auto mb-6 border-4 border-eggshell">1</div>
+                        <h4 class="font-lora font-bold text-xl text-charcoal mb-2">Join the Waitlist</h4>
+                        <p class="text-sm text-charcoal/80">Let us know when your 2026 events are, and we’ll work to accommodate them.</p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="bg-white p-8 rounded-xl border border-beige shadow-sm text-center group hover:-translate-y-2 transition-transform">
+                        <div class="w-14 h-14 bg-sunbeam rounded-full flex items-center justify-center text-charcoal font-bold text-xl mx-auto mb-6 border-4 border-eggshell">2</div>
+                        <h4 class="font-lora font-bold text-xl text-charcoal mb-2">Create Your Plan</h4>
+                        <p class="text-sm text-charcoal/80">Design the simple pre- and post-event facilitation program your people will love.</p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="bg-white p-8 rounded-xl border border-beige shadow-sm text-center group hover:-translate-y-2 transition-transform">
+                        <div class="w-14 h-14 bg-sunbeam rounded-full flex items-center justify-center text-charcoal font-bold text-xl mx-auto mb-6 border-4 border-eggshell">3</div>
+                        <h4 class="font-lora font-bold text-xl text-charcoal mb-2">Enjoy the Culture</h4>
+                        <p class="text-sm text-charcoal/80">Witness the great vibes created before, during, and after your event.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: FINAL CTA (Explanatory Paragraph) -->
+      <section id="cta" class="py-24 bg-white relative">
+          <div class="container mx-auto px-6 max-w-4xl text-center">
+
+            <h2 class="font-lora font-bold text-4xl text-charcoal mb-8">Producing an event where everyone feels at home is HARD.</h2>
+
+            <div class="bg-eggshell p-10 rounded-3xl border border-beige mb-10 text-left">
+                <p class="text-lg text-charcoal/80 leading-relaxed mb-6">
+                    <strong class="text-poppy">HelloInti changes that.</strong> By setting up simple peer matchmaking before and after your event, even the shyest people arrive warmed up, confident, and ready to engage.
+                </p>
+                <p class="text-lg text-charcoal/80 leading-relaxed">
+                    This frees your team up to deal with the inevitable situational reality of producing. Ultimately, it turns every event into an engine of connection, collaboration, and transformation, helping you ensure that your investment endures.
+                </p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <div class="inline-block relative">
+                    <div class="absolute inset-0 bg-poppy blur-lg opacity-20 rounded-xl"></div>
+                    <button
+                        class="relative bg-poppy text-white text-xl font-bold px-10 py-5 rounded-xl hover:bg-poppy/90 transition-all shadow-xl flex items-center gap-3"
+                        data-popup="lead-magnet-popup"
+                        data-popup-type="lead-magnet"
+                        data-popup-title="Get the free playbook"
+                        data-popup-description="Submit your name + email and your download will start automatically."
+                        data-form-src="https://docs.google.com/forms/d/e/1FAIpQLSfohvI9FpoPGNsrQv2ErcWO3ZERJiFYWv8ivg5lEqnBoLfJog/viewform?embedded=true"
+                        data-download-url="./The%20Long%20Game%20Events%20Playbook.pdf"
+                    >
+                        Download the Playbook
+                        <i data-feather="download"></i>
+                    </button>
+                </div>
+
+                <a href="#" class="bg-beige text-charcoal text-lg font-bold px-10 py-5 rounded-xl hover:bg-beige/80 transition-all shadow-md flex items-center gap-3">
+                    Join the 2026 Waitlist
+                    <i data-feather="arrow-right"></i>
+                </a>
+            </div>
+
+            <p class="mt-6 text-sm text-charcoal/50">Limited spots available for the 2026 pilot program.</p>
+        </div>
+      </section>
+
+      <!-- Lead magnet popup (reusable framework markup) -->
+      <div
+          id="lead-magnet-popup"
+          class="popup-framework"
+          aria-hidden="true"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="lead-magnet-title"
+      >
+          <div class="popup-framework-overlay" aria-hidden="true"></div>
+
+          <div class="popup-framework-content" role="document">
+              <button class="popup-framework-close" type="button" aria-label="Close dialog">×</button>
+
+              <div class="popup-header">
+                  <h2 id="lead-magnet-title" data-popup-title>Get the free playbook</h2>
+                  <p data-popup-description>Submit your name + email and your download will start automatically.</p>
+              </div>
+
+              <div class="popup-body">
+                  <div class="popup-helper">
+                      After you press <strong>Submit</strong> in the form, we’ll automatically start your PDF download.
+                      If your browser blocks the auto-download, use the fallback button below.
+                  </div>
+
+                  <iframe
+                      data-lead-magnet-iframe
+                      class="lead-magnet-iframe"
+                      title="HelloInti lead magnet signup form"
+                      loading="lazy"
+                      referrerpolicy="no-referrer-when-downgrade"
+                      src="about:blank"
+                  ></iframe>
+
+                  <div class="lead-magnet-actions" aria-label="Download actions">
+                      <a class="btn-secondary" data-download-link href="./The%20Long%20Game%20Events%20Playbook.pdf" target="_blank" rel="noopener">Open the PDF</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+    <!-- Footer -->
+    <footer class="bg-charcoal text-white py-12 border-t border-white/10">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <span class="font-lora font-bold text-2xl tracking-tight">hellointi</span>
+                <p class="text-sm text-white/50 mt-1">Make your events inclusive, successful, transformative.</p>
+            </div>
+            <div class="flex gap-6">
+                <a href="#" class="text-white/70 hover:text-sunbeam transition-colors"><i data-feather="twitter"></i></a>
+                <a href="#" class="text-white/70 hover:text-sunbeam transition-colors"><i data-feather="linkedin"></i></a>
+                <a href="#" class="text-white/70 hover:text-sunbeam transition-colors"><i data-feather="instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="popup-framework.js"></script>
+    <script>
+        feather.replace();
+    </script>
+  </body>
+  </html>

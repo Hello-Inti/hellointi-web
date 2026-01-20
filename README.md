@@ -1,117 +1,104 @@
-# Hello Inti - Product Landing Page & Marketing Website
+# Hello Inti – Marketing Website & Lead Generators
 
-This repository contains the marketing and landing page assets for Hello Inti, a platform that helps remote-first organizations build real connections through facilitated 7-week conversation programs.
+This repository houses the public marketing site (`hellointi.com`) and a suite of lead-generator landing pages served from subdomains. Each surface can be optimized individually while sharing a unified Node-based build pipeline.
 
 ## Repository Structure
 ```
 hellointi-web/
-├── README.md                           # Project overview and guidance
-├── AGENTS.md                          # AI assistant guidelines
-├── landingPage/final/                  # Main website files
-│   ├── index.html                    # Primary landing page
-│   ├── src.css                       # Source CSS file
-│   ├── style.css                     # Compiled CSS file
-│   ├── src.js                        # Source JavaScript file
-│   └── script.js                     # Compiled JavaScript file
+├── package.json                  # Root scripts & shared devDependencies
+├── README.md
+├── AGENTS.md
+├── scripts/
+│   ├── build.js                 # Builds a single project (CSS + JS)
+│   ├── build-all.js             # Builds website + all eligible lead generators
+│   └── dev-server.js            # Express + LiveReload server for /public
+├── public/
+│   ├── website/                 # Main marketing site (hellointi.com)
+│   │   ├── index.html
+│   │   ├── src.css / style.css  # Tailwind source & compiled CSS
+│   │   ├── src.js / script.js   # ES module source & bundled JS
+│   │   └── ...
+│   └── lead_generators/         # Subdomain landing pages
+│       ├── events/
+│       ├── alumni/
+│       └── ... (future lead magnets)
+└── business_blueprint/          # Strategy & positioning references
 ```
 
-## Getting Started
+## Prerequisites
 
-### Local Development
-1.  Install dependencies if you have not already:
-    ```bash
-    npm install
-    ```
-2.  From the repository root, start the development workflow (CSS/JS rebuild + live-reloading server):
-    ```bash
-    npm run dev
-    ```
-3.  Open `http://localhost:3000` in your browser. Changes to `src.css`, `src.js`, or any HTML file under `landingPage/final/` will trigger automatic rebuilds and browser refreshes.
+- Node.js 18+
+- pnpm 8+
 
-### Testing & Preview
-To preview the compiled assets without the watcher pipeline, run the Express server on its own:
-```bash
-npm run serve
-```
-This command uses Nodemon to run [`landingPage/final/server.js`](landingPage/final/server.js:1). For a single-run preview without file watching, execute:
-```bash
-node landingPage/final/server.js
-```
-Then open `http://localhost:3000` in your browser.
-
-## Technical Architecture
-
-### Front-end Stack
-- **HTML5**: Semantic markup with accessibility features
-- **CSS3**: Custom properties, Flexbox/Grid layouts, responsive design
-- **Vanilla JavaScript**: Minimal DOM manipulation and interactions
-- **Mobile-first**: Progressive enhancement with responsive breakpoints
-
-### Animations
-This project uses the **GSAP (GreenSock Animation Platform)** for animations. Key points to consider:
-
--   **Existing Animations**: The hero section of the home page features a GSAP-powered animation. Be mindful of this when adding new scripts to avoid conflicts.
--   **Future Development**: For any new animation-related functionality, it is recommended to use GSAP to maintain consistency and leverage its powerful features.
-
-### Performance & Optimization
-- **Critical path optimization**: Inline CSS prevents render blocking
-- **Minimal bundle size**: Single HTML file approach
-- **Progressive enhancement**: Core functionality works without JavaScript
-- **SEO-optimized**: Structured data and meta tags for search engines
-
-## Content Management
-
-### Key Sections
-- **Hero**: Value proposition and primary call-to-action
-- **How It Works**: 7-week program explanation (Weeks 1-7 + wrap-up)
-- **Outcomes**: Measurable results and benefits
-- **Program Details**: What's included and features
-- **Social Proof**: Testimonials and trust signals
-- **FAQ**: Common questions and concerns
-
-### Conversion Optimization
-- **Multiple CTAs**: Strategic placement throughout the page
-- **Trust signals**: Privacy badges, testimonial grid, feature highlighting
-- **Social proof**: Customer quotes and outcomes metrics
-- **Progressive disclosure**: Information revealed as user commitment increases
-
-## Integration Points
-- **Calendly**: Demo booking integration (`https://calendly.com/`)
-- **Mailto links**: Direct contact functionality for forms
-- **External calendars**: Google Calendar/Outlook integration messaging
-- **Communication tools**: Slack/Teams integration descriptions
-
-## Build Process
-
-This project uses `postcss` and `esbuild` to process CSS and JavaScript files.
-
--   **CSS**: The build process, triggered by `npm run build-css`, takes the source file [`landingPage/final/src.css`](landingPage/final/src.css) and generates the output file [`landingPage/final/style.css`](landingPage/final/style.css).
--   **JavaScript**: The `npm run build-js` command bundles and minifies [`landingPage/final/src.js`](landingPage/final/src.js), creating the final script at [`landingPage/final/script.js`](landingPage/final/script.js).
-
-To run the entire build process, use the following command:
+## Install Dependencies
 
 ```bash
-npm run build
+pnpm install
 ```
 
-## Deployment & Hosting
-- **Static hosting ready**: The project can be deployed to any static hosting provider.
-- **CDN compatible**: All assets relative or CDN-ready
-- **Cache optimization**: Long-term caching headers for performance
-- **Global delivery**: Content Delivery Network hosting recommended
+## Local Development
 
-## Legal & Compliance
-- **GDPR friendly**: Minimal data collection and cookie usage
-- **Privacy policy**: Required links and compliance statements
-- **Terms of service**: Legal compliance documentation
-- **Contact information**: Business email and contact details
+### Unified Dev Server
 
-## Future Website Plans
-This repository will expand to include:
-- Full multi-page marketing website (About, Blog, Resources)
-- SEO-optimized content pages
-- Lead capture forms and CRM integrations
-- Analytics and conversion tracking
-- A/B testing frameworks
+Launch an Express + LiveReload server rooted at `/public` so every surface (main site & each lead generator) is available during development:
 
-See AGENTS.md for detailed technical guidance.
+```bash
+pnpm run dev
+```
+
+Then open `http://localhost:3000`. The server redirects `/` to `/website` and serves every folder in `/public` at its natural path (e.g. `/lead_generators/events`).
+
+### Project-specific Workflows
+
+If you prefer to work from the original project scripts (for example to reuse the existing `public/website` watcher pipeline), you can still execute them directly:
+
+```bash
+pnpm --dir public/website dev
+```
+
+## Build Pipeline
+
+The root build tooling standardizes PostCSS (Tailwind, Autoprefixer, cssnano) and esbuild bundling across all projects.
+
+### Build a Single Project
+
+```bash
+pnpm run build:project -- public/website
+```
+
+The command expects a directory containing `src.css` and `src.js`. Output files (`style.css`, `script.js`) are written next to the sources.
+
+### Build All Eligible Projects
+
+```bash
+pnpm run build:all
+```
+
+The script automatically discovers subdirectories under `public/lead_generators/` that contain both `src.css` and `src.js`, and builds them alongside the main website. Folders that still rely on CDN styling/scripts will be skipped with a warning.
+
+## Adding a New Lead Generator to the Build
+
+1. Create a new directory under `public/lead_generators/<name>`.
+2. Add Tailwind source and JavaScript entry points (`src.css`, `src.js`).
+3. Copy/adjust a `tailwind.config.js` (you can borrow from `public/website`).
+4. Update the landing page HTML to reference the compiled `style.css` and `script.js` instead of CDN assets.
+5. Run `pnpm run build:project -- public/lead_generators/<name>` to generate optimized assets.
+
+Once a lead generator provides both entry files, it becomes eligible for `npm run build:all`.
+
+## Production Preview
+
+```bash
+pnpm run serve
+```
+
+This starts the same Express server without LiveReload and with `NODE_ENV=production`, allowing you to validate the compiled assets exactly as they will ship.
+
+## Project Guidelines
+
+- **Animations**: GSAP is bundled locally; reuse existing patterns where possible.
+- **Accessibility**: Maintain semantic HTML, focus management, and ARIA attributes consistent with the main site.
+- **Performance**: Keep CSS/JS entry points lean—purge unused Tailwind utilities and avoid unused dependencies.
+- **Shared assets**: Common popup/scheduler components live in `public/scripts/`; consider bundling them into project builds when migrating away from CDN usage.
+
+See `AGENTS.md` for automation guidelines and coding standards.

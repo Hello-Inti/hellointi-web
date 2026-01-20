@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anchor Links Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+        .test-link { display: block; margin: 10px 0; padding: 10px; background: #f0f0f0; border-radius: 4px; text-decoration: none; color: #333; }
+        .test-link:hover { background: #e0e0e0; }
+        .success { color: green; }
+        .info { color: blue; }
+    </style>
+</head>
+<body>
+    <h1>Cross-Page Anchor Links Test</h1>
+
+    <div class="info">
+        <h2>Test Instructions:</h2>
+        <ol>
+            <li>Open about.html in your browser</li>
+            <li>Click on the navigation links in the top navigation</li>
+            <li>Verify that you are taken to the correct sections on index.html</li>
+            <li>Test keyboard navigation (Tab, Enter, Space) on the links</li>
+            <li>Test with different motion preferences in browser settings</li>
+        </ol>
+    </div>
+
+    <h2>Navigation Links from about.html:</h2>
+    <a href="about.html" class="test-link">Open about.html to test navigation links</a>
+
+    <h2>Expected Behavior:</h2>
+    <ul>
+        <li><strong>Reviews</strong> → Should scroll to testimonials-section on index.html</li>
+        <li><strong>The Problem</strong> → Should scroll to problem-section on index.html</li>
+        <li><strong>Our Solution</strong> → Should scroll to solution-section on index.html</li>
+        <li><strong>The Program</strong> → Should scroll to program-section on index.html</li>
+        <li><strong>Team</strong> → Should scroll to team-section on index.html</li>
+    </ul>
+
+    <h2>Accessibility Features Implemented:</h2>
+    <ul class="success">
+        <li>✅ Enhanced JavaScript with motion preference detection</li>
+        <li>✅ Keyboard support (Enter/Space activation)</li>
+        <li>✅ Focus management for screen readers</li>
+        <li>✅ Skip link for keyboard users</li>
+        <li>✅ ARIA labels for better screen reader support</li>
+        <li>✅ Section landmarks with proper headings</li>
+        <li>✅ Progressive enhancement (works without JS)</li>
+    </ul>
+
+    <h2>Browser Testing Checklist:</h2>
+    <ul>
+        <li>[ ] Cross-page links scroll to correct sections</li>
+        <li>[ ] Keyboard navigation works (Tab, Enter, Space)</li>
+        <li>[ ] Focus moves to target content</li>
+        <li>[ ] Screen readers announce content correctly</li>
+        <li>[ ] Respects motion preferences</li>
+        <li>[ ] Works on mobile devices</li>
+        <li>[ ] URL hash updates correctly</li>
+    </ul>
+
+    <div class="info">
+        <p><strong>Note:</strong> To test motion preferences, go to your browser's accessibility settings and toggle "Reduce Motion".</p>
+        <p>To test keyboard navigation, use Tab to navigate to links, then Enter or Space to activate them.</p>
+    </div>
+</body>
+</html>
