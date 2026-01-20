@@ -3,11 +3,11 @@
 This file provides guidance to agents when working with code in this repository.
 
 ## Commands (Non-Obvious)
-- Dev workflow: `npm run dev` (runs CSS/JS watchers + live-reloading Express server on port 3000)
-- Serve only: `npm run serve` (Nodemon-driven Express server at http://localhost:3000)
-- Build process: `npm run build` (runs CSS + JS optimization); replaces ~3MB CDN with ~126KB bundled assets
+- Dev workflow: `pnpm run dev` (runs live-reloading Express server on port 3000 serving `/public`)
+- Serve only: `pnpm run serve` (Production Express server at http://localhost:3000)
+- Build process: `pnpm run build:all` (optimizes CSS/JS for all eligible projects in `/public`)
+- Build single: `pnpm run build:project -- public/lead_generators/[name]` (optimizes specific project)
 - No lint/test automation; manual Lighthouse audits for perf/accessibility/SEO (run in Chrome DevTools)
-- Preview variants: cd landingPage/[variant] && python -m http.server 8000 (avoids CORS for local assets/CDNs)
 
 ## Code Style (From Files)
 - CSS: Custom :root vars (--color-poppy: #E65C4F, --space-xs: 0.25rem etc.); 4px base spacing rhythm; kebab-case classes (.network-node, .btn-primary)
