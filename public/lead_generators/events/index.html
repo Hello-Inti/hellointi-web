@@ -41,12 +41,27 @@
     <!-- Navigation -->
     <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-beige transition-all duration-300">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="font-lora font-bold text-2xl text-poppy tracking-tight hover:opacity-80 transition-opacity">hellointi</a>
+            <a href="#" class="font-lora font-bold text-2xl text-poppy tracking-tight hover:opacity-80 transition-opacity flex items-center gap-2">
+                <img
+                    src="./sun-image_small.png"
+                    alt="HelloInti sun"
+                    class="h-6 w-6 border-2 border-sunbeam rounded-none object-contain"
+                />
+                <span>hellointi</span>
+            </a>
             <div class="hidden md:flex items-center space-x-8">
                 <a href="#problem" class="text-charcoal font-semibold hover:text-poppy transition-colors">The Stakes</a>
                 <a href="#solution" class="text-charcoal font-semibold hover:text-poppy transition-colors">The Solution</a>
                 <a href="#plan" class="text-charcoal font-semibold hover:text-poppy transition-colors">The Plan</a>
-                <a href="#cta" class="bg-poppy text-white px-6 py-2.5 rounded-lg font-bold hover:bg-poppy/90 transition-all shadow-md">Join Waitlist</a>
+                <button
+                    data-popup="waitlist-popup"
+                    data-popup-type="lead-magnet"
+                    data-popup-title="Join the 2026 Waitlist"
+                    data-popup-description="Let us know when your 2026 events are, and we'll work to accommodate them."
+                    data-form-src="https://docs.google.com/forms/d/e/1FAIpQLScxUadLPF4e5NsKPiZuTalAsEcAETKcQUhgb7v67AlWK2MCjQ/viewform?embedded=true"
+                    class="bg-poppy text-white px-6 py-2.5 rounded-lg font-bold hover:bg-poppy/90 transition-all shadow-md">
+                    Join Waitlist
+                </button>
             </div>
             <!-- Mobile Menu Icon -->
             <button class="md:hidden text-charcoal">
@@ -90,10 +105,16 @@
                     </div>
                 </div>
 
-                <a href="#cta" class="inline-flex items-center gap-2 bg-poppy text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl hover:bg-poppy/90 hover:-translate-y-1 transition-all">
+                <button
+                    data-popup="waitlist-popup"
+                    data-popup-type="lead-magnet"
+                    data-popup-title="Join the 2026 Waitlist"
+                    data-popup-description="Let us know when your 2026 events are, and we'll work to accommodate them."
+                    data-form-src="https://docs.google.com/forms/d/e/1FAIpQLScxUadLPF4e5NsKPiZuTalAsEcAETKcQUhgb7v67AlWK2MCjQ/viewform?embedded=true"
+                    class="inline-flex items-center gap-2 bg-poppy text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl hover:bg-poppy/90 hover:-translate-y-1 transition-all">
                     <span>Join the 2026 Waitlist</span>
                     <i data-feather="arrow-right"></i>
-                </a>
+                </button>
             </div>
         </div>
     </header>
@@ -195,7 +216,13 @@
                             “We didn't have an easy, decentralized way to support low-threshold involvement. HelloInti really worked! I was surprised by how popular it was. I got to see the energy and the coherence of the network increased, which I count as both a tangible and an emotional benefit.”
                         </p>
                         <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-sunbeam rounded-full flex items-center justify-center text-charcoal font-bold font-lora text-xl">R</div>
+                            <img
+                                src="./robert_gillman.jpeg"
+                                alt="Robert Gilman"
+                                class="w-12 h-12 rounded-full object-cover border-2 border-sunbeam bg-eggshell"
+                                loading="lazy"
+                                decoding="async"
+                            />
                             <div>
                                 <p class="font-bold text-white">Robert Gilman</p>
                                 <p class="text-sm text-eggshell/60">Context Institute, Global Changemaker Network</p>
@@ -293,10 +320,16 @@
                     </button>
                 </div>
 
-                <a href="#" class="bg-beige text-charcoal text-lg font-bold px-10 py-5 rounded-xl hover:bg-beige/80 transition-all shadow-md flex items-center gap-3">
+                <button
+                    data-popup="waitlist-popup"
+                    data-popup-type="lead-magnet"
+                    data-popup-title="Join the 2026 Waitlist"
+                    data-popup-description="Let us know when your 2026 events are, and we'll work to accommodate them."
+                    data-form-src="https://docs.google.com/forms/d/e/1FAIpQLScxUadLPF4e5NsKPiZuTalAsEcAETKcQUhgb7v67AlWK2MCjQ/viewform?embedded=true"
+                    class="bg-beige text-charcoal text-lg font-bold px-10 py-5 rounded-xl hover:bg-beige/80 transition-all shadow-md flex items-center gap-3">
                     Join the 2026 Waitlist
                     <i data-feather="arrow-right"></i>
-                </a>
+                </button>
             </div>
 
             <p class="mt-6 text-sm text-charcoal/50">Limited spots available for the 2026 pilot program.</p>
@@ -315,19 +348,9 @@
           <div class="popup-framework-overlay" aria-hidden="true"></div>
 
           <div class="popup-framework-content" role="document">
-              <button class="popup-framework-close" type="button" aria-label="Close dialog">×</button>
-
-              <div class="popup-header">
-                  <h2 id="lead-magnet-title" data-popup-title>Get the free playbook</h2>
-                  <p data-popup-description>Submit your name + email and your download will start automatically.</p>
-              </div>
+              <!-- Close button removed to ensure form completion -->
 
               <div class="popup-body">
-                  <div class="popup-helper">
-                      After you press <strong>Submit</strong> in the form, we’ll automatically start your PDF download.
-                      If your browser blocks the auto-download, use the fallback button below.
-                  </div>
-
                   <iframe
                       data-lead-magnet-iframe
                       class="lead-magnet-iframe"
@@ -344,11 +367,50 @@
           </div>
       </div>
 
+      <!-- Waitlist popup -->
+      <div
+          id="waitlist-popup"
+          class="popup-framework"
+          aria-hidden="true"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="waitlist-title"
+      >
+          <div class="popup-framework-overlay" aria-hidden="true"></div>
+
+          <div class="popup-framework-content" role="document">
+              <button class="popup-framework-close" type="button" aria-label="Close dialog">×</button>
+
+              <div class="popup-header">
+                  <h2 id="waitlist-title" data-popup-title>Join the 2026 Waitlist</h2>
+                  <p data-popup-description>Let us know when your 2026 events are, and we'll work to accommodate them.</p>
+              </div>
+
+              <div class="popup-body">
+                  <iframe
+                      data-lead-magnet-iframe
+                      class="lead-magnet-iframe"
+                      title="Waitlist signup form"
+                      loading="lazy"
+                      referrerpolicy="no-referrer-when-downgrade"
+                      src="about:blank"
+                  ></iframe>
+              </div>
+          </div>
+      </div>
+
     <!-- Footer -->
     <footer class="bg-charcoal text-white py-12 border-t border-white/10">
         <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="text-center md:text-left">
-                <span class="font-lora font-bold text-2xl tracking-tight">hellointi</span>
+                <span class="font-lora font-bold text-2xl tracking-tight inline-flex items-center gap-2">
+                    <img
+                        src="./sun-image_small.png"
+                        alt="HelloInti sun"
+                        class="h-6 w-6 border-2 border-sunbeam rounded-none object-contain"
+                    />
+                    <span>hellointi</span>
+                </span>
                 <p class="text-sm text-white/50 mt-1">Make your events inclusive, successful, transformative.</p>
             </div>
             <div class="flex gap-6">

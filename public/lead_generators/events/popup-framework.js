@@ -266,14 +266,18 @@ class PopupFramework {
         if (!body) return;
 
         const safeUrl = downloadUrl || '#';
+        const isWaitlist = popup.id === 'waitlist-popup';
+
+        const successMessage = isWaitlist
+            ? "Thank you! Mitra or San will contact you as soon as a spot opens for the pilot program. Meanwhile, download the playbook."
+            : "Thanks for your curiosity and willingness to play. Mitra or San will reach out to you soon.";
 
         body.innerHTML = `
             <div class="popup-success" role="status" aria-live="polite">
                 <div class="success-icon" aria-hidden="true">✓</div>
-                <h3>Thank you — your download is starting</h3>
-                <p>If the download didn’t start automatically, use the button below.</p>
+                <h3>${successMessage}</h3>
                 <div class="lead-magnet-actions">
-                    <a class="btn-primary" data-download-link href="${safeUrl}" target="_blank" rel="noopener">Download the PDF</a>
+                    <a class="btn-primary" data-download-link href="${safeUrl}" download="The Long Game Events Playbook.pdf" target="_blank" rel="noopener">Download the Playbook</a>
                     <button class="btn-secondary" type="button" data-close-popup>Close</button>
                 </div>
             </div>

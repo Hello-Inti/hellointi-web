@@ -46,7 +46,7 @@
                 <a href="#problem" class="text-charcoal font-semibold hover:text-poppy transition-colors">The Problem</a>
                 <a href="#solution" class="text-charcoal font-semibold hover:text-poppy transition-colors">The Solution</a>
                 <a href="#blueprint" class="text-charcoal font-semibold hover:text-poppy transition-colors">The Blueprint</a>
-                <a href="#cta" class="bg-poppy text-white px-6 py-2.5 rounded-lg font-bold hover:bg-poppy/90 transition-all shadow-md">Book a Call</a>
+                <a href="#cta" class="bg-poppy text-white px-6 py-2.5 rounded-lg font-bold hover:bg-poppy/90 transition-all shadow-md scheduler-cta">Book a Call</a>
             </div>
             <!-- Mobile Menu Icon -->
             <button class="md:hidden text-charcoal">
@@ -74,9 +74,9 @@
                         <span>Get the Blueprint</span>
                         <i data-feather="arrow-down"></i>
                     </a>
-                    <a href="#problem" class="bg-white border border-beige text-charcoal px-8 py-4 rounded-xl font-bold text-lg hover:bg-beige/20 transition-all scheduler-cta">
-                        Read More
-                    </a>
+                    <button class="bg-white border border-beige text-charcoal px-8 py-4 rounded-xl font-bold text-lg hover:bg-beige/20 transition-all scheduler-cta">
+                        Book a Call
+                    </button>
                 </div>
             </div>
         </div>
@@ -353,7 +353,7 @@
                 <h3 class="font-lora font-bold text-3xl mb-4">Ready to build your flywheel?</h3>
                 <p class="text-white/70 mb-8 text-lg">Book a call and join the 2026 waitlist so we can get your alumni community connected!</p>
 
-                <button class="bg-sunbeam text-charcoal font-bold text-xl px-10 py-5 rounded-xl hover:bg-white transition-colors shadow-lg flex items-center gap-3 mx-auto">
+                <button class="bg-sunbeam text-charcoal font-bold text-xl px-10 py-5 rounded-xl hover:bg-white transition-colors shadow-lg flex items-center gap-3 mx-auto scheduler-cta">
                     Book a Call & Join Waitlist
                     <i data-feather="arrow-right"></i>
                 </button>
@@ -380,10 +380,7 @@
     <div id="scheduler-popup" class="scheduler-popup" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1">
         <div class="scheduler-popup-overlay" aria-label="Close scheduler"></div>
         <div class="scheduler-popup-content">
-            <button class="scheduler-popup-close" aria-label="Close scheduler">
-                <i class="fas fa-times"></i>
-            </button>
-            <iframe id="scheduler-iframe" src="https://intispaces.pipedrive.com/scheduler/xKA6dvTY/mitra-collaborator" title="Pipedrive Scheduler Embed" frameborder="0" height="600px" width="100%" style="max-width: 800px" allowfullscreen></iframe>
+            <iframe id="scheduler-iframe" src="https://calendly.com/mitramartin1/45min" title="Calendly Scheduler" frameborder="0" height="600px" width="100%" style="max-width: 800px" allowfullscreen></iframe>
         </div>
     </div>
 
