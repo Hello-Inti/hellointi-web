@@ -5,58 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Banish Moloch: The Ritual of Human Connection for DAOs</title>
     <meta name="description" content="Turn your DAO into a social superorganism. A multi-week facilitated ritual to forge trust, starve coordination failure, and awaken a network with a soul.">
-    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/feather-icons"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Nunito+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../scripts/popup-framework.css">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        poppy: '#E65C4F',
-                        sunbeam: '#F2B705',
-                        peach: '#F2A08D',
-                        avocado: '#A6A61B',
-                        lavender: '#D4C1EC',
-                        eggshell: '#F2F2F2',
-                        beige: '#D9D4C1',
-                        charcoal: '#403F3E',
-                    },
-                    fontFamily: {
-                        lora: ['Lora', 'serif'],
-                        nunito: ['Nunito Sans', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        /* Subtle glitch effect for Moloch theme */
-        @keyframes subtle-glitch {
-            0%, 100% { transform: translate(0); }
-            33% { transform: translate(-1px, 1px); }
-            66% { transform: translate(1px, -1px); }
-        }
-
-        .glitch-text:hover {
-            animation: subtle-glitch 0.3s ease-in-out;
-        }
-
-        /* Pulsing glow for ritual CTAs */
-        @keyframes ritual-glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(166, 166, 27, 0.3); }
-            50% { box-shadow: 0 0 30px rgba(166, 166, 27, 0.5); }
-        }
-
-        .ritual-cta {
-            animation: ritual-glow 3s ease-in-out infinite;
-        }
-    </style>
+    <link rel="stylesheet" href="./scripts/popup-framework.css">
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body class="bg-eggshell text-charcoal font-nunito antialiased">
 
@@ -609,9 +563,7 @@
         </div>
     </footer>
 
-    <script src="../../scripts/popup-framework.js"></script>
-    <script>
-        feather.replace();
-    </script>
+    <script src="./scripts/popup-framework.js"></script>
+    <script src="./script.js"></script>
 </body>
 </html>

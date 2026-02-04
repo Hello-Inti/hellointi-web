@@ -105,6 +105,13 @@ function initSchedulerPopup() {
 
 // Initialize when DOM is loaded
 document.addEventListener("DOMContentLoaded", function() {
+    // Check if scheduler popup elements exist before initializing
+    const popup = document.getElementById("scheduler-popup");
+    if (!popup) {
+        console.log("Scheduler popup not found on this page, skipping initialization");
+        return;
+    }
+
     try {
         initSchedulerPopup();
     } catch (error) {

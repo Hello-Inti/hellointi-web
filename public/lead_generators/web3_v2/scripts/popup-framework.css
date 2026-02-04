@@ -1,0 +1,454 @@
+/* Reusable Popup Framework Styles */
+
+/* Base popup container */
+.popup-framework {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: none;
+    opacity: 0;
+}
+
+/* Overlay */
+.popup-framework-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.popup-framework-overlay:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Content container */
+.popup-framework-content {
+    position: relative;
+    max-width: 900px;
+    margin: 2rem auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    transform: scale(0.9) translateY(20px);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+}
+
+.popup-framework.is-visible .popup-framework-content {
+    transform: scale(1) translateY(0);
+}
+
+/* Close button */
+.popup-framework-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #333;
+    font-size: 18px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.popup-framework-close:hover {
+    background: white;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.popup-framework-close:focus {
+    outline: 2px solid #E65C4F;
+    outline-offset: 2px;
+}
+
+/* Popup type specific styles */
+
+/* Email capture popup */
+.popup-framework.email-capture .popup-framework-content {
+    max-width: 600px;
+}
+
+.popup-framework.email-capture .popup-header {
+    background: linear-gradient(135deg, #E65C4F 0%, #F2A08D 100%);
+    color: white;
+    padding: 2rem;
+    text-align: center;
+}
+
+.popup-framework.email-capture .popup-header h2 {
+    font-family: 'Lora', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.popup-framework.email-capture .popup-header p {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.popup-framework.email-capture .popup-body {
+    padding: 2rem;
+}
+
+.popup-framework.email-capture .gdpr-notice {
+    background: #F2F2F2;
+    border-left: 4px solid #E65C4F;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.popup-framework.email-capture .gdpr-notice h4 {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #403F3E;
+}
+
+.popup-framework.email-capture .consent-checkboxes {
+    margin: 1rem 0;
+}
+
+.popup-framework.email-capture .checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.popup-framework.email-capture .checkbox-group input[type="checkbox"] {
+    margin-right: 0.75rem;
+    margin-top: 0.25rem;
+    flex-shrink: 0;
+}
+
+.popup-framework.email-capture .checkbox-group label {
+    font-size: 0.875rem;
+    line-height: 1.4;
+    cursor: pointer;
+}
+
+.popup-framework.email-capture .submit-btn {
+    width: 100%;
+    background: #E65C4F;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 1rem;
+}
+
+.popup-framework.email-capture .submit-btn:hover:not(:disabled) {
+    background: #D44A3E;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(230, 92, 79, 0.3);
+}
+
+.popup-framework.email-capture .submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Scheduler popup (maintaining existing styles) */
+.popup-framework.scheduler .popup-framework-content {
+    max-width: 900px;
+}
+
+.popup-framework.scheduler #scheduler-iframe {
+    display: block;
+    border: none;
+    width: 100%;
+    height: 600px;
+}
+
+/* Loading state */
+.popup-framework.loading .popup-framework-content::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #E65C4F;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Success state */
+.popup-framework.success .popup-framework-content {
+    text-align: center;
+    padding: 3rem 2rem;
+}
+
+.popup-framework.success .success-icon {
+    width: 80px;
+    height: 80px;
+    background: #A6A61B;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    color: white;
+    font-size: 2rem;
+}
+
+/* Lead magnet popup (Google Form iframe -> auto-download -> thank you) */
+.popup-framework.lead-magnet .popup-framework-content {
+    max-width: 720px;
+}
+
+.popup-framework.lead-magnet .popup-header {
+    background: linear-gradient(135deg, #E65C4F 0%, #F2B705 100%);
+    color: white;
+    padding: 2rem;
+}
+
+.popup-framework.lead-magnet .popup-header h2 {
+    font-family: 'Lora', serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.popup-framework.lead-magnet .popup-header p {
+    margin: 0.75rem 0 0;
+    font-size: 1rem;
+    opacity: 0.95;
+}
+
+.popup-framework.lead-magnet .popup-body {
+    padding: 1.5rem 2rem 2rem;
+}
+
+.popup-framework.lead-magnet .popup-helper {
+    background: #F2F2F2;
+    border-left: 4px solid #F2B705;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #403F3E;
+}
+
+.popup-framework.lead-magnet .lead-magnet-iframe {
+    display: block;
+    width: 100%;
+    height: min(70vh, 640px);
+    border: 1px solid #D9D4C1;
+    border-radius: 12px;
+    background: white;
+}
+
+.popup-framework.lead-magnet .lead-magnet-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+}
+
+.popup-framework.lead-magnet .btn-primary,
+.popup-framework.lead-magnet .btn-secondary {
+    appearance: none;
+    border: 0;
+    border-radius: 10px;
+    padding: 0.9rem 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.popup-framework.lead-magnet .btn-primary {
+    background: #E65C4F;
+    color: white;
+    box-shadow: 0 10px 24px rgba(230, 92, 79, 0.22);
+}
+
+.popup-framework.lead-magnet .btn-primary:hover {
+    background: #D44A3E;
+}
+
+.popup-framework.lead-magnet .btn-primary:focus-visible,
+.popup-framework.lead-magnet .btn-secondary:focus-visible {
+    outline: 3px solid #F2B705;
+    outline-offset: 3px;
+}
+
+.popup-framework.lead-magnet .btn-secondary {
+    background: #D9D4C1;
+    color: #403F3E;
+}
+
+.popup-framework.lead-magnet .btn-secondary:hover {
+    background: rgba(217, 212, 193, 0.75);
+}
+
+.popup-framework.lead-magnet .popup-success {
+    text-align: left;
+    padding: 2rem;
+}
+
+.popup-framework.lead-magnet .popup-success h3 {
+    font-family: 'Lora', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+    color: #403F3E;
+}
+
+.popup-framework.lead-magnet .popup-success p {
+    margin: 0.5rem 0;
+    color: rgba(64, 63, 62, 0.85);
+    line-height: 1.6;
+}
+
+/* Error state */
+.popup-framework.error .popup-framework-content {
+    border-left: 4px solid #E65C4F;
+}
+
+.popup-framework.error .error-message {
+    background: #FEE;
+    color: #C33;
+    padding: 1rem;
+    border-radius: 4px;
+    margin: 1rem 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .popup-framework-content {
+        margin: 1rem;
+        max-width: none;
+        max-height: calc(100vh - 2rem);
+    }
+
+    .popup-framework.email-capture .popup-header {
+        padding: 1.5rem;
+    }
+
+    .popup-framework.email-capture .popup-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .popup-framework.email-capture .popup-body {
+        padding: 1.5rem;
+    }
+
+    .popup-framework.scheduler #scheduler-iframe {
+        height: 500px;
+    }
+
+    .popup-framework.lead-magnet .popup-header {
+        padding: 1.5rem;
+    }
+
+    .popup-framework.lead-magnet .popup-body {
+        padding: 1.25rem 1.5rem 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .popup-framework-content {
+        margin: 0.5rem;
+        border-radius: 8px;
+    }
+
+    .popup-framework-close {
+        width: 36px;
+        height: 36px;
+        top: 0.75rem;
+        right: 0.75rem;
+    }
+
+    .popup-framework.email-capture .popup-header {
+        padding: 1rem;
+    }
+
+    .popup-framework.email-capture .popup-body {
+        padding: 1rem;
+    }
+
+    .popup-framework.scheduler #scheduler-iframe {
+        height: 400px;
+    }
+
+    .popup-framework.lead-magnet .popup-body {
+        padding: 1rem;
+    }
+
+    .popup-framework.lead-magnet .lead-magnet-iframe {
+        height: min(70vh, 560px);
+        border-radius: 10px;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .popup-framework-overlay {
+        background-color: rgba(0, 0, 0, 0.9);
+    }
+
+    .popup-framework-content {
+        border: 2px solid #000;
+    }
+
+    .popup-framework-close:focus {
+        outline: 3px solid #E65C4F;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .popup-framework-content {
+        transition: none;
+    }
+
+    .popup-framework-overlay {
+        transition: none;
+    }
+
+    .popup-framework-close {
+        transition: none;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+}

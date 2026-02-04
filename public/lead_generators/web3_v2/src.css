@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@theme {
+    --color-poppy: #E65C4F;
+    --color-sunbeam: #F2B705;
+    --color-peach: #F2A08D;
+    --color-avocado: #A6A61B;
+    --color-lavender: #D4C1EC;
+    --color-eggshell: #F2F2F2;
+    --color-beige: #D9D4C1;
+    --color-charcoal: #403F3E;
+
+    --font-lora: 'Lora', serif;
+    --font-nunito: 'Nunito Sans', sans-serif;
+}
+
+@layer utilities {
+    @keyframes subtle-glitch {
+        0%, 100% { transform: translate(0); }
+        33% { transform: translate(-1px, 1px); }
+        66% { transform: translate(1px, -1px); }
+    }
+    @keyframes ritual-glow {
+        0%, 100% { box-shadow: 0 0 20px rgba(166, 166, 27, 0.3); }
+        50% { box-shadow: 0 0 30px rgba(166, 166, 27, 0.5); }
+    }
+    .glitch-text:hover {
+        animation: subtle-glitch 0.3s ease-in-out;
+    }
+    .ritual-cta {
+        animation: ritual-glow 3s ease-in-out infinite;
+    }
+}

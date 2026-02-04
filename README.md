@@ -13,6 +13,7 @@ hellointi-web/
 │   ├── build-all.js             # Builds website + all eligible lead generators
 │   └── dev-server.js            # Express + LiveReload server for /public
 ├── public/
+│   ├── design_system.html       # Design system reference
 │   ├── website/                 # Main marketing site (hellointi.com)
 │   │   ├── index.html
 │   │   ├── src.css / style.css  # Tailwind source & compiled CSS
@@ -21,6 +22,8 @@ hellointi-web/
 │   └── lead_generators/         # Subdomain landing pages
 │       ├── events/
 │       ├── alumni/
+│       ├── web3/
+│       ├── web3_v2/
 │       └── ... (future lead magnets)
 └── business_blueprint/          # Strategy & positioning references
 ```
@@ -58,7 +61,7 @@ pnpm --dir public/website dev
 
 ## Build Pipeline
 
-The root build tooling standardizes PostCSS (Tailwind, Autoprefixer, cssnano) and esbuild bundling across all projects.
+The root build tooling standardizes PostCSS (Tailwind CSS v4, Autoprefixer, cssnano) and esbuild bundling across all projects.
 
 ### Build a Single Project
 

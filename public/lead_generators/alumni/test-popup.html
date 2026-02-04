@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Popup Test</title>
+    <link rel="stylesheet" href="popup-framework.css">
+    <style>
+        body { font-family: sans-serif; padding: 40px; }
+        .test-btn {
+            background: #E65C4F;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Popup Framework Test</h1>
+    <button
+        class="test-btn"
+        data-popup="lead-magnet-popup"
+        data-popup-type="lead-magnet"
+        data-popup-title="Get the Blueprint"
+        data-popup-description="Submit your name + email and your download will start automatically."
+        data-form-src="https://docs.google.com/forms/d/e/1FAIpQLSeb0_ZBTH1XWq5J5N2bHmklAnYjAW3KfViM0U_FQ0-WbL8smA/viewform?embedded=true"
+        data-download-url="./alumni_blueprint.pdf">
+        Test Popup Button
+    </button>
+
+    <div id="status" style="margin-top: 20px; padding: 15px; background: #f0f0f0; border-radius: 5px;">
+        <h3>Debug Info:</h3>
+        <div id="debug"></div>
+    </div>
+
+    <!-- Popup markup -->
+    <div
+        id="lead-magnet-popup"
+        class="popup-framework"
+        aria-hidden="true"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="lead-magnet-title"
+    >
+        <div class="popup-framework-overlay" aria-hidden="true"></div>
+
+        <div class="popup-framework-content" role="document">
+            <button class="popup-framework-close" type="button" aria-label="Close dialog">×</button>
+
+            <div class="popup-header">
+                <h2 id="lead-magnet-title" data-popup-title>Get the Blueprint</h2>
+                <p data-popup-description>Submit your name + email and your download will start automatically.</p>
+            </div>
+
+            <div class="popup-body">
+                <iframe
+                    data-lead-magnet-iframe
+                    class="lead-magnet-iframe"
+                    title="Alumni blueprint signup form"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    src="about:blank"
+                ></iframe>
+
+                <div class="lead-magnet-actions" aria-label="Download actions">
+                    <a class="btn-secondary" data-download-link href="./alumni_blueprint.pdf" target="_blank" rel="noopener">Open the PDF</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="popup-framework.js"></script>
+    <script>
+        // Debug logging
+        setTimeout(() => {
+            const debug = document.getElementById('debug');
+            const info = [];
+
+            info.push('✓ Popup framework loaded: ' + (typeof PopupFramework !== 'undefined'));
+            info.push('✓ Framework instance: ' + (typeof popupFramework !== 'undefined'));
+
+            if (typeof popupFramework !== 'undefined') {
+                info.push('✓ Active popups: ' + popupFramework.activePopups.size);
+
+                for (const [id, data] of popupFramework.activePopups) {
+                    info.push(`  - Popup "${id}" registered, type: ${data.config.type}`);
+                }
+            }
+
+            const button = document.querySelector('[data-popup="lead-magnet-popup"]');
+            info.push('✓ Button found: ' + (button !== null));
+
+            const popup = document.getElementById('lead-magnet-popup');
