@@ -183,10 +183,15 @@
 
                       try {
                         const formData = new FormData(form);
-                        await fetch(CONFIG.scriptUrl, {
+                        const response = await fetch(CONFIG.scriptUrl, {
                           method: 'POST',
                           body: formData
                         });
+
+                        const result = await response.json();
+                        if (result.result !== 'success') {
+                            throw new Error(result.error || 'Submission failed');
+                        }
 
                         form.classList.add('hidden');
                         successDiv.classList.remove('hidden');
