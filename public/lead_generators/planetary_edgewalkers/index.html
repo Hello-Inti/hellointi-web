@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planetary Edgewalkers | Hello Inti</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        poppy: '#E65C4F',
+                        sunbeam: '#F2B705',
+                        peach: '#F2A08D',
+                        avocado: '#A6A61B',
+                        lavender: '#D4C1EC',
+                        eggshell: '#F2F2F2',
+                        beige: '#D9D4C1',
+                        charcoal: '#403F3E',
+                    },
+                    fontFamily: {
+                        lora: ['Lora', 'serif'],
+                        nunito: ['Nunito Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-eggshell text-charcoal font-nunito antialiased min-h-screen flex flex-col">
+
+    <!-- Hero Section -->
+    <main class="flex-grow flex flex-col items-center justify-center px-6 py-20 relative overflow-hidden">
+        <!-- Abstract Background Shapes -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
+            <div class="absolute -top-20 -right-20 w-96 h-96 bg-peach/20 rounded-full blur-3xl"></div>
+            <div class="absolute top-1/2 -left-20 w-72 h-72 bg-sunbeam/20 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-lavender/20 rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="max-w-3xl w-full text-center space-y-8 relative z-10">
+
+            <!-- Headings -->
+            <div class="space-y-4">
+                <h1 class="font-lora font-bold text-4xl md:text-5xl lg:text-6xl text-charcoal leading-tight">
+                    The Systems we depend upon are in a <span class="text-poppy">collapse zone</span>
+                </h1>
+                <h2 class="font-nunito text-xl md:text-2xl text-charcoal/70 font-light">
+                    People say community is the best hedge, but nobody says how.
+                </h2>
+            </div>
+
+            <!-- Offer Box -->
+            <div class="bg-white/60 backdrop-blur-sm border border-beige p-8 rounded-2xl shadow-sm mt-8">
+                <p class="font-lora text-xl md:text-2xl font-semibold text-charcoal mb-2">
+                    Here's how!
+                </p>
+                <p class="text-lg text-charcoal/80 mb-6">
+                    Meet your community of edgewalkers birthing the new planetary culture.
+                </p>
+
+                <div class="inline-block bg-avocado/10 text-avocado font-bold px-4 py-2 rounded-full mb-8 text-sm uppercase tracking-wide">
+                    Join the 9 week community connection • Starts Feb 13th
+                </div>
+
+                <!-- Form Section (Adapted from Alumni) -->
+                <section id="lead-magnet-component" class="w-full max-w-lg mx-auto">
+                    <form id="lm-form" class="flex flex-col gap-4">
+                        <div class="flex flex-col md:flex-row gap-4">
+                            <input type="text" id="fname" name="First Name" placeholder="Name" class="flex-1 px-4 py-3 rounded-xl border border-beige focus:ring-2 focus:ring-poppy outline-none bg-white/80" required>
+                            <input type="email" id="email" name="Email" placeholder="Email" class="flex-1 px-4 py-3 rounded-xl border border-beige focus:ring-2 focus:ring-poppy outline-none bg-white/80" required>
+                        </div>
+
+                        <!-- Honeypot -->
+                        <div class="hidden" aria-hidden="true">
+                            <input type="text" name="honeypot" tabindex="-1" autocomplete="off">
+                        </div>
+
+                        <div class="relative w-full">
+                            <div class="absolute -top-3 -right-2 bg-sunbeam text-charcoal font-bold font-lora text-sm px-3 py-1 rounded-full shadow-md transform rotate-6 border-2 border-white z-10">
+                                It's Free!
+                            </div>
+                            <button type="submit" id="lm-submit" class="w-full py-4 bg-poppy text-white font-bold rounded-xl hover:bg-poppy/90 transition-all shadow-lg text-lg flex items-center justify-center gap-2 transform hover:-translate-y-1">
+                                <span id="btn-text">Join Now</span>
+                                <i data-feather="arrow-right" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Feedback Messages -->
+                    <p id="form-error" class="hidden text-sm text-red-600 text-center mt-3" role="alert"></p>
+                    <div id="lm-success" class="hidden text-center py-4 animate-fade-in bg-white/90 rounded-xl border border-avocado/20 mt-4">
+                        <h3 class="text-lg font-bold text-avocado mb-1">You're on the list!</h3>
+                        <p class="text-charcoal/80 text-sm">Keep an eye on your inbox for details.</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Below the Fold -->
+    <section class="bg-white border-t border-beige py-16">
+        <div class="max-w-4xl mx-auto px-6">
+
+            <!-- Sponsorship -->
+            <div class="text-center mb-16">
+                <p class="text-charcoal/50 text-sm uppercase tracking-widest mb-2">Sponsored by</p>
+                <div class="font-lora font-bold text-2xl text-charcoal">hellointi</div>
+            </div>
+
+            <!-- FAQs -->
+            <div class="max-w-2xl mx-auto">
+                <h3 class="font-lora font-bold text-3xl text-charcoal mb-8 text-center">FAQs</h3>
+
+                <div class="space-y-6">
+                    <!-- FAQ Item 1 -->
+                    <div class="border-b border-beige pb-6">
+                        <h4 class="font-bold text-lg text-charcoal mb-2">What is an Edgewalker?</h4>
+                        <p class="text-charcoal/70">Someone who walks between worlds, bridging the old systems and the new planetary culture emerging.</p>
+                    </div>
+                    <!-- FAQ Item 2 -->
+                    <div class="border-b border-beige pb-6">
+                        <h4 class="font-bold text-lg text-charcoal mb-2">What is the time commitment?</h4>
+                        <p class="text-charcoal/70">The 9-week journey is designed to integrate into your life, requiring about 2-3 hours per week of deep connection and practice.</p>
+                    </div>
+                    <!-- FAQ Item 3 -->
+                    <div>
+                        <h4 class="font-bold text-lg text-charcoal mb-2">Is this online or in-person?</h4>
+                        <p class="text-charcoal/70">This is a global online community connection, accessible from anywhere with an internet connection.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-charcoal text-white/40 py-8 text-center text-sm">
+        <p>&copy; 2026 Hello Inti. All rights reserved.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        feather.replace();
+
+        // Form Logic (Copied and adapted from Alumni)
+        (() => {
+            const CONFIG = {
+                // Using the same script URL as the alumni page for now, assuming it handles generic leads or will be updated later
+                scriptUrl: "https://script.google.com/macros/s/AKfycbxOwDAz6c_QbJCCI4k0XmWgdwGlIcKY2GWvGAjR4YGNf5fbWbfyf5VUFrN_D_TSIWRo/exec",
+                // No file download for this one based on the prompt, just joining
+                fileUrl: null,
+                autoDownload: false
+            };
+
+            const form = document.getElementById('lm-form');
+            const submitBtn = document.getElementById('lm-submit');
+            const btnText = document.getElementById('btn-text');
+            const errorMsg = document.getElementById('form-error');
+            const successDiv = document.getElementById('lm-success');
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                errorMsg.classList.add('hidden');
+                submitBtn.disabled = true;
+                const originalText = btnText.textContent;
+                btnText.textContent = "Joining...";
+
+                try {
+                    const formData = new FormData(form);
+                    const data = new URLSearchParams();
+                    for (const pair of formData.entries()) {
+                        data.append(pair[0], pair[1]);
+                    }
+                    // Add a hidden field to identify the source if the script supports it, or just rely on the form fields
+                    data.append('Source', 'Planetary Edgewalkers Landing Page');
+
+                    const response = await fetch(CONFIG.scriptUrl, {
+                        method: 'POST',
+                        body: data
+                    });
+
+                    const result = await response.json();
+                    if (result.result !== 'success') {
+                        throw new Error(result.error || 'Submission failed');
+                    }
+
+                    form.classList.add('hidden');
+                    successDiv.classList.remove('hidden');
+
+                } catch (err) {
+                    console.error('Submission Error:', err);
+                    errorMsg.textContent = "Something went wrong. Please try again.";
+                    errorMsg.classList.remove('hidden');
+                    submitBtn.disabled = false;
+                    btnText.textContent = originalText;
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
