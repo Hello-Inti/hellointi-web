@@ -117,12 +117,22 @@
 
       try {
         const formData = new FormData(form);
+        // Convert to URLSearchParams for reliable Google Apps Script submission
+        const data = new URLSearchParams();
+        for (const pair of formData.entries()) {
+            data.append(pair[0], pair[1]);
+        }
 
         // Fetch Request
-        await fetch(CONFIG.scriptUrl, {
+        const response = await fetch(CONFIG.scriptUrl, {
           method: 'POST',
-          body: formData
+          body: data
         });
+
+        const result = await response.json();
+        if (result.result !== 'success') {
+            throw new Error(result.error || 'Submission failed');
+        }
 
         // Success State Transition
         form.classList.add('hidden'); // Hide form

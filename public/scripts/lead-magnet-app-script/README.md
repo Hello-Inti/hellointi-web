@@ -4,8 +4,8 @@
 **Goal:** Create a universal endpoint that accepts *any* form data.
 
 1.  **Create a Google Sheet:**
-    *   Name the tab: `Leads`
-    *   **Row 1 (Headers):** `Timestamp` | `Email` | `FirstName` (Add any other columns you want here. They must match the HTML `name` attributes exactly).
+    *   **Tab Name:** Rename the tab at the bottom to exactly `Leads` (Case Sensitive). This is critical.
+    *   **Row 1 (Headers):** `Timestamp` | `Email` | `FirstName` (Add any other columns you want here. They must match the HTML `name` attributes exactly, including spaces).
 2.  **Open Apps Script:** (Extensions > Apps Script)
 3.  **Paste Code:** Delete existing code and paste this:
 
@@ -184,12 +184,22 @@ function doPost(e) {
 
       try {
         const formData = new FormData(form);
+        // Convert to URLSearchParams for reliable Google Apps Script submission
+        const data = new URLSearchParams();
+        for (const pair of formData.entries()) {
+            data.append(pair[0], pair[1]);
+        }
 
         // Fetch Request
-        await fetch(CONFIG.scriptUrl, {
+        const response = await fetch(CONFIG.scriptUrl, {
           method: 'POST',
-          body: formData
+          body: data
         });
+
+        const result = await response.json();
+        if (result.result !== 'success') {
+            throw new Error(result.error || 'Submission failed');
+        }
 
         // Success State Transition
         form.classList.add('hidden'); // Hide form

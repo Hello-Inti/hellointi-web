@@ -3,6 +3,7 @@
   1. Matches incoming "name" attributes to Sheet Headers.
   2. Timestamp is auto-generated.
 */
+// IMPORTANT: The Google Sheet tab must be named exactly "Leads" (case-sensitive).
 const SHEET_NAME = "Leads";
 
 function doPost(e) {
